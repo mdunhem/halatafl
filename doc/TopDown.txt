@@ -1,0 +1,1242 @@
+// Mikael Dunhem
+// CS 333, Fall 2015
+// Assignment: Semester Project
+// Top Down Design
+
+--------------------  Description --------------------
+Game of Halatafl - (traditional Scandinavian board game)
+
+The sheep will move first.
+
+On their turn, any single sheep may be moved forward or
+sideways into an open space. Backwards and diagonal moves
+are not permitted.
+
+On the foxes’ turn, one fox may move in any direction along
+one of the lines into an open space. If a sheep is adjacent
+to one of the foxes with an empty space just beyond it, the
+fox can capture the sheep by jumping over it (as in checkers).
+Multiple jumps are possible. Capturing is, in fact, required,
+as are multiple jumps. If either fox can capture a sheep, then
+one of them must do so and must execute multiple jumps if
+possible.
+
+If, on the foxes’s turn, either fox is completely surrounded
+and cannot move, that fox is captured.
+
+The sheep win the game if they can occupy all nine squares of
+the “paddock”, the cluster of positions shown in orange in the
+figure. The foxes win if they reduce the number of remaining
+sheep below 9 (because the sheep cannot then occupy the entire
+paddock.
+
+--------------------  Potential ADTs --------------------
+Board
+    - can display the board
+    - does not contain any info about what is located at each location
+    - builds board based on supplied boardLayout
+
+GameManager
+    - contains data structure about who is located at which location
+    - varifies if legal input
+    - manages the boardLayout
+
+BoardLayout
+    - data structure containing what is located on the board
+
+Player
+    - either base class or protocol for players
+    - getMove()
+
+SheepPlayer - extends or implements Player
+    - does not actually contain any sheep info
+    - acts as liason between game and player
+    - prompts for input from player
+
+FoxPlayer - extends or implements Player
+    - does not actually contain any fox info
+    - acts as fox player
+
+Move
+    - mainly a data structure for move locations
+    - contains each location that is used for each move, including multiple jumps
+
+-------------------- Step 0 --------------------
+* Play a round of Halatafl
+
+-------------------- Step 1 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+-------------------- Step 2 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {}
+
+-------------------- Step 3 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+-------------------- Step 4 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {}
+
+-------------------- Step 5 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {}
+
+-------------------- Step 6 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {}
+
+-------------------- Step 7 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {
+    if sheep.count < 9 {
+        foxPlayer.won()
+    } else {
+        sheepPlayer.won()
+    }
+}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {}
+
+-------------------- Step 8 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {
+    if sheep.count < 9 {
+        foxPlayer.won()
+    } else {
+        sheepPlayer.won()
+    }
+}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {
+    ** for each row {
+        if row# even {
+            printRowNumber()
+            *** determine appropriote character to print based on location in boardLayout
+        } else {
+            printDirectionalLinesForRow(row)
+        }
+    }
+}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prints out the message that the foxes have won to standard output
+ *
+ * @return {void}
+ */
+function foxPlayer.won() {}
+
+/**
+ * Prints out the message that the sheep have won to standard output
+ *
+ * @return {void}
+ */
+function sheepPlayer.won() {}
+
+-------------------- Step 9 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {
+    if sheep.count < 9 {
+        foxPlayer.won()
+    } else {
+        sheepPlayer.won()
+    }
+}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {
+    ** for each row {
+        if row# even {
+            printRowNumber()
+            *** determine appropriote character to print based on location in boardLayout
+        } else {
+            printDirectionalLinesForRow(row)
+        }
+    }
+}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {
+    ** determine possible moves by each fox using boardLayout
+    ** if fox1.move.jumps >= 1 || fox2.move.jumps >= 1 {
+        if fox1.move.jumps > fox2.move.jumps {
+            return fox1.move
+        } else if fox1.move.jumps < fox2.move.jumps {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    ** determine possible threats by each fox
+    ** if fox1.possibleThreats >= 1 || fox2.possibleThreats >= 1 {
+        if fox1.possibleThreats > fox2.possibleThreats {
+            return fox1.move
+        } else if fox1.possibleThreats < fox2.possibleThreats {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    // At this point, no jumps or threats possible
+    ** return random(fox1.move, fox2.move)
+}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {}
+
+/**
+ * Prints out the message that the foxes have won to standard output
+ *
+ * @return {void}
+ */
+function foxPlayer.won() {}
+
+/**
+ * Prints out the message that the sheep have won to standard output
+ *
+ * @return {void}
+ */
+function sheepPlayer.won() {}
+
+-------------------- Step 10 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {
+    if sheep.count < 9 {
+        foxPlayer.won()
+    } else {
+        sheepPlayer.won()
+    }
+}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {
+    ** for each row {
+        if row# even {
+            printRowNumber()
+            *** determine appropriate character to print based on location in boardLayout
+        } else {
+            printDirectionalLinesForRow(row)
+        }
+    }
+}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {
+    ** determine possible moves by each fox using boardLayout
+    ** if fox1.move.jumps >= 1 || fox2.move.jumps >= 1 {
+        if fox1.move.jumps > fox2.move.jumps {
+            return fox1.move
+        } else if fox1.move.jumps < fox2.move.jumps {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    ** determine possible threats by each fox
+    ** if fox1.possibleThreats >= 1 || fox2.possibleThreats >= 1 {
+        if fox1.possibleThreats > fox2.possibleThreats {
+            return fox1.move
+        } else if fox1.possibleThreats < fox2.possibleThreats {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    // At this point, no jumps or threats possible
+    ** return random(fox1.move, fox2.move)
+}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {
+    ** if message.length() {
+        print message
+    }
+    ** move = promptForMove()
+    ** return move
+}
+
+/**
+ * Prints out the message that the foxes have won to standard output
+ *
+ * @return {void}
+ */
+function foxPlayer.won() {}
+
+/**
+ * Prints out the message that the sheep have won to standard output
+ *
+ * @return {void}
+ */
+function sheepPlayer.won() {}
+
+-------------------- Step 11 --------------------
+* Play a round of Halatafl
+** gameManager()
+** gameManager.play()
+
+/**
+ * GameManager constructor. This object apptly manages the game
+ * and run loop.
+ * 
+ * @return {void}
+ */
+function gameManager() {
+    ** Initialize variables (board, boardLayout, sheepPlayer, foxPlayer)
+    ** currentPlayer = sheepPlayer
+}
+
+/**
+ * Main game loop function. Continues running until the game has been
+ * won. Prints the board, asks for a valid move, applies the move,
+ * changes player, and then repeats. When game has been won it prints
+ * out the winner and the board and then quits the game.
+ * 
+ * @return {void}
+ */
+function gameManager.play() {
+    ** while (!gameHasBeenWon()) {
+        *** board.print(boardLayout)
+        *** move = getValidMove()
+        *** makeMove(move)
+        *** updateCurrentPlayer()
+    }
+    ** printWinner()
+    ** board.print(boardLayout)
+}
+
+/**
+ * Determines if the game has been won based on whether there are less than
+ * 9 sheep or if the paddock is full.
+ * 
+ * @return {bool}   Whether game has been won.
+ */
+function gameManager.gameHasBeenWon() {
+    ** if sheep.count < 9 or paddockFull() {
+        return true
+    }
+    ** return false
+}
+
+/**
+ * Asks current player for a move. Then validates the move and reprompts
+ * player if it is not a valid move.
+ * 
+ * @return {Move}   Valid move to be made
+ */
+function gameManager.getValidMove() {
+    ** message = ""
+    ** move = currentPlayer.getMove(boardLayout, message)
+    ** while not validMove(move) {
+        message = "That is not a legal move."
+        move = currentPlayer.getMove(boardLayout, message)
+    }
+    ** return move
+}
+
+/**
+ * A valid move has been created and this function applies the changes
+ * made by the move to the private boardLayout object used as the
+ * underlying data structure for the location of all players in the
+ * game.
+ *
+ * @param  {Move} move      Valid move to be applied to the data structure
+ * @return {void}
+ */
+function gameManager.makeMove(move) {
+    ** update data structure based on move
+    *** if jumps made {
+        delete sheep from jumped location
+    }
+}
+
+/**
+ * Determines which player won the game and then calls that
+ * player's won() function.
+ * 
+ * @return {void}
+ */
+function gameManager.printWinner() {
+    if sheep.count < 9 {
+        foxPlayer.won()
+    } else {
+        sheepPlayer.won()
+    }
+}
+
+/**
+ * Prints out the board based on the supplied BoardLayout object.
+ * 
+ * @param  {BoardLayout} boardLayout    Object containing locatbons of sheep and foxes on the board
+ * @return {void}
+ */
+function board.print(boardLayout) {
+    ** for each row {
+        if row# even {
+            printRowNumber()
+            *** determine appropriate character to print based on location in boardLayout
+        } else {
+            printDirectionalLinesForRow(row)
+        }
+    }
+}
+
+/**
+ * Determines the best move possible to be made by either fox. Designed to be
+ * an aggressive strategy. Message is ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display
+ * @return {Move}                       Move to be made by player
+ */
+function foxPlayer.getMove(boardLayout, message) {
+    ** determine possible moves by each fox using boardLayout
+    ** if fox1.move.jumps >= 1 || fox2.move.jumps >= 1 {
+        if fox1.move.jumps > fox2.move.jumps {
+            return fox1.move
+        } else if fox1.move.jumps < fox2.move.jumps {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    ** determine possible threats by each fox
+    ** if fox1.possibleThreats >= 1 || fox2.possibleThreats >= 1 {
+        if fox1.possibleThreats > fox2.possibleThreats {
+            return fox1.move
+        } else if fox1.possibleThreats < fox2.possibleThreats {
+            return fox2.move
+        } else {
+            return random(fox1.move, fox2.move)
+        }
+    }
+    // At this point, no jumps or threats possible
+    ** return random(fox1.move, fox2.move)
+}
+
+/**
+ * Prompts the player for a move. If a message is supplied print it first
+ * then ask for a move from the human player. Create a Move object using
+ * supplied input and return the Move object. BoardLayout object is
+ * ignored by this function.
+ *
+ * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
+ * @param  {std::string} message        Possible error message to display before prompting player
+ * @return {Move}                       Move to be made by player
+ */
+function sheepPlayer.getMove(boardLayout, message) {
+    ** if message.length() {
+        print message
+    }
+    ** move = promptForMove()
+    ** return move
+}
+
+/**
+ * Prints out the message that the foxes have won to standard output
+ *
+ * @return {void}
+ */
+function foxPlayer.won() {
+    ** print "The foxes win!"
+}
+
+/**
+ * Prints out the message that the sheep have won to standard output
+ *
+ * @return {void}
+ */
+function sheepPlayer.won() {
+    ** print "The sheep win!"
+}

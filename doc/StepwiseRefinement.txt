@@ -1,0 +1,81 @@
+// Mikael Dunhem
+// CS 333, Fall 2015
+// Assignment: Semester Project
+
+-------------------------Description-------------------------
+Game of Halatafl - (traditional Scandinavian board game)
+
+The sheep will move first.
+
+On their turn, any single sheep may be moved forward or
+sideways into an open space. Backwards and diagonal moves
+are not permitted.
+
+On the foxes’ turn, one fox may move in any direction along
+one of the lines into an open space. If a sheep is adjacent
+to one of the foxes with an empty space just beyond it, the
+fox can capture the sheep by jumping over it (as in checkers).
+Multiple jumps are possible. Capturing is, in fact, required,
+as are multiple jumps. If either fox can capture a sheep, then
+one of them must do so and must execute multiple jumps if
+possible.
+
+If, on the foxes’s turn, either fox is completely surrounded
+and cannot move, that fox is captured.
+
+The sheep win the game if they can occupy all nine squares of
+the “paddock”, the cluster of positions shown in orange in the
+figure. The foxes win if they reduce the number of remaining
+sheep below 9 (because the sheep cannot then occupy the entire
+paddock.
+
+
+-------------------- Step 0 --------------------
+* Play a round of Halatafl
+
+-------------------- Step 1 --------------------
+* Play a round of Halatafl
+** Create game board (Board ADT)
+** Print the game board
+** Play game
+
+-------------------- Step 2 --------------------
+* Play a round of Halatafl
+** Create game board (Board ADT)
+** Print the game board
+*** for each row {
+***     for each column {
+***         determine what to print at each location
+***     }
+*** }
+** Play game
+
+-------------------- Step 3 --------------------
+* Play a round of Halatafl
+** Create game board (Board ADT)
+** Print the game board
+*** for each row {
+***     for each column {
+***         determine what to print at each location
+***     }
+*** }
+** Play game
+*** Determine if game has been won
+
+-------------------- Step 4 --------------------
+* Play a round of Halatafl
+** Create game board
+** Print the game board
+** Play game
+
+-------------------- Step 5 --------------------
+* Play a round of Halatafl
+** Create game board
+** Print the game board
+** Play game
+
+-------------------- Step 6 --------------------
+* Play a round of Halatafl
+** Create game board
+** Print the game board
+** Play game
