@@ -11,11 +11,15 @@
 
 #include <vector>
 #include "Coordinate.h"
+#include "Cell.h"
+#include "BoardLayout.h"
 
 
 struct Jump {
     Coordinate start;
     Coordinate end;
+    Cell startingCell;
+    Cell endingCell;
 };
 
 struct Move {

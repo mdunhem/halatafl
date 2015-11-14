@@ -8,6 +8,8 @@
 
 #include "BoardLayout.h"
 
+#include <iostream>
+
 const char DEFAULT_LAYOUT[7][7] = {
     { INVALID_SPACE, INVALID_SPACE, FOX_CHARACTER, EMPTY_SPACE, FOX_CHARACTER, INVALID_SPACE, INVALID_SPACE},
     { INVALID_SPACE, INVALID_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, INVALID_SPACE, INVALID_SPACE},
@@ -20,30 +22,51 @@ const char DEFAULT_LAYOUT[7][7] = {
 
 BoardLayout::BoardLayout() {
     for (int row = 0; row < 7; row++) {
+        layout2.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
             layout[row][column] = DEFAULT_LAYOUT[row][column];
+            layout2[row].push_back(Cell(row, column, DEFAULT_LAYOUT[row][column]));
         }
     }
 }
 
 BoardLayout::BoardLayout(char layout[7][7]) {
     for (int row = 0; row < 7; row++) {
+        layout2.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
             this->layout[row][column] = layout[row][column];
+            layout2[row].push_back(Cell(row, column, layout[row][column]));
         }
     }
 }
 
 BoardLayout::BoardLayout(const BoardLayout &boardLayout) {
     for (int row = 0; row < 7; row++) {
+        layout2.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
             layout[row][column] = boardLayout.layout[row][column];
+            layout2[row].push_back(boardLayout.layout2[row][column]);
         }
     }
 }
 
 char BoardLayout::getValueAt(Coordinate coordinate) {
-    return layout[coordinate.row()][coordinate.column()];
+    if (isValidCoordinate(coordinate)) {
+        return layout[coordinate.row()][coordinate.column()];
+    }
+    return INVALID_SPACE;
+}
+
+Cell BoardLayout::getCellAtIndex(int x, int y) {
+    return layout2[x][y];
+}
+
+std::vector<Cell> BoardLayout::cellsForRow(int row) {
+    return layout2[row];
+}
+
+char* BoardLayout::operator[](int index) {
+    return layout[index];
 }
 
 bool BoardLayout::isValidCoordinate(Coordinate coordinate) {
@@ -73,6 +96,15 @@ bool BoardLayout::applyMove(Move move) {
     }
     
     return true;
+}
+
+void BoardLayout::makeJump(Jump jump) {
+    if (layout2[jump.endingCell.row][jump.endingCell.column].value == EMPTY_SPACE) {
+        layout2[jump.endingCell.row][jump.endingCell.column] = jump.endingCell;
+        Cell replacementCell = jump.startingCell;
+        replacementCell.value = EMPTY_SPACE;
+        layout2[replacementCell.row][replacementCell.column] = replacementCell;
+    }
 }
 
 bool BoardLayout::isPaddockFull() {
@@ -124,4 +156,16 @@ std::vector<Coordinate> BoardLayout::getFoxCoordinates() {
     }
     
     return coordinates;
+}
+
+std::vector<Cell> BoardLayout::getFoxCells() {
+    std::vector<Cell> cells;
+    for (int row = 0; row < 7; row++) {
+        for (int column = 0; column < 7; column++) {
+            if (layout2[row][column].value == FOX_CHARACTER) {
+                cells.push_back(layout2[row][column]);
+            }
+        }
+    }
+    return cells;
 }

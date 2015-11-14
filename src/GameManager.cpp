@@ -10,8 +10,6 @@
 
 #include "GameManager.h"
 
-//static int runloop = 0;
-
 GameManager::GameManager() {
     currentPlayer = &foxPlayer;
 }
@@ -26,7 +24,16 @@ void GameManager::play() {
     board.print(boardLayout);
 }
 
-void GameManager::testDriver() {
+void GameManager::testDriver(std::ifstream &input) {
+    std::string nextLine;
+    char layout[7][7];
+    for (int i = 0; i < 7; i++) {
+        std::getline(input, nextLine);
+        for (int j = 0; j < 7; j++) {
+            layout[i][j] = nextLine[j];
+        }
+    }
+    boardLayout = BoardLayout(layout);
     playOneFullTurn();
 }
 
@@ -43,13 +50,6 @@ bool GameManager::gameHasBeenWon() {
     }
     
     return false;
-    
-    // This part only here for quick testing
-//    if (runloop < 2) {
-//        runloop++;
-//        return false;
-//    }
-//    return true;
 }
 
 void GameManager::printWinner() {

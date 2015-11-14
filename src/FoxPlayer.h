@@ -10,6 +10,7 @@
 #define FoxPlayer_h
 
 #include <string>
+#include <map>
 
 #include "Player.h"
 #include "BoardLayout.h"
@@ -18,13 +19,23 @@
 class FoxPlayer : public Player {
     
     struct Fox {
-        Coordinate location;
+        enum Direction {
+            up, down, left, right, upLeft, upRight, downLeft, downRight
+        };
+        
+        Cell cell;
         Move move;
+        BoardLayout boardLayout;
         std::vector<Move> possibleThreats;
+        std::map<Direction, Cell> surroundingValues;
+        
+        void determineSurroundingValues(BoardLayout &boardLayout);
     };
     
     Fox foxOne;
     Fox foxTwo;
+    
+    void determinePossibleMove(BoardLayout &boardLayout, Fox &fox);
     
 public:
     

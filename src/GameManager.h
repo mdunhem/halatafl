@@ -9,6 +9,8 @@
 #ifndef GameManager_h
 #define GameManager_h
 
+#include <fstream>
+
 #include "SheepPlayer.h"
 #include "Move.h"
 #include "BoardLayout.h"
@@ -108,7 +110,7 @@ public:
      *
      * @return {void}
      */
-    void testDriver();
+    void testDriver(std::ifstream &input);
 };
 
 

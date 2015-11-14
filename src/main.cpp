@@ -7,12 +7,18 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "GameManager.h"
 
 int main(int argc, const char* argv[]) {
     GameManager gameManager;
     
-    gameManager.play();
+    if (argc > 1) {
+        std::ifstream input(argv[1]);
+        gameManager.testDriver(input);
+    } else {
+        gameManager.play();
+    }
     
     return 0;
 }
