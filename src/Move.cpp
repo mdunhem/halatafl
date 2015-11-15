@@ -14,12 +14,12 @@ Move::Move() {
 
 Move::Move(Cell start, Cell end) {
     Jump jump;
-    jump.startingCell = start;
-    jump.endingCell = end;
+    jump.start = start;
+    jump.end = end;
     
     jumps.push_back(jump);
 }
 
 void Move::print(std::ostream &output) const {
-    output << jumps.front().startingCell << '-' << jumps.back().endingCell;
+    output << jumps.front().start << '-' << jumps.back().end;
 }

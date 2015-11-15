@@ -44,8 +44,8 @@ void FoxPlayer::determinePossibleMove(BoardLayout &boardLayout, Fox &fox) {
 //                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.cell.row - 2, fox.cell.column);
 //                    if (jumpToCell.value == EMPTY_SPACE) {
 //                        Jump jump;
-//                        jump.startingCell = fox.cell;
-//                        jump.endingCell = jumpToCell;
+//                        jump.start = fox.cell;
+//                        jump.end = jumpToCell;
 //                        fox.move.jumps.push_back(jump);
 //                        fox.cell = jumpToCell;
 //                        fox.boardLayout.makeJump(jump);
@@ -102,8 +102,8 @@ void FoxPlayer::determinePossibleMove(BoardLayout &boardLayout, Fox &fox) {
 //                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.cell.row - 2, fox.cell.column);
 //                    if (jumpToCell.value == EMPTY_SPACE) {
 //                        Jump jump;
-//                        jump.startingCell = fox.cell;
-//                        jump.endingCell = jumpToCell;
+//                        jump.start = fox.cell;
+//                        jump.end = jumpToCell;
 //                        fox.move.jumps.push_back(jump);
 //                        fox.cell = jumpToCell;
 //                        fox.boardLayout.makeJump(jump);

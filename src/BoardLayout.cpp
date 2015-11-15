@@ -86,9 +86,9 @@ bool BoardLayout::applyMove(Move move) {
 }
 
 void BoardLayout::makeJump(Jump jump) {
-    if (layout[jump.endingCell.row][jump.endingCell.column].value == EMPTY_SPACE) {
-        layout[jump.endingCell.row][jump.endingCell.column] = jump.startingCell;
-        Cell replacementCell = jump.startingCell;
+    if (layout[jump.end.row][jump.end.column].value == EMPTY_SPACE) {
+        layout[jump.end.row][jump.end.column] = jump.start;
+        Cell replacementCell = jump.start;
         replacementCell.value = EMPTY_SPACE;
         layout[replacementCell.row][replacementCell.column] = replacementCell;
     }

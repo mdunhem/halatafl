@@ -16,8 +16,8 @@
 
 
 struct Jump {
-    Cell startingCell;
-    Cell endingCell;
+    Cell start;
+    Cell end;
 };
 
 struct Move {

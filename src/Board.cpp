@@ -31,18 +31,6 @@ void Board::print(BoardLayout boardLayout) {
 //        for (Cell cell : cells) {
 //            std::cout << cell.value;
 //        }
-//        for (int j = 0; j < 7; j++) {
-//            Coordinate coordinate(i, j);
-//            Coordinate nextCoordinate(i, j + 1);
-//            std::cout << boardLayout.getValueAt(coordinate);
-//            if (boardLayout.isValidCoordinate(coordinate)) {
-//                if (boardLayout.isValidCoordinate(nextCoordinate)) {
-//                    std::cout << '-';
-//                }
-//            } else {
-//                std::cout << INVALID_SPACE;
-//            }
-//        }
         std::cout << std::endl;
         if (i < 6) {
             std::cout << printDirectionalLinesForRow(i) << std::endl;
