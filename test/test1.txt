@@ -1,7 +1,8 @@
   F.F  
   ...  
-.S..S..
-S.SS.SS
+....S..
+SSSS.SS
 SSSSSSS
   SSS  
   SSS  
+e5-e6

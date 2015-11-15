@@ -65,10 +65,6 @@ std::vector<Cell> BoardLayout::cellsForRow(int row) {
     return layout2[row];
 }
 
-char* BoardLayout::operator[](int index) {
-    return layout[index];
-}
-
 bool BoardLayout::isValidCoordinate(Coordinate coordinate) {
     if (coordinate.row() == -1 || coordinate.column() == -1) {
         return false;
@@ -82,17 +78,18 @@ bool BoardLayout::isValidCoordinate(Coordinate coordinate) {
 
 bool BoardLayout::applyMove(Move move) {
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
-        Coordinate start = Jump(*iterator).start;
-        Coordinate end = Jump(*iterator).end;
-        
-        if (layout[end.row()][end.column()] == INVALID_SPACE || layout[start.row()][start.column()] == INVALID_SPACE) {
-            return false;
-        } else if (layout[start.row()][start.column()] == EMPTY_SPACE) {
-            return false;
-        }
-        
-        layout[end.row()][end.column()] = layout[start.row()][start.column()];
-        layout[start.row()][start.column()] = EMPTY_SPACE;
+        makeJump(Jump(*iterator));
+//        Coordinate start = Jump(*iterator).start;
+//        Coordinate end = Jump(*iterator).end;
+//        
+//        if (layout[end.row()][end.column()] == INVALID_SPACE || layout[start.row()][start.column()] == INVALID_SPACE) {
+//            return false;
+//        } else if (layout[start.row()][start.column()] == EMPTY_SPACE) {
+//            return false;
+//        }
+//        
+//        layout[end.row()][end.column()] = layout[start.row()][start.column()];
+//        layout[start.row()][start.column()] = EMPTY_SPACE;
     }
     
     return true;
@@ -100,7 +97,7 @@ bool BoardLayout::applyMove(Move move) {
 
 void BoardLayout::makeJump(Jump jump) {
     if (layout2[jump.endingCell.row][jump.endingCell.column].value == EMPTY_SPACE) {
-        layout2[jump.endingCell.row][jump.endingCell.column] = jump.endingCell;
+        layout2[jump.endingCell.row][jump.endingCell.column] = jump.startingCell;
         Cell replacementCell = jump.startingCell;
         replacementCell.value = EMPTY_SPACE;
         layout2[replacementCell.row][replacementCell.column] = replacementCell;

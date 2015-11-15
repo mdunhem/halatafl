@@ -21,3 +21,15 @@ Move::Move(char startColumn, int startRow, char endColumn, int endRow) {
     
     jumps.push_back(jump);
 }
+
+Move::Move(Cell start, Cell end) {
+    Jump jump;
+    jump.startingCell = start;
+    jump.endingCell = end;
+    
+    jumps.push_back(jump);
+}
+
+void Move::print(std::ostream &output) const {
+    output << jumps.front().startingCell << '-' << jumps.back().endingCell;
+}

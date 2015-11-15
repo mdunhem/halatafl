@@ -10,9 +10,10 @@
 #define Move_h
 
 #include <vector>
+#include <iostream>
+
 #include "Coordinate.h"
 #include "Cell.h"
-#include "BoardLayout.h"
 
 
 struct Jump {
@@ -26,9 +27,17 @@ struct Move {
     
     Move();
     Move(char startColumn, int startRow, char endColumn, int endRow);
+    Move(Cell start, Cell end);
     
     std::vector<Jump> jumps;
+    
+    void print(std::ostream &output) const;
 };
+
+inline std::ostream& operator<<(std::ostream &output, const Move &move) {
+    move.print(output);
+    return output;
+}
 
 
 #endif /* Move_h */

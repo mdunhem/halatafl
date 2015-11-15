@@ -19,7 +19,7 @@
 class Player {
 public:
     virtual ~Player() {};
-    virtual Move getMove(BoardLayout, std::string) = 0;
+    virtual Move getMove(BoardLayout, std::string, bool isTest) = 0;
     virtual void won() = 0;
 };
 

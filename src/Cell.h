@@ -9,6 +9,8 @@
 #ifndef Cell_h
 #define Cell_h
 
+#include <iostream>
+
 struct Cell {
     int row;
     int column;
@@ -16,11 +18,19 @@ struct Cell {
     
     Cell();
     Cell(int row, int column, char value);
+    Cell(int row, char column, char value);
     //    Cell(const Cell& cell);
     
-    char getColumnCharacter();
+    void print(std::ostream &output) const;
     
-    //    Cell& operator=(const Cell&);
+private:
+    int printableRow() const;
+    char getColumnCharacter() const;
 };
+
+inline std::ostream& operator<<(std::ostream &output, const Cell &cell) {
+    cell.print(output);
+    return output;
+}
 
 #endif /* Cell_h */

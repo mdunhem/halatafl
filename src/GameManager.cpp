@@ -15,9 +15,10 @@ GameManager::GameManager() {
 }
 
 void GameManager::play() {
+    std::string inputData = "";
     while (!gameHasBeenWon()) {
         updateCurrentPlayer();
-        playOneFullTurn();
+        playOneFullTurn(inputData);
     }
     
     printWinner();
@@ -33,13 +34,26 @@ void GameManager::testDriver(std::ifstream &input) {
             layout[i][j] = nextLine[j];
         }
     }
+    std::getline(input, nextLine);
     boardLayout = BoardLayout(layout);
-    playOneFullTurn();
+    if (!gameHasBeenWon()) {
+        updateCurrentPlayer();
+        playOneFullTurn(nextLine);
+        if (!gameHasBeenWon()) {
+            updateCurrentPlayer();
+            playOneFullTurn(nextLine);
+        } else {
+            printWinner();
+        }
+    } else {
+        printWinner();
+    }
+    board.print(boardLayout);
 }
 
-void GameManager::playOneFullTurn() {
+void GameManager::playOneFullTurn(std::string inputData) {
     board.print(boardLayout);
-    Move move = getValidMove();
+    Move move = getValidMove(inputData);
     makeMove(move);
 }
 
@@ -62,12 +76,19 @@ void GameManager::makeMove(Move move) {
     }
 }
 
-Move GameManager::getValidMove() {
+Move GameManager::getValidMove(std::string inputData) {
     std::string message = "";
-    Move move = currentPlayer->getMove(boardLayout, message);
+    bool isTest = false;
+    
+    if (inputData.length()) {
+        message = inputData;
+        isTest = true;
+    }
+    
+    Move move = currentPlayer->getMove(boardLayout, message, isTest);
     while (!validMove(move)) {
         message = "That is not a legal move.";
-        move = currentPlayer->getMove(boardLayout, message);
+        move = currentPlayer->getMove(boardLayout, message, isTest);
     }
     
     return move;

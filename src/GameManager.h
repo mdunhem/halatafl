@@ -23,7 +23,7 @@
  */
 class GameManager {
     
-    void playOneFullTurn();
+    void playOneFullTurn(std::string inputData);
     
     /**
      * Determines if the game has been won based on whether there are less than
@@ -39,7 +39,7 @@ class GameManager {
      *
      * @return {Move}   Valid move to be made
      */
-    Move getValidMove();
+    Move getValidMove(std::string inputData);
     
     
     bool validMove(Move move);
@@ -83,6 +83,8 @@ class GameManager {
     
     
     SheepPlayer sheepPlayer;
+    
+    
     
 public:
     
