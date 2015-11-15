@@ -12,16 +12,6 @@ Move::Move() {
     
 }
 
-Move::Move(char startColumn, int startRow, char endColumn, int endRow) {
-    Coordinate start(startRow, startColumn);
-    Coordinate end(endRow, endColumn);
-    Jump jump;
-    jump.start = start;
-    jump.end = end;
-    
-    jumps.push_back(jump);
-}
-
 Move::Move(Cell start, Cell end) {
     Jump jump;
     jump.startingCell = start;

@@ -12,13 +12,10 @@
 #include <vector>
 #include <iostream>
 
-#include "Coordinate.h"
 #include "Cell.h"
 
 
 struct Jump {
-    Coordinate start;
-    Coordinate end;
     Cell startingCell;
     Cell endingCell;
 };
@@ -26,7 +23,6 @@ struct Jump {
 struct Move {
     
     Move();
-    Move(char startColumn, int startRow, char endColumn, int endRow);
     Move(Cell start, Cell end);
     
     std::vector<Jump> jumps;
