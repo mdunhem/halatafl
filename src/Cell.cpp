@@ -7,8 +7,9 @@
 //
 
 #include "Cell.h"
+#include "BoardLayout.h"
 
-Cell::Cell() : row(0), column(0), value(' ') {}
+Cell::Cell() : row(0), column(0), value(INVALID_SPACE) {}
 
 Cell::Cell(int row, int column, char value) : row(row), column(column), value(value) {}
 
@@ -121,3 +122,4 @@ int Cell::printableRow() const {
 void Cell::print(std::ostream &output) const {
     output << getColumnCharacter() << printableRow();
 }
+

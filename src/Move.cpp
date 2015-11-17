@@ -7,6 +7,27 @@
 //
 
 #include "Move.h"
+#include "BoardLayout.h"
+
+Jump::Jump() {}
+
+Jump::Jump(Cell start, Cell end) : start(start), end(end) {}
+
+Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end) {
+    if (jump.jumpedCell.value != INVALID_SPACE) {
+        jumpedCell = jump.jumpedCell;
+    }
+}
+
+bool Jump::isCaptureJump() {
+    if (jumpedCell.value != INVALID_SPACE) {
+        return true;
+    }
+//    if ((start.row - end.row % 2) == 0 || (start.column = end.column % 2) == 0) {
+//        return true;
+//    }
+    return false;
+}
 
 Move::Move() {
     

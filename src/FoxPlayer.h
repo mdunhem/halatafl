@@ -22,7 +22,7 @@ class FoxPlayer : public Player {
     Fox foxOne;
     Fox foxTwo;
     
-    void determinePossibleMove(BoardLayout &boardLayout, Fox &fox);
+    void determinePossibleMove(BoardLayout boardLayout, Fox &fox);
     
 public:
     

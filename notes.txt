@@ -129,4 +129,16 @@ function determinePossibleJump() {
 }
 
 
+struct Cell {
+    std::map<Direction, Cell> surroundingCells;
+    int row;
+    int column;
+    char value;
+}
+
+class BoardLayout {
+    
+}
+
+FoxPlayer performs searching and updates currentLocation pointer
 

@@ -15,14 +15,23 @@ Move FoxPlayer::getMove(BoardLayout boardLayout, std::string message, bool isTes
     std::vector<Cell> foxCells = boardLayout.getFoxCells();
     
     foxOne.setCell(foxCells[0]);
-    foxOne.setBoardLayout(boardLayout);
+//    foxOne.setBoardLayout(boardLayout);
     foxTwo.setCell(foxCells[1]);
-    foxTwo.setBoardLayout(boardLayout);
+//    foxTwo.setBoardLayout(boardLayout);
     
     determinePossibleMove(boardLayout, foxOne);
     determinePossibleMove(boardLayout, foxTwo);
     
-    Move move(foxOne.getCell(), foxOne.getCell());
+    Move move;
+    
+    if (foxOne.getMove().jumps.size() > 0) {
+        move = foxOne.getMove();
+    } else if (foxTwo.getMove().jumps.size() > 0) {
+        move = foxTwo.getMove();
+    } else {
+        move = Move(foxOne.getCell(), foxOne.getCell());
+    }
+    
     std::cout << "The foxes move: " << move << std::endl;
     
     return move;
@@ -32,8 +41,8 @@ void FoxPlayer::won() {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-void FoxPlayer::determinePossibleMove(BoardLayout &boardLayout, Fox &fox) {
-    fox.findPossibleJump();
+void FoxPlayer::determinePossibleMove(BoardLayout boardLayout, Fox &fox) {
+    fox.findPossibleJump(boardLayout);
     
 //    for (auto direction : fox.surroundingValues) {
 //        std::cout << direction.first << " -> " << &direction.second.value << std::endl;

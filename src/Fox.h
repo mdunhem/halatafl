@@ -23,27 +23,31 @@ class Fox {
     
     Cell cell;
     Move move;
-    BoardLayout boardLayout;
+//    BoardLayout boardLayout;
     std::vector<Move> possibleThreats;
     std::map<Direction, Cell> surroundingValues;
     
 public:
     
-    Cell getCell();
+    Fox();
+    Fox(/*BoardLayout boardLayout,*/ Cell cell);
+    Fox(const Fox &fox);
+    
+    Cell getCell() const;
     void setCell(Cell cell);
     
-    Move getMove();
+    Move getMove() const;
     void setMove(Move move);
     
-    BoardLayout getBoardLayout();
-    void setBoardLayout(BoardLayout boardLayout);
+//    BoardLayout getBoardLayout() const;
+//    void setBoardLayout(BoardLayout boardLayout);
     
-    std::vector<Move> getPossibleThreats();
+    std::vector<Move> getPossibleThreats() const;
     
     void determineSurroundingValues(BoardLayout &boardLayout);
     std::map<Direction, Cell> getSurroundingValuesWithRadius(BoardLayout &boardLayout, int radius);
     
-    void findPossibleJump();
+    void findPossibleJump(BoardLayout &boardLayout);
 };
 
 #endif /* Fox_h */

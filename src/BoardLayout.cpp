@@ -48,6 +48,9 @@ BoardLayout::BoardLayout(const BoardLayout &boardLayout) {
 }
 
 Cell BoardLayout::getCellAtIndex(int x, int y) {
+    if (x < 0 || y < 0 || x > 6 || y > 6) {
+        return layout[0][0];
+    }
     return layout[x][y];
 }
 
@@ -87,10 +90,11 @@ bool BoardLayout::applyMove(Move move) {
 
 void BoardLayout::makeJump(Jump jump) {
     if (layout[jump.end.row][jump.end.column].value == EMPTY_SPACE) {
-        layout[jump.end.row][jump.end.column] = jump.start;
-        Cell replacementCell = jump.start;
-        replacementCell.value = EMPTY_SPACE;
-        layout[replacementCell.row][replacementCell.column] = replacementCell;
+        layout[jump.end.row][jump.end.column].value = jump.start.value;
+        layout[jump.start.row][jump.start.column].value = EMPTY_SPACE;
+        if (jump.isCaptureJump()) {
+            layout[jump.jumpedCell.row][jump.jumpedCell.column].value = EMPTY_SPACE;
+        }
     }
 }
 

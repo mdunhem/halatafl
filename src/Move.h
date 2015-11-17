@@ -18,6 +18,13 @@
 struct Jump {
     Cell start;
     Cell end;
+    Cell jumpedCell;
+    
+    Jump();
+    Jump(Cell start, Cell end);
+    Jump(const Jump &jump);
+    
+    bool isCaptureJump();
 };
 
 struct Move {

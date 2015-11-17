@@ -8,26 +8,41 @@
 
 #include "Fox.h"
 
+// Constructors
+Fox::Fox() {}
+
+Fox::Fox(/*BoardLayout boardLayout,*/ Cell cell) : /* boardLayout(boardLayout), */ cell(cell) {
+    
+}
+
+Fox::Fox(const Fox &fox) : /*boardLayout(fox.boardLayout),*/ cell(fox.cell), move(fox.move), possibleThreats(fox.possibleThreats) {
+    
+}
+
 // Getters and setters
-Cell Fox::getCell() {
+Cell Fox::getCell() const {
     return cell;
 }
 void Fox::setCell(Cell cell) {
     this->cell = cell;
 }
 
-Move Fox::getMove() {
+Move Fox::getMove() const {
     return move;
 }
 void Fox::setMove(Move move) {
     this->move = move;
 }
 
-BoardLayout Fox::getBoardLayout() {
-    return boardLayout;
-}
-void Fox::setBoardLayout(BoardLayout boardLayout) {
-    this->boardLayout = boardLayout;
+//BoardLayout Fox::getBoardLayout() const {
+//    return boardLayout;
+//}
+//void Fox::setBoardLayout(BoardLayout boardLayout) {
+//    this->boardLayout = boardLayout;
+//}
+
+std::vector<Move> Fox::getPossibleThreats() const {
+    return possibleThreats;
 }
 
 void Fox::determineSurroundingValues(BoardLayout &boardLayout) {
@@ -56,6 +71,44 @@ std::map<Direction, Cell> Fox::getSurroundingValuesWithRadius(BoardLayout &board
     return values;
 }
 
-void Fox::findPossibleJump() {
-    
+void Fox::findPossibleJump(BoardLayout &boardLayout) {
+    std::map<Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(boardLayout, 1);
+    for (auto direction : surroundingValues) {
+        if (direction.second.value == SHEEP_CHARACTER) {
+            switch (direction.first) {
+                case down: {
+                    Cell jumpToCell = boardLayout.getCellAtIndex(cell.row + 2, cell.column);
+                    if (jumpToCell.value == EMPTY_SPACE) {
+                        Jump jump(cell, jumpToCell);
+                        jump.jumpedCell = boardLayout.getCellAtIndex(cell.row + 1, cell.column);
+                        move.jumps.push_back(jump);
+                        cell = jumpToCell;
+                        cell.value = FOX_CHARACTER;
+                        boardLayout.makeJump(jump);
+                        findPossibleJump(boardLayout);
+                    }
+                    break;
+                }
+                case left: {
+                    Cell jumpToCell = boardLayout.getCellAtIndex(cell.row, cell.column - 2);
+                    if (jumpToCell.value == EMPTY_SPACE) {
+                        Jump jump(cell, jumpToCell);
+                        jump.jumpedCell = boardLayout.getCellAtIndex(cell.row, cell.column - 1);
+                        move.jumps.push_back(jump);
+                        cell = jumpToCell;
+                        cell.value = FOX_CHARACTER;
+                        boardLayout.makeJump(jump);
+                        findPossibleJump(boardLayout);
+                    }
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+        }
+    }
 }
+
+
+
