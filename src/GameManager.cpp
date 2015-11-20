@@ -75,9 +75,7 @@ void GameManager::printWinner() {
 }
 
 void GameManager::makeMove(Move move) {
-    if (boardLayout.applyMove(move)) {
-        return;
-    }
+    boardLayout.applyMove(move);
 }
 
 Move GameManager::getValidMove(std::string inputData) {
@@ -99,24 +97,25 @@ Move GameManager::getValidMove(std::string inputData) {
 }
 
 bool GameManager::validMove(Move move) {
-    if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
-        Cell *start = &move.jumps[0].start;
-        Cell *end = &move.jumps[0].end;
-        
-        // Sheep cannot move more than one space
-        if (start->column - end->column > 1 || start->column - end->column < -1) {
-            return false;
-        } else if (start->row > end->row) {
-            return false;
-        } else if (start->row - end->row > 1 || start->row - end->row < -1) {
-            return false;
-        } else if (start->row != end->row && start->column != end->column) {
-            return false;
-        }
-    }
-    
-    // All tests pass, return true
-    return true;
+//    if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
+//        Cell *start = &move.jumps[0].start;
+//        Cell *end = &move.jumps[0].end;
+//        
+//        // Sheep cannot move more than one space
+//        if (start->column - end->column > 1 || start->column - end->column < -1) {
+//            return false;
+//        } else if (start->row > end->row) {
+//            return false;
+//        } else if (start->row - end->row > 1 || start->row - end->row < -1) {
+//            return false;
+//        } else if (start->row != end->row && start->column != end->column) {
+//            return false;
+//        }
+//    }
+//    
+//    // All tests pass, return true
+//    return true;
+    return boardLayout.isValidMove(move);
 }
 
 void GameManager::updateCurrentPlayer() {

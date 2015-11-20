@@ -90,38 +90,14 @@ std::vector<Cell> BoardLayout::cellsForRow(int row) {
     return layout[row];
 }
 
-//bool BoardLayout::isValidCoordinate(Coordinate coordinate) {
-//    if (coordinate.row() == -1 || coordinate.column() == -1) {
-//        return false;
-//    }
-//    if (layout[coordinate.row()][coordinate.column()] == INVALID_SPACE) {
-//        return false;
-//    }
-//    
-//    return true;
-//}
-
-bool BoardLayout::applyMove(Move move) {
+void BoardLayout::applyMove(Move move) {
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
         makeJump(Jump(*iterator));
-//        Coordinate start = Jump(*iterator).start;
-//        Coordinate end = Jump(*iterator).end;
-//        
-//        if (layout[end.row()][end.column()] == INVALID_SPACE || layout[start.row()][start.column()] == INVALID_SPACE) {
-//            return false;
-//        } else if (layout[start.row()][start.column()] == EMPTY_SPACE) {
-//            return false;
-//        }
-//        
-//        layout[end.row()][end.column()] = layout[start.row()][start.column()];
-//        layout[start.row()][start.column()] = EMPTY_SPACE;
     }
-    
-    return true;
 }
 
 void BoardLayout::makeJump(Jump jump) {
-    if (layout[jump.end.row][jump.end.column].value == EMPTY_SPACE) {
+    if (isValidJump(jump)) {
         layout[jump.end.row][jump.end.column].value = jump.start.value;
         layout[jump.start.row][jump.start.column].value = EMPTY_SPACE;
         if (jump.isCaptureJump()) {
@@ -130,6 +106,56 @@ void BoardLayout::makeJump(Jump jump) {
     }
 }
 
+bool BoardLayout::isValidMove(Move move) {
+    bool valid = false;
+    for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
+        if (isValidJump(Jump(*iterator))) {
+            valid = true;
+        } else {
+            valid = false;
+        }
+    }
+    
+    return valid;
+}
+
+bool BoardLayout::isValidJump(Jump jump) {
+    Cell *start = &jump.start;
+    Cell *end = &jump.end;
+    bool valid = true;
+    
+    if (layout[start->row][start->column].value == EMPTY_SPACE || layout[end->row][end->column].value != EMPTY_SPACE) {
+        valid = false;
+    } else {
+        if (layout[start->row][start->column].value == SHEEP_CHARACTER) {
+            if (layout[end->row][end->column].value == EMPTY_SPACE) {
+                // Sheep cannot move more than one space and only left, right, or up
+                if (start->column - end->column > 1 || start->column - end->column < -1) {
+                    valid = false;
+                } else if (start->row - end->row > 1 || start->row < end->row) {
+                    valid = false;
+                } else if (start->row - end->row != 0 && start->column - end->column != 0) {
+                    // Cannot make a diagnol move
+                    valid = false;
+                }
+            }
+        } else if (layout[start->row][start->column].value == FOX_CHARACTER) {
+            // Can only move along the lines on the board
+            if ((start->row % 2 == 0 && start->column % 2 != 0) || (start->row % 2 != 0 && start->column % 2 == 0)) {
+                if (start->row != end->row || start->column != end->column) {
+                    valid = false;
+                }
+            }
+        }
+    }
+    
+    // Allow staying in the same place
+    if (*start == *end) {
+        valid = true;
+    }
+    
+    return valid;
+}
 
 bool BoardLayout::isPaddockFull() {
     // TODO: There has to be a better way to do this...

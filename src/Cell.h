@@ -23,6 +23,8 @@ struct Cell {
     
     void print(std::ostream &output) const;
     
+    bool operator==(const Cell &cell) const;
+    
 private:
     int printableRow() const;
     char getColumnCharacter() const;

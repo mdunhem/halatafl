@@ -123,3 +123,10 @@ void Cell::print(std::ostream &output) const {
     output << getColumnCharacter() << printableRow();
 }
 
+bool Cell::operator==(const Cell &cell) const {
+    if (cell.row == row && cell.column == column && cell.value == value) {
+        return true;
+    }
+    return false;
+}
+

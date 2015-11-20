@@ -30,7 +30,9 @@ enum Direction {
 
 class BoardLayout {
     
-    std::vector<std::vector<Cell> > layout;
+    std::vector<std::vector<Cell>> layout;
+    
+    bool isValidJump(Jump jump);
     
 public:
     
@@ -42,7 +44,7 @@ public:
     Cell getCellInDirectionFromCell(Direction direction, Cell &cell);
     std::vector<Cell> cellsForRow(int row);
     
-    bool applyMove(Move move);
+    void applyMove(Move move);
     void makeJump(Jump jump);
     
     bool isValidMove(Move move);
