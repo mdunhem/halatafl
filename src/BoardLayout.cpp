@@ -54,6 +54,38 @@ Cell BoardLayout::getCellAtIndex(int x, int y) {
     return layout[x][y];
 }
 
+Cell BoardLayout::getCellInDirectionFromCell(Direction direction, Cell &cell) {
+    Cell returnCell;
+    switch (direction) {
+        case up: {
+            returnCell = getCellAtIndex(cell.row - 1, cell.column);
+        }
+        case down: {
+            returnCell = getCellAtIndex(cell.row + 1, cell.column);
+        }
+        case left: {
+            returnCell = getCellAtIndex(cell.row, cell.column - 1);
+        }
+        case right: {
+            returnCell = getCellAtIndex(cell.row, cell.column + 1);
+        }
+        case upLeft: {
+            returnCell = getCellAtIndex(cell.row - 1, cell.column - 1);
+        }
+        case upRight: {
+            returnCell = getCellAtIndex(cell.row - 1, cell.column + 1);
+        }
+        case downLeft: {
+            returnCell = getCellAtIndex(cell.row + 1, cell.column - 1);
+        }
+        case downRight: {
+            returnCell = getCellAtIndex(cell.row + 1, cell.column + 1);
+        }
+    }
+    
+    return returnCell;
+}
+
 std::vector<Cell> BoardLayout::cellsForRow(int row) {
     return layout[row];
 }

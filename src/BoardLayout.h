@@ -24,6 +24,10 @@ const char SHEEP_CHARACTER = 'S';
 //    const char Sheep = 'S';
 //};
 
+enum Direction {
+    up, down, left, right, upLeft, upRight, downLeft, downRight
+};
+
 class BoardLayout {
     
     std::vector<std::vector<Cell> > layout;
@@ -35,10 +39,13 @@ public:
     BoardLayout(const BoardLayout& layout);
     
     Cell getCellAtIndex(int x, int y);
+    Cell getCellInDirectionFromCell(Direction direction, Cell &cell);
     std::vector<Cell> cellsForRow(int row);
     
     bool applyMove(Move move);
     void makeJump(Jump jump);
+    
+    bool isValidMove(Move move);
     
     bool isPaddockFull();
     int sheepRemaining();

@@ -14,6 +14,9 @@ Move FoxPlayer::getMove(BoardLayout boardLayout, std::string message, bool isTes
     
     std::vector<Cell> foxCells = boardLayout.getFoxCells();
     
+    Fox fox1(boardLayout, foxCells[0]);
+    Fox fox2(boardLayout, foxCells[1]);
+    
     foxOne.setCell(foxCells[0]);
 //    foxOne.setBoardLayout(boardLayout);
     foxTwo.setCell(foxCells[1]);
@@ -42,32 +45,52 @@ void FoxPlayer::won() {
 }
 
 void FoxPlayer::determinePossibleMove(BoardLayout boardLayout, Fox &fox) {
-    fox.findPossibleJump(boardLayout);
+    search(boardLayout, fox);
     
-//    for (auto direction : fox.surroundingValues) {
-//        std::cout << direction.first << " -> " << &direction.second.value << std::endl;
-//        
+}
+
+void FoxPlayer::search(BoardLayout &boardLayout, Fox &fox) {
+//    Cell temp = fox.getCell();
+//    Cell *current = &temp;
+//    
+//    std::map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(boardLayout, 1);
+//    for (auto direction : surroundingValues) {
 //        if (direction.second.value == SHEEP_CHARACTER) {
 //            switch (direction.first) {
-//                case Fox::down: {
-//                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.cell.row - 2, fox.cell.column);
+//                case down: {
+//                    Cell jumpToCell = boardLayout.getCellAtIndex(currentLocation->row + 2, currentLocation->column);
 //                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        Jump jump;
-//                        jump.start = fox.cell;
-//                        jump.end = jumpToCell;
-//                        fox.move.jumps.push_back(jump);
-//                        fox.cell = jumpToCell;
-//                        fox.boardLayout.makeJump(jump);
+//                        Jump jump(*currentLocation, jumpToCell);
+//                        jump.jumpedCell = boardLayout.getCellAtIndex(currentLocation->row + 1, currentLocation->column);
+//                        move.jumps.push_back(jump);
+//                        currentLocation = &jumpToCell;
+//                        //                        cell = jumpToCell;
+//                        //                        cell.value = FOX_CHARACTER;
+//                        boardLayout.makeJump(jump);
+//                        findPossibleJump(boardLayout);
 //                    }
 //                    break;
 //                }
-//                default: {
+//                case left: {
+//                    Cell jumpToCell = boardLayout.getCellAtIndex(currentLocation->row, currentLocation->column - 2);
+//                    if (jumpToCell.value == EMPTY_SPACE) {
+//                        Jump jump(*currentLocation, jumpToCell);
+//                        jump.jumpedCell = boardLayout.getCellAtIndex(currentLocation->row, currentLocation->column - 1);
+//                        move.jumps.push_back(jump);
+//                        currentLocation = &jumpToCell;
+//                        //                        cell = jumpToCell;
+//                        //                        cell.value = FOX_CHARACTER;
+//                        boardLayout.makeJump(jump);
+//                        findPossibleJump(boardLayout);
+//                    }
 //                    break;
 //                }
+//                    
+//                default:
+//                    break;
 //            }
 //        }
 //    }
-    
 }
 
 

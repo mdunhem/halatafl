@@ -15,22 +15,19 @@
 #include "Move.h"
 #include "BoardLayout.h"
 
-enum Direction {
-    up, down, left, right, upLeft, upRight, downLeft, downRight
-};
-
 class Fox {
     
+    BoardLayout boardLayout;
     Cell cell;
+    Cell *currentLocation;
     Move move;
-//    BoardLayout boardLayout;
     std::vector<Move> possibleThreats;
     std::map<Direction, Cell> surroundingValues;
     
 public:
     
     Fox();
-    Fox(/*BoardLayout boardLayout,*/ Cell cell);
+    Fox(BoardLayout boardLayout, Cell cell);
     Fox(const Fox &fox);
     
     Cell getCell() const;
@@ -39,8 +36,8 @@ public:
     Move getMove() const;
     void setMove(Move move);
     
-//    BoardLayout getBoardLayout() const;
-//    void setBoardLayout(BoardLayout boardLayout);
+    BoardLayout getBoardLayout() const;
+    void setBoardLayout(BoardLayout boardLayout);
     
     std::vector<Move> getPossibleThreats() const;
     
@@ -48,6 +45,8 @@ public:
     std::map<Direction, Cell> getSurroundingValuesWithRadius(BoardLayout &boardLayout, int radius);
     
     void findPossibleJump(BoardLayout &boardLayout);
+    
+    void calculateMove();
 };
 
 #endif /* Fox_h */

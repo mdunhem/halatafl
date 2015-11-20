@@ -67,7 +67,11 @@ bool GameManager::gameHasBeenWon() {
 }
 
 void GameManager::printWinner() {
-    currentPlayer->won();
+    if (boardLayout.sheepRemaining() < 9) {
+        foxPlayer.won();
+    } else {
+        sheepPlayer.won();
+    }
 }
 
 void GameManager::makeMove(Move move) {
@@ -95,6 +99,23 @@ Move GameManager::getValidMove(std::string inputData) {
 }
 
 bool GameManager::validMove(Move move) {
+    if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
+        Cell *start = &move.jumps[0].start;
+        Cell *end = &move.jumps[0].end;
+        
+        // Sheep cannot move more than one space
+        if (start->column - end->column > 1 || start->column - end->column < -1) {
+            return false;
+        } else if (start->row > end->row) {
+            return false;
+        } else if (start->row - end->row > 1 || start->row - end->row < -1) {
+            return false;
+        } else if (start->row != end->row && start->column != end->column) {
+            return false;
+        }
+    }
+    
+    // All tests pass, return true
     return true;
 }
 

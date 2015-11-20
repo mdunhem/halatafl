@@ -142,3 +142,32 @@ class BoardLayout {
 
 FoxPlayer performs searching and updates currentLocation pointer
 
+
+class Fox {
+    Cell *currentLocation;
+    BoardLayout boardLayout;
+}
+
+function determinePossibleJump(&fox) {
+    map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(1);
+}
+
+get surrounding values
+for each direction:
+    test each if it is a sheep
+        if it is, test if it can be jumped
+        if it can be jumped
+            add the jump to the Move
+            make the jump
+            advance the pointer
+            repeat
+    else
+        get second row surrounding values
+        for each direction:
+            test if it is a sheep
+                if it is, test if it can be jumped
+                if it can be jumped
+                    add jump to potentialThreats
+
+
+

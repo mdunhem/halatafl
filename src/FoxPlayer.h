@@ -24,6 +24,8 @@ class FoxPlayer : public Player {
     
     void determinePossibleMove(BoardLayout boardLayout, Fox &fox);
     
+    void search(BoardLayout &boardLayout, Fox &fox);
+    
 public:
     
     /**

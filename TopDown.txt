@@ -1362,7 +1362,9 @@ function board.print(boardLayout) {
  */
 function foxPlayer.getMove(boardLayout, message) {
     ** determine possible moves by each fox using boardLayout
-    *** 
+    *** fox1, fox2 = boardLayout.getFoxCells();
+    *** findAllPossibleMovesForFox(&fox1);
+    *** findAllPossibleMovesForFox(&fox2);
     ** if fox1.move.jumps >= 1 || fox2.move.jumps >= 1 {
         if fox1.move.jumps > fox2.move.jumps {
             return fox1.move
@@ -1420,4 +1422,19 @@ function foxPlayer.won() {
  */
 function sheepPlayer.won() {
     ** print "The sheep win!"
+}
+
+function findAllPossibleMovesForFox(&fox1) {
+    surroundingValues = fox.getSurroundingValues();
+    for each surroundingValue {
+        if value == Sheep {
+            jumpToCell = next cell based on whichever direction
+            if jumpToCell.value == open {
+                jump(*fox.cell, jumpToCell);
+                fox.move.push_back(jump);
+                fox.cell = *jumpToCell;
+                findAllPossibleMovesForFox(fox);
+            }
+        } else 
+    }
 }
