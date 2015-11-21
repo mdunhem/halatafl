@@ -130,3 +130,10 @@ bool Cell::operator==(const Cell &cell) const {
     return false;
 }
 
+bool Cell::operator!=(const Cell &cell) const {
+    if (cell.row != row || cell.column != column || cell.value != value) {
+        return true;
+    }
+    return false;
+}
+

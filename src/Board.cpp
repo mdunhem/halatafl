@@ -28,9 +28,6 @@ void Board::print(BoardLayout boardLayout) {
                 std::cout << INVALID_SPACE;
             }
         }
-//        for (Cell cell : cells) {
-//            std::cout << cell.value;
-//        }
         std::cout << std::endl;
         if (i < 6) {
             std::cout << printDirectionalLinesForRow(i) << std::endl;
@@ -38,32 +35,6 @@ void Board::print(BoardLayout boardLayout) {
         
     }
     std::cout << "  a b c d e f g" << std::endl;
-}
-
-int getReversedRowNumber(int row) {
-    switch (row) {
-        case 0:
-            return 7;
-            break;
-        case 1:
-            return 6;
-            break;
-        case 2:
-            return 5;
-            break;
-        case 3:
-            return 4;
-            break;
-        case 4:
-            return 3;
-            break;
-        case 5:
-            return 2;
-            break;
-        default:
-            break;
-    }
-    return 1;
 }
 
 std::string Board::printDirectionalLinesForRow(int row) {
@@ -93,3 +64,30 @@ std::string Board::printDirectionalLinesForRow(int row) {
     
     return result;
 }
+
+int getReversedRowNumber(int row) {
+    switch (row) {
+        case 0:
+            return 7;
+            break;
+        case 1:
+            return 6;
+            break;
+        case 2:
+            return 5;
+            break;
+        case 3:
+            return 4;
+            break;
+        case 4:
+            return 3;
+            break;
+        case 5:
+            return 2;
+            break;
+        default:
+            break;
+    }
+    return 1;
+}
+

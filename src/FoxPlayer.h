@@ -25,6 +25,7 @@ class FoxPlayer : public Player {
     void determinePossibleMove(BoardLayout boardLayout, Fox &fox);
     
     void search(BoardLayout &boardLayout, Fox &fox);
+    void applyJump(BoardLayout &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
     
 public:
     

@@ -28,7 +28,7 @@ void Fox::setCell(Cell cell) {
     this->cell = cell;
 }
 
-Move Fox::getMove() const {
+Move Fox::getMove() {
     return move;
 }
 void Fox::setMove(Move move) {
@@ -131,5 +131,7 @@ void Fox::findPossibleJump(BoardLayout &boardLayout) {
     }
 }
 
-
+void Fox::addJump(Jump jump) {
+    move.jumps.push_back(jump);
+}
 

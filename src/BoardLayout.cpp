@@ -98,18 +98,22 @@ void BoardLayout::applyMove(Move move) {
 
 void BoardLayout::makeJump(Jump jump) {
     if (isValidJump(jump)) {
-        layout[jump.end.row][jump.end.column].value = jump.start.value;
-        layout[jump.start.row][jump.start.column].value = EMPTY_SPACE;
-        if (jump.isCaptureJump()) {
-            layout[jump.jumpedCell.row][jump.jumpedCell.column].value = EMPTY_SPACE;
+        if (jump.start != jump.end) {
+            layout[jump.end.row][jump.end.column].value = jump.start.value;
+            layout[jump.start.row][jump.start.column].value = EMPTY_SPACE;
+            if (jump.isCaptureJump()) {
+                layout[jump.jumpedCell.row][jump.jumpedCell.column].value = EMPTY_SPACE;
+            }
         }
     }
 }
 
 bool BoardLayout::isValidMove(Move move) {
     bool valid = false;
+    BoardLayout boardLayout = *this;
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
-        if (isValidJump(Jump(*iterator))) {
+        if (boardLayout.isValidJump(Jump(*iterator))) {
+            boardLayout.makeJump(Jump(*iterator));
             valid = true;
         } else {
             valid = false;

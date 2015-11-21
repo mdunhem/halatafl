@@ -33,7 +33,7 @@ public:
     Cell getCell() const;
     void setCell(Cell cell);
     
-    Move getMove() const;
+    Move getMove();
     void setMove(Move move);
     
     BoardLayout getBoardLayout() const;
@@ -47,6 +47,8 @@ public:
     void findPossibleJump(BoardLayout &boardLayout);
     
     void calculateMove();
+    
+    void addJump(Jump jump);
 };
 
 #endif /* Fox_h */

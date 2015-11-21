@@ -23,9 +23,6 @@ bool Jump::isCaptureJump() {
     if (jumpedCell.value != INVALID_SPACE) {
         return true;
     }
-//    if ((start.row - end.row % 2) == 0 || (start.column = end.column % 2) == 0) {
-//        return true;
-//    }
     return false;
 }
 
