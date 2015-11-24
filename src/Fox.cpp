@@ -39,6 +39,18 @@ std::vector<Move> Fox::getPossibleThreats() const {
     return possibleThreats;
 }
 
+std::vector<Move> Fox::getPossibleNonThreateningMoves() const {
+    return possibleNonThreateningMoves;
+}
+
+void Fox::addPossibleThreat(Move threat) {
+    possibleThreats.push_back(threat);
+}
+
+void Fox::addPossibleNonThreateningMove(Move move) {
+    possibleNonThreateningMoves.push_back(move);
+}
+
 void Fox::determineSurroundingValues(BoardLayout &boardLayout) {
     surroundingValues[up] = boardLayout.getCellAtIndex(cell.row - 1, cell.column);
     surroundingValues[down] = boardLayout.getCellAtIndex(cell.row + 1, cell.column);

@@ -22,6 +22,7 @@ class Fox {
     Cell *currentLocation;
     Move move;
     std::vector<Move> possibleThreats;
+    std::vector<Move> possibleNonThreateningMoves;
     std::map<Direction, Cell> surroundingValues;
     
 public:
@@ -40,6 +41,9 @@ public:
     void setBoardLayout(BoardLayout boardLayout);
     
     std::vector<Move> getPossibleThreats() const;
+    std::vector<Move> getPossibleNonThreateningMoves() const;
+    void addPossibleThreat(Move threat);
+    void addPossibleNonThreateningMove(Move move);
     
     void determineSurroundingValues(BoardLayout &boardLayout);
     std::map<Direction, Cell> getSurroundingValuesWithRadius(BoardLayout &boardLayout, int radius);
