@@ -52,27 +52,27 @@ void Fox::addPossibleNonThreateningMove(Move move) {
 }
 
 void Fox::determineSurroundingValues(Board &board) {
-    surroundingValues[up] = board.getCellAtIndex(cell.row - 1, cell.column);
-    surroundingValues[down] = board.getCellAtIndex(cell.row + 1, cell.column);
-    surroundingValues[left] = board.getCellAtIndex(cell.row, cell.column - 1);
-    surroundingValues[right] = board.getCellAtIndex(cell.row, cell.column + 1);
-    surroundingValues[upLeft] = board.getCellAtIndex(cell.row - 1, cell.column - 1);
-    surroundingValues[upRight] = board.getCellAtIndex(cell.row - 1, cell.column + 1);
-    surroundingValues[downLeft] = board.getCellAtIndex(cell.row + 1, cell.column - 1);
-    surroundingValues[downRight] = board.getCellAtIndex(cell.row + 1, cell.column + 1);
+    surroundingValues[Board::Direction::up] = board.getCellAtIndex(cell.row - 1, cell.column);
+    surroundingValues[Board::Direction::down] = board.getCellAtIndex(cell.row + 1, cell.column);
+    surroundingValues[Board::Direction::left] = board.getCellAtIndex(cell.row, cell.column - 1);
+    surroundingValues[Board::Direction::right] = board.getCellAtIndex(cell.row, cell.column + 1);
+    surroundingValues[Board::Direction::upLeft] = board.getCellAtIndex(cell.row - 1, cell.column - 1);
+    surroundingValues[Board::Direction::upRight] = board.getCellAtIndex(cell.row - 1, cell.column + 1);
+    surroundingValues[Board::Direction::downLeft] = board.getCellAtIndex(cell.row + 1, cell.column - 1);
+    surroundingValues[Board::Direction::downRight] = board.getCellAtIndex(cell.row + 1, cell.column + 1);
 }
 
 
 std::map<Board::Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &board, int radius) {
     std::map<Board::Direction, Cell> values;
-    values[up] = board.getCellAtIndex(cell.row - radius, cell.column);
-    values[down] = board.getCellAtIndex(cell.row + radius, cell.column);
-    values[left] = board.getCellAtIndex(cell.row, cell.column - radius);
-    values[right] = board.getCellAtIndex(cell.row, cell.column + radius);
-    values[upLeft] = board.getCellAtIndex(cell.row - radius, cell.column - radius);
-    values[upRight] = board.getCellAtIndex(cell.row - radius, cell.column + radius);
-    values[downLeft] = board.getCellAtIndex(cell.row + radius, cell.column - radius);
-    values[downRight] = board.getCellAtIndex(cell.row + radius, cell.column + radius);
+    values[Board::Direction::up] = board.getCellAtIndex(cell.row - radius, cell.column);
+    values[Board::Direction::down] = board.getCellAtIndex(cell.row + radius, cell.column);
+    values[Board::Direction::left] = board.getCellAtIndex(cell.row, cell.column - radius);
+    values[Board::Direction::right] = board.getCellAtIndex(cell.row, cell.column + radius);
+    values[Board::Direction::upLeft] = board.getCellAtIndex(cell.row - radius, cell.column - radius);
+    values[Board::Direction::upRight] = board.getCellAtIndex(cell.row - radius, cell.column + radius);
+    values[Board::Direction::downLeft] = board.getCellAtIndex(cell.row + radius, cell.column - radius);
+    values[Board::Direction::downRight] = board.getCellAtIndex(cell.row + radius, cell.column + radius);
     
     return values;
 }
@@ -107,7 +107,7 @@ void Fox::findPossibleJump(Board &board) {
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
             switch (direction.first) {
-                case down: {
+                case Board::Direction::down: {
                     Cell jumpToCell = board.getCellAtIndex(currentLocation->row + 2, currentLocation->column);
                     if (jumpToCell.value == EMPTY_SPACE) {
                         Jump jump(*currentLocation, jumpToCell);
@@ -121,7 +121,7 @@ void Fox::findPossibleJump(Board &board) {
                     }
                     break;
                 }
-                case left: {
+                case Board::Direction::left: {
                     Cell jumpToCell = board.getCellAtIndex(currentLocation->row, currentLocation->column - 2);
                     if (jumpToCell.value == EMPTY_SPACE) {
                         Jump jump(*currentLocation, jumpToCell);
