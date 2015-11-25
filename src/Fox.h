@@ -13,11 +13,11 @@
 
 #include "Cell.h"
 #include "Move.h"
-#include "BoardLayout.h"
+#include "Board.h"
 
 class Fox {
     
-    BoardLayout boardLayout;
+    Board boardLayout;
     Cell cell;
     Cell *currentLocation;
     Move move;
@@ -28,7 +28,7 @@ class Fox {
 public:
     
     Fox();
-    Fox(BoardLayout boardLayout, Cell cell);
+    Fox(Board boardLayout, Cell cell);
     Fox(const Fox &fox);
     
     Cell getCell() const;
@@ -37,18 +37,18 @@ public:
     Move getMove();
     void setMove(Move move);
     
-    BoardLayout getBoardLayout() const;
-    void setBoardLayout(BoardLayout boardLayout);
+    Board getBoard() const;
+    void setBoard(Board boardLayout);
     
     std::vector<Move> getPossibleThreats() const;
     std::vector<Move> getPossibleNonThreateningMoves() const;
     void addPossibleThreat(Move threat);
     void addPossibleNonThreateningMove(Move move);
     
-    void determineSurroundingValues(BoardLayout &boardLayout);
-    std::map<Direction, Cell> getSurroundingValuesWithRadius(BoardLayout &boardLayout, int radius);
+    void determineSurroundingValues(Board &boardLayout);
+    std::map<Direction, Cell> getSurroundingValuesWithRadius(Board &boardLayout, int radius);
     
-    void findPossibleJump(BoardLayout &boardLayout);
+    void findPossibleJump(Board &boardLayout);
     
     void calculateMove();
     

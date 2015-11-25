@@ -7,6 +7,7 @@
 //
 
 #include <typeinfo>
+#include <iostream>
 
 #include "GameManager.h"
 
@@ -22,7 +23,7 @@ void GameManager::play() {
     }
     
     printWinner();
-    board.print(boardLayout);
+    std::cout << boardLayout;
 }
 
 void GameManager::testDriver(std::ifstream &input) {
@@ -35,7 +36,7 @@ void GameManager::testDriver(std::ifstream &input) {
         }
     }
     std::getline(input, nextLine);
-    boardLayout = BoardLayout(layout);
+    boardLayout = Board(layout);
     if (!gameHasBeenWon()) {
         updateCurrentPlayer();
         playOneFullTurn(nextLine);
@@ -48,11 +49,11 @@ void GameManager::testDriver(std::ifstream &input) {
     } else {
         printWinner();
     }
-    board.print(boardLayout);
+    std::cout << boardLayout;
 }
 
 void GameManager::playOneFullTurn(std::string inputData) {
-    board.print(boardLayout);
+    std::cout << boardLayout;
     Move move = getValidMove(inputData);
     makeMove(move);
 }

@@ -7,7 +7,7 @@
 //
 
 #include "Cell.h"
-#include "BoardLayout.h"
+#include "Board.h"
 
 Cell::Cell() : row(0), column(0), value(INVALID_SPACE) {}
 

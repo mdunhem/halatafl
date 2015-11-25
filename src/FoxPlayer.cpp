@@ -10,7 +10,7 @@
 
 #include "FoxPlayer.h"
 
-Move FoxPlayer::getMove(BoardLayout boardLayout, std::string message, bool isTest) {
+Move FoxPlayer::getMove(Board boardLayout, std::string message, bool isTest) {
     
     std::vector<Cell> foxCells = boardLayout.getFoxCells();
     
@@ -55,11 +55,11 @@ void FoxPlayer::won() {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-void FoxPlayer::determinePossibleMove(BoardLayout boardLayout, Fox &fox) {
+void FoxPlayer::determinePossibleMove(Board boardLayout, Fox &fox) {
     search(boardLayout, fox);
 }
 
-void FoxPlayer::search(BoardLayout &boardLayout, Fox &fox) {
+void FoxPlayer::search(Board &boardLayout, Fox &fox) {
     std::map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(boardLayout, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
@@ -162,7 +162,7 @@ void FoxPlayer::search(BoardLayout &boardLayout, Fox &fox) {
     }
 }
 
-void FoxPlayer::applyJump(BoardLayout &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell) {
+void FoxPlayer::applyJump(Board &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell) {
     Jump jump(fox.getCell(), jumpToCell);
     jump.jumpedCell = jumpedCell;
     fox.addJump(jump);

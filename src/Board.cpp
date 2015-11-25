@@ -1,12 +1,12 @@
 //
-//  BoardLayout.cpp
+//  Board.cpp
 //  halatafl
 //
 //  Created by Sven on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
-#include "BoardLayout.h"
+#include "Board.h"
 
 #include <iostream>
 
@@ -20,10 +20,10 @@ const char DEFAULT_LAYOUT[7][7] = {
     { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE}
 };
 
-const int BoardLayout::ROWS = 7;
-const int BoardLayout::COLS = 7;
+const int Board::ROWS = 7;
+const int Board::COLS = 7;
 
-BoardLayout::BoardLayout() {
+Board::Board() {
     for (int row = 0; row < 7; row++) {
         layout.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
@@ -32,7 +32,7 @@ BoardLayout::BoardLayout() {
     }
 }
 
-BoardLayout::BoardLayout(char layout[7][7]) {
+Board::Board(char layout[7][7]) {
     for (int row = 0; row < 7; row++) {
         this->layout.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
@@ -41,7 +41,7 @@ BoardLayout::BoardLayout(char layout[7][7]) {
     }
 }
 
-BoardLayout::BoardLayout(const BoardLayout &boardLayout) {
+Board::Board(const Board &boardLayout) {
     for (int row = 0; row < 7; row++) {
         layout.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
@@ -50,14 +50,14 @@ BoardLayout::BoardLayout(const BoardLayout &boardLayout) {
     }
 }
 
-Cell BoardLayout::getCellAtIndex(int x, int y) {
+Cell Board::getCellAtIndex(int x, int y) {
     if (x < 0 || y < 0 || x > 6 || y > 6) {
         return layout[0][0];
     }
     return layout[x][y];
 }
 
-Cell BoardLayout::getCellInDirectionFromCell(Direction direction, Cell &cell) {
+Cell Board::getCellInDirectionFromCell(Direction direction, Cell &cell) {
     Cell returnCell;
     switch (direction) {
         case up: {
@@ -89,17 +89,17 @@ Cell BoardLayout::getCellInDirectionFromCell(Direction direction, Cell &cell) {
     return returnCell;
 }
 
-std::vector<Cell> BoardLayout::cellsForRow(int row) {
+std::vector<Cell> Board::cellsForRow(int row) {
     return layout[row];
 }
 
-void BoardLayout::applyMove(Move move) {
+void Board::applyMove(Move move) {
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
         makeJump(Jump(*iterator));
     }
 }
 
-void BoardLayout::makeJump(Jump jump) {
+void Board::makeJump(Jump jump) {
     if (isValidJump(jump)) {
         if (jump.start != jump.end) {
             layout[jump.end.row][jump.end.column].value = jump.start.value;
@@ -111,9 +111,9 @@ void BoardLayout::makeJump(Jump jump) {
     }
 }
 
-bool BoardLayout::isValidMove(Move move) {
+bool Board::isValidMove(Move move) {
     bool valid = false;
-    BoardLayout boardLayout = *this;
+    Board boardLayout = *this;
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
         if (boardLayout.isValidJump(Jump(*iterator))) {
             boardLayout.makeJump(Jump(*iterator));
@@ -126,7 +126,7 @@ bool BoardLayout::isValidMove(Move move) {
     return valid;
 }
 
-bool BoardLayout::isValidJump(Jump jump) {
+bool Board::isValidJump(Jump jump) {
     Cell *start = &jump.start;
     Cell *end = &jump.end;
     bool valid = true;
@@ -164,7 +164,7 @@ bool BoardLayout::isValidJump(Jump jump) {
     return valid;
 }
 
-bool BoardLayout::isPaddockFull() {
+bool Board::isPaddockFull() {
     // TODO: There has to be a better way to do this...
     
     if (layout[0][2].value == SHEEP_CHARACTER) {
@@ -190,7 +190,7 @@ bool BoardLayout::isPaddockFull() {
     return false;
 }
 
-int BoardLayout::sheepRemaining() {
+int Board::sheepRemaining() {
     int count = 0;
     for (int row = 0; row < 7; row++) {
         for (int column = 0; column < 7; column++) {
@@ -203,7 +203,7 @@ int BoardLayout::sheepRemaining() {
     return count;
 }
 
-std::vector<Cell> BoardLayout::getFoxCells() {
+std::vector<Cell> Board::getFoxCells() {
     std::vector<Cell> cells;
     for (int row = 0; row < 7; row++) {
         for (int column = 0; column < 7; column++) {
@@ -215,7 +215,7 @@ std::vector<Cell> BoardLayout::getFoxCells() {
     return cells;
 }
 
-void BoardLayout::print(std::ostream &output) const {
+void Board::print(std::ostream &output) const {
     for (int i = 0; i < ROWS; i++) {
         output << ROWS - i << " ";
         for (int j = 0; j < COLS; j++) {
@@ -238,7 +238,7 @@ void BoardLayout::print(std::ostream &output) const {
     std::cout << "  a b c d e f g" << std::endl;
 }
 
-std::string BoardLayout::printDirectionalLinesForRow(int row) const {
+std::string Board::printDirectionalLinesForRow(int row) const {
     std::string result = "";
     switch (row) {
         case 0:

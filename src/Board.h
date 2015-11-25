@@ -1,13 +1,13 @@
 //
-//  BoardLayout.hpp
+//  Board.hpp
 //  halatafl
 //
 //  Created by Sven on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
-#ifndef BoardLayout_h
-#define BoardLayout_h
+#ifndef Board_h
+#define Board_h
 
 #include <iostream>
 
@@ -30,7 +30,7 @@ const char SHEEP_CHARACTER = 'S';
 //    up, down, left, right, upLeft, upRight, downLeft, downRight
 //};
 
-class BoardLayout {
+class Board {
     
     std::vector<std::vector<Cell>> layout;
     
@@ -54,9 +54,9 @@ public:
     static const int ROWS;
     static const int COLS;
     
-    BoardLayout();
-    BoardLayout(char layout[7][7]);
-    BoardLayout(const BoardLayout& layout);
+    Board();
+    Board(char layout[7][7]);
+    Board(const Board& layout);
     
     Cell getCellAtIndex(int x, int y);
     Cell getCellInDirectionFromCell(Direction direction, Cell &cell);
@@ -80,9 +80,9 @@ public:
     void print(std::ostream &output) const;
 };
 
-inline std::ostream& operator<<(std::ostream &output, const BoardLayout &boardLayout) {
+inline std::ostream& operator<<(std::ostream &output, const Board &boardLayout) {
     boardLayout.print(output);
     return output;
 }
 
-#endif /* BoardLayout_h */
+#endif /* Board_h */

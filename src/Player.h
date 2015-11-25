@@ -12,14 +12,14 @@
 #include <stdio.h>
 #include <string>
 
-#include "BoardLayout.h"
+#include "Board.h"
 #include "Move.h"
 
 
 class Player {
 public:
     virtual ~Player() {};
-    virtual Move getMove(BoardLayout, std::string, bool isTest) = 0;
+    virtual Move getMove(Board, std::string, bool isTest) = 0;
     virtual void won() = 0;
 };
 

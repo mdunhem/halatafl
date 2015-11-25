@@ -7,7 +7,7 @@
 //
 
 #include "Move.h"
-#include "BoardLayout.h"
+#include "Board.h"
 
 Jump::Jump() {}
 

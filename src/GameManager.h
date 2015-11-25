@@ -13,7 +13,6 @@
 
 #include "SheepPlayer.h"
 #include "Move.h"
-#include "BoardLayout.h"
 #include "Board.h"
 #include "FoxPlayer.h"
 #include "SheepPlayer.h"
@@ -70,10 +69,7 @@ class GameManager {
     bool isPaddockFull();
     
     
-    BoardLayout boardLayout;
-    
-    
-    Board board;
+    Board boardLayout;
     
     
     Player *currentPlayer;

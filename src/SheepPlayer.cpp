@@ -87,7 +87,7 @@ int flipRowNumber(int input) {
     return row;
 }
 
-Move SheepPlayer::getMove(BoardLayout boardLayout, std::string message, bool isTest) {
+Move SheepPlayer::getMove(Board boardLayout, std::string message, bool isTest) {
     int startRow, endRow;
     char startColumn, endColumn;
     std::string input;

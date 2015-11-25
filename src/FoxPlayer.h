@@ -13,7 +13,7 @@
 #include <map>
 
 #include "Player.h"
-#include "BoardLayout.h"
+#include "Board.h"
 #include "Move.h"
 #include "Fox.h"
 
@@ -22,10 +22,10 @@ class FoxPlayer : public Player {
     Fox foxOne;
     Fox foxTwo;
     
-    void determinePossibleMove(BoardLayout boardLayout, Fox &fox);
+    void determinePossibleMove(Board boardLayout, Fox &fox);
     
-    void search(BoardLayout &boardLayout, Fox &fox);
-    void applyJump(BoardLayout &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
+    void search(Board &boardLayout, Fox &fox);
+    void applyJump(Board &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
     
 public:
     
@@ -33,11 +33,11 @@ public:
      * Determines the best move possible to be made by either fox. Designed to be
      * an aggressive strategy. Message is ignored by this function.
      *
-     * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+     * @param  {Board} boardLayout    Object containing lobations of sheep and foxes on the board
      * @param  {std::string} message        Possible error message to display
      * @return {Move}                       Move to be made by player
      */
-    virtual Move getMove(BoardLayout, std::string, bool isTest);
+    virtual Move getMove(Board, std::string, bool isTest);
     
     /**
      * Prints out the message that the foxes have won to standard output
@@ -57,17 +57,17 @@ public:
 //        
 //        Cell cell;
 //        Move move;
-//        BoardLayout boardLayout;
+//        Board boardLayout;
 //        std::vector<Move> possibleThreats;
 //        std::map<Direction, Cell> surroundingValues;
 //        
-//        void determineSurroundingValues(BoardLayout &boardLayout);
+//        void determineSurroundingValues(Board &boardLayout);
 //    };
 //    
 //    Fox foxOne;
 //    Fox foxTwo;
 //    
-//    void determinePossibleMove(BoardLayout &boardLayout, Fox &fox);
+//    void determinePossibleMove(Board &boardLayout, Fox &fox);
 //    
 //public:
 //    
@@ -75,11 +75,11 @@ public:
 //     * Determines the best move possible to be made by either fox. Designed to be
 //     * an aggressive strategy. Message is ignored by this function.
 //     *
-//     * @param  {BoardLayout} boardLayout    Object containing lobations of sheep and foxes on the board
+//     * @param  {Board} boardLayout    Object containing lobations of sheep and foxes on the board
 //     * @param  {std::string} message        Possible error message to display
 //     * @return {Move}                       Move to be made by player
 //     */
-//    virtual Move getMove(BoardLayout, std::string);
+//    virtual Move getMove(Board, std::string);
 //    
 //    /**
 //     * Prints out the message that the foxes have won to standard output

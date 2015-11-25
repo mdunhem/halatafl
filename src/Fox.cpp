@@ -11,7 +11,7 @@
 // Constructors
 Fox::Fox() {}
 
-Fox::Fox(BoardLayout boardLayout, Cell cell) : boardLayout(boardLayout), cell(cell) {
+Fox::Fox(Board boardLayout, Cell cell) : boardLayout(boardLayout), cell(cell) {
     currentLocation = &cell;
 }
 
@@ -51,7 +51,7 @@ void Fox::addPossibleNonThreateningMove(Move move) {
     possibleNonThreateningMoves.push_back(move);
 }
 
-void Fox::determineSurroundingValues(BoardLayout &boardLayout) {
+void Fox::determineSurroundingValues(Board &boardLayout) {
     surroundingValues[up] = boardLayout.getCellAtIndex(cell.row - 1, cell.column);
     surroundingValues[down] = boardLayout.getCellAtIndex(cell.row + 1, cell.column);
     surroundingValues[left] = boardLayout.getCellAtIndex(cell.row, cell.column - 1);
@@ -63,7 +63,7 @@ void Fox::determineSurroundingValues(BoardLayout &boardLayout) {
 }
 
 
-std::map<Direction, Cell> Fox::getSurroundingValuesWithRadius(BoardLayout &boardLayout, int radius) {
+std::map<Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &boardLayout, int radius) {
     std::map<Direction, Cell> values;
     values[up] = boardLayout.getCellAtIndex(cell.row - radius, cell.column);
     values[down] = boardLayout.getCellAtIndex(cell.row + radius, cell.column);
@@ -102,7 +102,7 @@ void Fox::calculateMove() {
     }
 }
 
-void Fox::findPossibleJump(BoardLayout &boardLayout) {
+void Fox::findPossibleJump(Board &boardLayout) {
     std::map<Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(boardLayout, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
