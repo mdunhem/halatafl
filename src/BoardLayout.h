@@ -9,6 +9,8 @@
 #ifndef BoardLayout_h
 #define BoardLayout_h
 
+#include <iostream>
+
 #include "Cell.h"
 #include "Move.h"
 
@@ -24,9 +26,9 @@ const char SHEEP_CHARACTER = 'S';
 //    const char Sheep = 'S';
 //};
 
-enum Direction {
-    up, down, left, right, upLeft, upRight, downLeft, downRight
-};
+//enum Direction {
+//    up, down, left, right, upLeft, upRight, downLeft, downRight
+//};
 
 class BoardLayout {
     
@@ -34,7 +36,23 @@ class BoardLayout {
     
     bool isValidJump(Jump jump);
     
+    std::string printDirectionalLinesForRow(int row) const;
+    
 public:
+    
+    /**
+     * Value of each position on the Board
+     */
+    enum BoardValue {
+        invalid, empty, sheep, fox
+    };
+    
+    enum Direction {
+        up, down, left, right, upLeft, upRight, downLeft, downRight
+    };
+    
+    static const int ROWS;
+    static const int COLS;
     
     BoardLayout();
     BoardLayout(char layout[7][7]);
@@ -53,6 +71,18 @@ public:
     int sheepRemaining();
     
     std::vector<Cell> getFoxCells();
+    
+    /**
+     * Prints out the board using supplied output stream
+     *
+     * @return {void}
+     */
+    void print(std::ostream &output) const;
 };
+
+inline std::ostream& operator<<(std::ostream &output, const BoardLayout &boardLayout) {
+    boardLayout.print(output);
+    return output;
+}
 
 #endif /* BoardLayout_h */

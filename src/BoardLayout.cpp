@@ -20,6 +20,9 @@ const char DEFAULT_LAYOUT[7][7] = {
     { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE}
 };
 
+const int BoardLayout::ROWS = 7;
+const int BoardLayout::COLS = 7;
+
 BoardLayout::BoardLayout() {
     for (int row = 0; row < 7; row++) {
         layout.push_back(std::vector<Cell>());
@@ -210,4 +213,55 @@ std::vector<Cell> BoardLayout::getFoxCells() {
         }
     }
     return cells;
+}
+
+void BoardLayout::print(std::ostream &output) const {
+    for (int i = 0; i < ROWS; i++) {
+        output << ROWS - i << " ";
+        for (int j = 0; j < COLS; j++) {
+            Cell cell = layout[i][j];
+            output << cell.value;
+            if (cell.value != INVALID_SPACE) {
+                if ((j + 1) < layout[i].size() && layout[i][j + 1].value != INVALID_SPACE) {
+                    output << '-';
+                }
+            } else {
+                output << INVALID_SPACE;
+            }
+        }
+        output << std::endl;
+        if (i < 6) {
+            output << printDirectionalLinesForRow(i) << std::endl;
+        }
+        
+    }
+    std::cout << "  a b c d e f g" << std::endl;
+}
+
+std::string BoardLayout::printDirectionalLinesForRow(int row) const {
+    std::string result = "";
+    switch (row) {
+        case 0:
+            result = "      |\\|/|    ";
+            break;
+        case 1:
+            result = "      |/|\\|    ";
+            break;
+        case 2:
+            result = "  |\\|/|\\|/|\\|/|";
+            break;
+        case 3:
+            result = "  |/|\\|/|\\|/|\\|";
+            break;
+        case 4:
+            result = "      |\\|/|    ";
+            break;
+        case 5:
+            result = "      |/|\\|    ";
+            break;
+        default:
+            break;
+    }
+    
+    return result;
 }
