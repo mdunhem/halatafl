@@ -59,7 +59,7 @@ public:
 //        Move move;
 //        Board board;
 //        std::vector<Move> possibleThreats;
-//        std::map<Direction, Cell> surroundingValues;
+//        std::map<Board::Direction, Cell> surroundingValues;
 //        
 //        void determineSurroundingValues(Board &board);
 //    };

@@ -23,7 +23,7 @@ class Fox {
     Move move;
     std::vector<Move> possibleThreats;
     std::vector<Move> possibleNonThreateningMoves;
-    std::map<Direction, Cell> surroundingValues;
+    std::map<Board::Direction, Cell> surroundingValues;
     
 public:
     
@@ -46,7 +46,7 @@ public:
     void addPossibleNonThreateningMove(Move move);
     
     void determineSurroundingValues(Board &board);
-    std::map<Direction, Cell> getSurroundingValuesWithRadius(Board &board, int radius);
+    std::map<Board::Direction, Cell> getSurroundingValuesWithRadius(Board &board, int radius);
     
     void findPossibleJump(Board &board);
     

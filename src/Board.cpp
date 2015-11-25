@@ -57,7 +57,7 @@ Cell Board::getCellAtIndex(int x, int y) {
     return layout[x][y];
 }
 
-Cell Board::getCellInDirectionFromCell(Direction direction, Cell &cell) {
+Cell Board::getCellInDirectionFromCell(Board::Direction direction, Cell &cell) {
     Cell returnCell;
     switch (direction) {
         case up: {

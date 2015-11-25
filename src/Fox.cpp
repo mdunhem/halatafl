@@ -63,8 +63,8 @@ void Fox::determineSurroundingValues(Board &board) {
 }
 
 
-std::map<Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &board, int radius) {
-    std::map<Direction, Cell> values;
+std::map<Board::Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &board, int radius) {
+    std::map<Board::Direction, Cell> values;
     values[up] = board.getCellAtIndex(cell.row - radius, cell.column);
     values[down] = board.getCellAtIndex(cell.row + radius, cell.column);
     values[left] = board.getCellAtIndex(cell.row, cell.column - radius);
@@ -78,7 +78,7 @@ std::map<Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &board, int 
 }
 
 void Fox::calculateMove() {
-    std::map<Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
+    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
             Cell jumpToCell = board.getCellInDirectionFromCell(direction.first, direction.second);
@@ -88,7 +88,7 @@ void Fox::calculateMove() {
                 move.jumps.push_back(jump);
             }
         } else {
-            std::map<Direction, Cell>secondRowOfSurroundingValues = getSurroundingValuesWithRadius(board, 2);
+            std::map<Board::Direction, Cell>secondRowOfSurroundingValues = getSurroundingValuesWithRadius(board, 2);
             for (auto secondDirection : secondRowOfSurroundingValues) {
                 if (secondDirection.second.value == SHEEP_CHARACTER) {
                     Cell jumpToCell = board.getCellInDirectionFromCell(secondDirection.first, secondDirection.second);
@@ -103,7 +103,7 @@ void Fox::calculateMove() {
 }
 
 void Fox::findPossibleJump(Board &board) {
-    std::map<Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
+    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
             switch (direction.first) {

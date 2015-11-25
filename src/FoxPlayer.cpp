@@ -60,11 +60,11 @@ void FoxPlayer::determinePossibleMove(Board board, Fox &fox) {
 }
 
 void FoxPlayer::search(Board &board, Fox &fox) {
-    std::map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(board, 1);
+    std::map<Board::Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(board, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
             switch (direction.first) {
-                case up: {
+                case Board::Direction::up: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -75,7 +75,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case down: {
+                case Board::Direction::down: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -86,7 +86,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case left: {
+                case Board::Direction::left: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -97,7 +97,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case right: {
+                case Board::Direction::right: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -108,7 +108,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case upLeft: {
+                case Board::Direction::upLeft: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column - 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -119,7 +119,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case upRight: {
+                case Board::Direction::upRight: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column + 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -130,7 +130,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case downLeft: {
+                case Board::Direction::downLeft: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column - 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
@@ -141,7 +141,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
                     }
                     break;
                 }
-                case downRight: {
+                case Board::Direction::downRight: {
                     Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column + 2);
                     Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
