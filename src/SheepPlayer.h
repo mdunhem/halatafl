@@ -28,7 +28,7 @@ public:
      * supplied input and return the Move object. Board object is
      * ignored by this function.
      *
-     * @param  {Board} boardLayout    Object containing locations of sheep and foxes on the board
+     * @param  {Board} board    Object containing locations of sheep and foxes on the board
      * @param  {std::string} message        Possible error message to display before prompting player
      * @return {Move}                       Move to be made by player
      */

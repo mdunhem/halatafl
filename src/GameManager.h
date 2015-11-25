@@ -45,7 +45,7 @@ class GameManager {
     
     /**
      * A valid move has been created and this function applies the changes
-     * made by the move to the private boardLayout object used as the
+     * made by the move to the private board object used as the
      * underlying data structure for the location of all players in the
      * game.
      *
@@ -69,7 +69,7 @@ class GameManager {
     bool isPaddockFull();
     
     
-    Board boardLayout;
+    Board board;
     
     
     Player *currentPlayer;

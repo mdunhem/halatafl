@@ -10,18 +10,18 @@
 
 #include "FoxPlayer.h"
 
-Move FoxPlayer::getMove(Board boardLayout, std::string message, bool isTest) {
+Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     
-    std::vector<Cell> foxCells = boardLayout.getFoxCells();
+    std::vector<Cell> foxCells = board.getFoxCells();
     
-    Fox fox1(boardLayout, foxCells[0]);
-    Fox fox2(boardLayout, foxCells[1]);
+    Fox fox1(board, foxCells[0]);
+    Fox fox2(board, foxCells[1]);
     
     foxOne.setCell(foxCells[0]);
     foxTwo.setCell(foxCells[1]);
     
-    determinePossibleMove(boardLayout, foxOne);
-    determinePossibleMove(boardLayout, foxTwo);
+    determinePossibleMove(board, foxOne);
+    determinePossibleMove(board, foxTwo);
     
     Move move;
     
@@ -55,98 +55,98 @@ void FoxPlayer::won() {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-void FoxPlayer::determinePossibleMove(Board boardLayout, Fox &fox) {
-    search(boardLayout, fox);
+void FoxPlayer::determinePossibleMove(Board board, Fox &fox) {
+    search(board, fox);
 }
 
-void FoxPlayer::search(Board &boardLayout, Fox &fox) {
-    std::map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(boardLayout, 1);
+void FoxPlayer::search(Board &board, Fox &fox) {
+    std::map<Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(board, 1);
     for (auto direction : surroundingValues) {
         if (direction.second.value == SHEEP_CHARACTER) {
             switch (direction.first) {
                 case up: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case down: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case left: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row, fox.getCell().column - 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row, fox.getCell().column - 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case right: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row, fox.getCell().column + 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row, fox.getCell().column + 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case upLeft: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column - 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column - 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column - 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case upRight: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column + 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column + 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column + 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case downLeft: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column - 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column - 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column - 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column - 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
                     break;
                 }
                 case downRight: {
-                    Cell jumpToCell = boardLayout.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column + 2);
-                    Cell jumpedCell = boardLayout.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column + 1);
+                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column + 2);
+                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column + 1);
                     if (jumpToCell.value == EMPTY_SPACE) {
-                        applyJump(boardLayout, fox, jumpToCell, jumpedCell);
-                        search(boardLayout, fox);
+                        applyJump(board, fox, jumpToCell, jumpedCell);
+                        search(board, fox);
                     } else {
                         fox.addPossibleThreat(Move(fox.getCell(), direction.second));
                     }
@@ -162,12 +162,12 @@ void FoxPlayer::search(Board &boardLayout, Fox &fox) {
     }
 }
 
-void FoxPlayer::applyJump(Board &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell) {
+void FoxPlayer::applyJump(Board &board, Fox &fox, Cell &jumpToCell, Cell &jumpedCell) {
     Jump jump(fox.getCell(), jumpToCell);
     jump.jumpedCell = jumpedCell;
     fox.addJump(jump);
     jumpToCell.value = FOX_CHARACTER;
-    boardLayout.makeJump(jump);
+    board.makeJump(jump);
     fox.setCell(jumpToCell);
 }
 

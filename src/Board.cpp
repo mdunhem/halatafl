@@ -41,11 +41,11 @@ Board::Board(char layout[7][7]) {
     }
 }
 
-Board::Board(const Board &boardLayout) {
+Board::Board(const Board &board) {
     for (int row = 0; row < 7; row++) {
         layout.push_back(std::vector<Cell>());
         for (int column = 0; column < 7; column++) {
-            layout[row].push_back(boardLayout.layout[row][column]);
+            layout[row].push_back(board.layout[row][column]);
         }
     }
 }
@@ -113,10 +113,10 @@ void Board::makeJump(Jump jump) {
 
 bool Board::isValidMove(Move move) {
     bool valid = false;
-    Board boardLayout = *this;
+    Board board = *this;
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
-        if (boardLayout.isValidJump(Jump(*iterator))) {
-            boardLayout.makeJump(Jump(*iterator));
+        if (board.isValidJump(Jump(*iterator))) {
+            board.makeJump(Jump(*iterator));
             valid = true;
         } else {
             valid = false;

@@ -22,10 +22,10 @@ class FoxPlayer : public Player {
     Fox foxOne;
     Fox foxTwo;
     
-    void determinePossibleMove(Board boardLayout, Fox &fox);
+    void determinePossibleMove(Board board, Fox &fox);
     
-    void search(Board &boardLayout, Fox &fox);
-    void applyJump(Board &boardLayout, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
+    void search(Board &board, Fox &fox);
+    void applyJump(Board &board, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
     
 public:
     
@@ -33,7 +33,7 @@ public:
      * Determines the best move possible to be made by either fox. Designed to be
      * an aggressive strategy. Message is ignored by this function.
      *
-     * @param  {Board} boardLayout    Object containing lobations of sheep and foxes on the board
+     * @param  {Board} board    Object containing lobations of sheep and foxes on the board
      * @param  {std::string} message        Possible error message to display
      * @return {Move}                       Move to be made by player
      */
@@ -57,17 +57,17 @@ public:
 //        
 //        Cell cell;
 //        Move move;
-//        Board boardLayout;
+//        Board board;
 //        std::vector<Move> possibleThreats;
 //        std::map<Direction, Cell> surroundingValues;
 //        
-//        void determineSurroundingValues(Board &boardLayout);
+//        void determineSurroundingValues(Board &board);
 //    };
 //    
 //    Fox foxOne;
 //    Fox foxTwo;
 //    
-//    void determinePossibleMove(Board &boardLayout, Fox &fox);
+//    void determinePossibleMove(Board &board, Fox &fox);
 //    
 //public:
 //    
@@ -75,7 +75,7 @@ public:
 //     * Determines the best move possible to be made by either fox. Designed to be
 //     * an aggressive strategy. Message is ignored by this function.
 //     *
-//     * @param  {Board} boardLayout    Object containing lobations of sheep and foxes on the board
+//     * @param  {Board} board    Object containing lobations of sheep and foxes on the board
 //     * @param  {std::string} message        Possible error message to display
 //     * @return {Move}                       Move to be made by player
 //     */

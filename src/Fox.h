@@ -17,7 +17,7 @@
 
 class Fox {
     
-    Board boardLayout;
+    Board board;
     Cell cell;
     Cell *currentLocation;
     Move move;
@@ -28,7 +28,7 @@ class Fox {
 public:
     
     Fox();
-    Fox(Board boardLayout, Cell cell);
+    Fox(Board board, Cell cell);
     Fox(const Fox &fox);
     
     Cell getCell() const;
@@ -38,17 +38,17 @@ public:
     void setMove(Move move);
     
     Board getBoard() const;
-    void setBoard(Board boardLayout);
+    void setBoard(Board board);
     
     std::vector<Move> getPossibleThreats() const;
     std::vector<Move> getPossibleNonThreateningMoves() const;
     void addPossibleThreat(Move threat);
     void addPossibleNonThreateningMove(Move move);
     
-    void determineSurroundingValues(Board &boardLayout);
-    std::map<Direction, Cell> getSurroundingValuesWithRadius(Board &boardLayout, int radius);
+    void determineSurroundingValues(Board &board);
+    std::map<Direction, Cell> getSurroundingValuesWithRadius(Board &board, int radius);
     
-    void findPossibleJump(Board &boardLayout);
+    void findPossibleJump(Board &board);
     
     void calculateMove();
     

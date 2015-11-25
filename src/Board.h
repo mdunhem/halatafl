@@ -80,8 +80,8 @@ public:
     void print(std::ostream &output) const;
 };
 
-inline std::ostream& operator<<(std::ostream &output, const Board &boardLayout) {
-    boardLayout.print(output);
+inline std::ostream& operator<<(std::ostream &output, const Board &board) {
+    board.print(output);
     return output;
 }
 

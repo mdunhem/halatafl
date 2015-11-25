@@ -23,7 +23,7 @@ void GameManager::play() {
     }
     
     printWinner();
-    std::cout << boardLayout;
+    std::cout << board;
 }
 
 void GameManager::testDriver(std::ifstream &input) {
@@ -36,7 +36,7 @@ void GameManager::testDriver(std::ifstream &input) {
         }
     }
     std::getline(input, nextLine);
-    boardLayout = Board(layout);
+    board = Board(layout);
     if (!gameHasBeenWon()) {
         updateCurrentPlayer();
         playOneFullTurn(nextLine);
@@ -49,18 +49,18 @@ void GameManager::testDriver(std::ifstream &input) {
     } else {
         printWinner();
     }
-    std::cout << boardLayout;
+    std::cout << board;
 }
 
 void GameManager::playOneFullTurn(std::string inputData) {
-    std::cout << boardLayout;
+    std::cout << board;
     Move move = getValidMove(inputData);
     makeMove(move);
 }
 
 bool GameManager::gameHasBeenWon() {
     
-    if (boardLayout.sheepRemaining() < 9 || boardLayout.isPaddockFull()) {
+    if (board.sheepRemaining() < 9 || board.isPaddockFull()) {
         return true;
     }
     
@@ -68,7 +68,7 @@ bool GameManager::gameHasBeenWon() {
 }
 
 void GameManager::printWinner() {
-    if (boardLayout.sheepRemaining() < 9) {
+    if (board.sheepRemaining() < 9) {
         foxPlayer.won();
     } else {
         sheepPlayer.won();
@@ -76,7 +76,7 @@ void GameManager::printWinner() {
 }
 
 void GameManager::makeMove(Move move) {
-    boardLayout.applyMove(move);
+    board.applyMove(move);
 }
 
 Move GameManager::getValidMove(std::string inputData) {
@@ -88,10 +88,10 @@ Move GameManager::getValidMove(std::string inputData) {
         isTest = true;
     }
     
-    Move move = currentPlayer->getMove(boardLayout, message, isTest);
+    Move move = currentPlayer->getMove(board, message, isTest);
     while (!validMove(move)) {
         message = "That is not a legal move.";
-        move = currentPlayer->getMove(boardLayout, message, isTest);
+        move = currentPlayer->getMove(board, message, isTest);
     }
     
     return move;
@@ -103,7 +103,7 @@ bool GameManager::validMove(Move move) {
             return false;
         }
     }
-    return boardLayout.isValidMove(move);
+    return board.isValidMove(move);
 }
 
 void GameManager::updateCurrentPlayer() {
