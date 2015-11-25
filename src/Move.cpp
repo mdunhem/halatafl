@@ -13,14 +13,14 @@ Jump::Jump() {}
 
 Jump::Jump(Cell start, Cell end) : start(start), end(end) {}
 
-Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end) {
-    if (jump.jumpedCell.value != INVALID_SPACE) {
-        jumpedCell = jump.jumpedCell;
-    }
+Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end), jumpedCell(jump.jumpedCell) {
+//    if (!jump.jumpedCell.isInvalid()) {
+//        jumpedCell = jump.jumpedCell;
+//    }
 }
 
 bool Jump::isCaptureJump() {
-    if (jumpedCell.value != INVALID_SPACE) {
+    if (!jumpedCell.isInvalid()) {
         return true;
     }
     return false;

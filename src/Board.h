@@ -40,13 +40,6 @@ class Board {
     
 public:
     
-    /**
-     * Value of each position on the Board
-     */
-    enum BoardValue {
-        invalid, empty, sheep, fox
-    };
-    
     enum Direction {
         up, down, left, right, upLeft, upRight, downLeft, downRight
     };
