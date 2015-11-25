@@ -2,7 +2,7 @@
 //  Fox.cpp
 //  halatafl
 //
-//  Created by Sven on 11/14/15.
+//  Created by Mike on 11/14/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
