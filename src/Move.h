@@ -2,7 +2,7 @@
 //  Move.hpp
 //  halatafl
 //
-//  Created by Sven on 10/26/15.
+//  Created by Mike on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
@@ -31,6 +31,8 @@ struct Move {
     
     Move();
     Move(Cell start, Cell end);
+    Move(Jump jump);
+    Move(const Move &move);
     
     std::vector<Jump> jumps;
     

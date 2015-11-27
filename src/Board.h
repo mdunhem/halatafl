@@ -2,28 +2,87 @@
 //  Board.hpp
 //  halatafl
 //
-//  Created by Sven on 10/26/15.
+//  Created by Mike on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
 #ifndef Board_h
 #define Board_h
 
-#include "BoardLayout.h"
+#include <iostream>
+#include <map>
+
+#include "Cell.h"
+#include "Move.h"
+
+const char INVALID_SPACE = ' ';
+const char EMPTY_SPACE = '.';
+const char FOX_CHARACTER = 'F';
+const char SHEEP_CHARACTER = 'S';
+
+//struct BoardValue {
+//    const char InvalidSpace = ' ';
+//    const char EmptySpace = '.';
+//    const char Fox = 'F';
+//    const char Sheep = 'S';
+//};
+
+//enum Direction {
+//    up, down, left, right, upLeft, upRight, downLeft, downRight
+//};
 
 class Board {
     
-    std::string printDirectionalLinesForRow(int row);
-    
 public:
     
+    enum Direction {
+        up, down, left, right, upLeft, upRight, downLeft, downRight
+    };
+    
+    static const int ROWS;
+    static const int COLS;
+    
+    Board();
+    Board(char layout[7][7]);
+    Board(const Board& layout);
+    
+    Cell getCellAtIndex(int x, int y);
+    Cell getCellInDirectionFromCellWithRadius(Direction direction, Cell &cell, int radius = 1);
+    std::map<Direction, Cell> getSurroundingCells(Cell cell);
+    
+    std::vector<Cell> cellsForRow(int row);
+    
+    void applyMove(Move move);
+    void makeJump(Jump jump);
+    
+    bool isValidMove(Move move);
+    
+    bool isPaddockFull();
+    int sheepRemaining();
+    
+    std::vector<Cell> getFoxCells();
+    
     /**
-     * Prints out the board based on the supplied BoardLayout object.
+     * Prints out the board using supplied output stream
      *
-     * @param  {BoardLayout} boardLayout    Object containing locations of sheep and foxes on the board
      * @return {void}
      */
-    void print(BoardLayout);
+    void print(std::ostream &output) const;
+    
+private:
+    
+    std::vector<std::vector<Cell>> layout;
+    
+    bool isValidJump(Jump jump);
+    
+    std::string printDirectionalLinesForRow(int row) const;
+    
+    void cellInDirection(std::map<Direction, Cell> &cells, Direction direction, Cell cell);
 };
+
+inline std::ostream& operator<<(std::ostream &output, const Board &board) {
+    board.print(output);
+    return output;
+}
 
 #endif /* Board_h */

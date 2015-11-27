@@ -7,11 +7,22 @@
 //
 
 #include "Cell.h"
-#include "BoardLayout.h"
 
-Cell::Cell() : row(0), column(0), value(INVALID_SPACE) {}
+#include "Board.h"
 
-Cell::Cell(int row, int column, char value) : row(row), column(column), value(value) {}
+const char Cell::printableValues[] = { ' ', '.', 'S', 'F' };
+const char Cell::printableColumns[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
+const int Cell::printableRows[] = { 7, 6, 5, 4, 3, 2, 1 };
+
+Cell::Cell() : row(0), column(0), value(INVALID_SPACE), cellValue(invalid) {}
+
+Cell::Cell(int row, int column, char value) : row(row), column(column), value(value) {
+    for (int i = 0; i < 4; i++) {
+        if (value == printableValues[i]) {
+            cellValue = static_cast<Value>(i);
+        }
+    }
+}
 
 Cell::Cell(int row, char column, char value) : row(row), value(value) {
     switch(column) {
@@ -40,6 +51,26 @@ Cell::Cell(int row, char column, char value) : row(row), value(value) {
             this->column = 0;
             break;
     }
+}
+
+Cell::Cell(int row, int column, Value value) : row(row), column(column), cellValue(value) {
+    
+}
+
+bool Cell::isSheep() const {
+    return cellValue == sheep;
+}
+
+bool Cell::isFox() const {
+    return cellValue == fox;
+}
+
+bool Cell::isEmpty() const {
+    return cellValue == empty;
+}
+
+bool Cell::isInvalid() const {
+    return cellValue == invalid;
 }
 
 //Cell::Cell(const Cell& cell) : x(cell.x), y(cell.y), value(cell.value) {}
@@ -120,7 +151,7 @@ int Cell::printableRow() const {
 }
 
 void Cell::print(std::ostream &output) const {
-    output << getColumnCharacter() << printableRow();
+    output << printableColumns[column] << printableRows[row];
 }
 
 bool Cell::operator==(const Cell &cell) const {

@@ -2,25 +2,25 @@
 //  Move.cpp
 //  halatafl
 //
-//  Created by Sven on 10/26/15.
+//  Created by Mike on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
 #include "Move.h"
-#include "BoardLayout.h"
+#include "Board.h"
 
 Jump::Jump() {}
 
 Jump::Jump(Cell start, Cell end) : start(start), end(end) {}
 
-Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end) {
-    if (jump.jumpedCell.value != INVALID_SPACE) {
-        jumpedCell = jump.jumpedCell;
-    }
+Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end), jumpedCell(jump.jumpedCell) {
+//    if (!jump.jumpedCell.isInvalid()) {
+//        jumpedCell = jump.jumpedCell;
+//    }
 }
 
 bool Jump::isCaptureJump() {
-    if (jumpedCell.value != INVALID_SPACE) {
+    if (!jumpedCell.isInvalid()) {
         return true;
     }
     return false;
@@ -36,6 +36,14 @@ Move::Move(Cell start, Cell end) {
     jump.end = end;
     
     jumps.push_back(jump);
+}
+
+Move::Move(Jump jump) {
+    jumps.push_back(jump);
+}
+
+Move::Move(const Move &move) : jumps(move.jumps) {
+    
 }
 
 void Move::print(std::ostream &output) const {

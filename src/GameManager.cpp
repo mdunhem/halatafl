@@ -2,11 +2,12 @@
 //  GameManager.cpp
 //  halatafl
 //
-//  Created by Sven on 10/26/15.
+//  Created by Mike on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
 #include <typeinfo>
+#include <iostream>
 
 #include "GameManager.h"
 
@@ -22,7 +23,7 @@ void GameManager::play() {
     }
     
     printWinner();
-    board.print(boardLayout);
+    std::cout << board;
 }
 
 void GameManager::testDriver(std::ifstream &input) {
@@ -35,7 +36,7 @@ void GameManager::testDriver(std::ifstream &input) {
         }
     }
     std::getline(input, nextLine);
-    boardLayout = BoardLayout(layout);
+    board = Board(layout);
     if (!gameHasBeenWon()) {
         updateCurrentPlayer();
         playOneFullTurn(nextLine);
@@ -48,18 +49,18 @@ void GameManager::testDriver(std::ifstream &input) {
     } else {
         printWinner();
     }
-    board.print(boardLayout);
+    std::cout << board;
 }
 
 void GameManager::playOneFullTurn(std::string inputData) {
-    board.print(boardLayout);
+    std::cout << board;
     Move move = getValidMove(inputData);
     makeMove(move);
 }
 
 bool GameManager::gameHasBeenWon() {
     
-    if (boardLayout.sheepRemaining() < 9 || boardLayout.isPaddockFull()) {
+    if (board.sheepRemaining() < 9 || board.isPaddockFull()) {
         return true;
     }
     
@@ -67,7 +68,7 @@ bool GameManager::gameHasBeenWon() {
 }
 
 void GameManager::printWinner() {
-    if (boardLayout.sheepRemaining() < 9) {
+    if (board.sheepRemaining() < 9) {
         foxPlayer.won();
     } else {
         sheepPlayer.won();
@@ -75,7 +76,7 @@ void GameManager::printWinner() {
 }
 
 void GameManager::makeMove(Move move) {
-    boardLayout.applyMove(move);
+    board.applyMove(move);
 }
 
 Move GameManager::getValidMove(std::string inputData) {
@@ -87,10 +88,10 @@ Move GameManager::getValidMove(std::string inputData) {
         isTest = true;
     }
     
-    Move move = currentPlayer->getMove(boardLayout, message, isTest);
+    Move move = currentPlayer->getMove(board, message, isTest);
     while (!validMove(move)) {
         message = "That is not a legal move.";
-        move = currentPlayer->getMove(boardLayout, message, isTest);
+        move = currentPlayer->getMove(board, message, isTest);
     }
     
     return move;
@@ -98,11 +99,11 @@ Move GameManager::getValidMove(std::string inputData) {
 
 bool GameManager::validMove(Move move) {
     if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
-        if (move.jumps[0].start.value == FOX_CHARACTER) {
+        if (move.jumps[0].start.isFox() || move.jumps[0].start.isEmpty() || move.jumps[0].start.isInvalid()) {
             return false;
         }
     }
-    return boardLayout.isValidMove(move);
+    return true; // board.isValidMove(move);
 }
 
 void GameManager::updateCurrentPlayer() {

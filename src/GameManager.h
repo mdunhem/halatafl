@@ -2,7 +2,7 @@
 //  GameManager.hpp
 //  halatafl
 //
-//  Created by Sven on 10/26/15.
+//  Created by Mike on 10/26/15.
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
@@ -13,7 +13,6 @@
 
 #include "SheepPlayer.h"
 #include "Move.h"
-#include "BoardLayout.h"
 #include "Board.h"
 #include "FoxPlayer.h"
 #include "SheepPlayer.h"
@@ -46,7 +45,7 @@ class GameManager {
     
     /**
      * A valid move has been created and this function applies the changes
-     * made by the move to the private boardLayout object used as the
+     * made by the move to the private board object used as the
      * underlying data structure for the location of all players in the
      * game.
      *
@@ -68,9 +67,6 @@ class GameManager {
     
     
     bool isPaddockFull();
-    
-    
-    BoardLayout boardLayout;
     
     
     Board board;
