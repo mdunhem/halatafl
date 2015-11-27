@@ -29,6 +29,15 @@ void Fox::setCell(Cell cell) {
 }
 
 Move Fox::getMove() {
+    if (moves.size()) {
+        Move *moveToBeUsed = &moves.front();
+        for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
+            if (Move(*iterator).jumps.size() > moveToBeUsed->jumps.size()) {
+                *moveToBeUsed = Move(*iterator);
+            }
+        }
+        return *moveToBeUsed;
+    }
     return move;
 }
 void Fox::setMove(Move move) {
@@ -77,30 +86,30 @@ std::map<Board::Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &boar
     return values;
 }
 
-void Fox::calculateMove() {
-    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
-    for (auto direction : surroundingValues) {
-        if (direction.second.value == SHEEP_CHARACTER) {
-            Cell jumpToCell = board.getCellInDirectionFromCell(direction.first, direction.second);
-            if (jumpToCell.value == EMPTY_SPACE) {
-                Jump jump(*currentLocation, jumpToCell);
-                jump.jumpedCell = direction.second;
-                move.jumps.push_back(jump);
-            }
-        } else {
-            std::map<Board::Direction, Cell>secondRowOfSurroundingValues = getSurroundingValuesWithRadius(board, 2);
-            for (auto secondDirection : secondRowOfSurroundingValues) {
-                if (secondDirection.second.value == SHEEP_CHARACTER) {
-                    Cell jumpToCell = board.getCellInDirectionFromCell(secondDirection.first, secondDirection.second);
-                    if (jumpToCell.value == EMPTY_SPACE) {
-                        Move jump(*currentLocation, secondDirection.second);
-                        possibleThreats.push_back(jump);
-                    }
-                }
-            }
-        }
-    }
-}
+//void Fox::calculateMove() {
+//    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
+//    for (auto direction : surroundingValues) {
+//        if (direction.second.value == SHEEP_CHARACTER) {
+//            Cell jumpToCell = board.getCellInDirectionFromCell(direction.first, direction.second);
+//            if (jumpToCell.value == EMPTY_SPACE) {
+//                Jump jump(*currentLocation, jumpToCell);
+//                jump.jumpedCell = direction.second;
+//                move.jumps.push_back(jump);
+//            }
+//        } else {
+//            std::map<Board::Direction, Cell>secondRowOfSurroundingValues = getSurroundingValuesWithRadius(board, 2);
+//            for (auto secondDirection : secondRowOfSurroundingValues) {
+//                if (secondDirection.second.value == SHEEP_CHARACTER) {
+//                    Cell jumpToCell = board.getCellInDirectionFromCell(secondDirection.first, secondDirection.second);
+//                    if (jumpToCell.value == EMPTY_SPACE) {
+//                        Move jump(*currentLocation, secondDirection.second);
+//                        possibleThreats.push_back(jump);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 void Fox::findPossibleJump(Board &board) {
     std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
@@ -144,6 +153,26 @@ void Fox::findPossibleJump(Board &board) {
 }
 
 void Fox::addJump(Jump jump) {
-    move.jumps.push_back(jump);
+    if (moves.size()) {
+        if (moves.back().jumps.back().end == jump.start) {
+            moves.back().jumps.push_back(jump);
+        } else {
+            Move newMove = moves.back();
+            newMove.jumps.pop_back();
+            newMove.jumps.push_back(jump);
+            moves.push_back(newMove);
+        }
+    } else {
+        moves.push_back(Move(jump));
+    }
+//    move.jumps.push_back(jump);
+}
+
+void Fox::addJumpToMove(Jump jump, Move *move) {
+    if (move != nullptr) {
+        move->jumps.push_back(jump);
+    } else {
+        moves.push_back(Move(jump));
+    }
 }
 

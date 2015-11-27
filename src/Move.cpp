@@ -38,6 +38,14 @@ Move::Move(Cell start, Cell end) {
     jumps.push_back(jump);
 }
 
+Move::Move(Jump jump) {
+    jumps.push_back(jump);
+}
+
+Move::Move(const Move &move) : jumps(move.jumps) {
+    
+}
+
 void Move::print(std::ostream &output) const {
     output << jumps.front().start << '-' << jumps.back().end;
 }

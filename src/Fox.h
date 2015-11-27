@@ -15,12 +15,13 @@
 #include "Move.h"
 #include "Board.h"
 
-class Fox {
+struct Fox {
     
     Board board;
     Cell cell;
     Cell *currentLocation;
     Move move;
+    std::vector<Move> moves;
     std::vector<Move> possibleThreats;
     std::vector<Move> possibleNonThreateningMoves;
     std::map<Board::Direction, Cell> surroundingValues;
@@ -50,9 +51,10 @@ public:
     
     void findPossibleJump(Board &board);
     
-    void calculateMove();
+//    void calculateMove();
     
     void addJump(Jump jump);
+    void addJumpToMove(Jump jump, Move *move);
 };
 
 #endif /* Fox_h */

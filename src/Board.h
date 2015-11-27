@@ -10,6 +10,7 @@
 #define Board_h
 
 #include <iostream>
+#include <map>
 
 #include "Cell.h"
 #include "Move.h"
@@ -32,12 +33,6 @@ const char SHEEP_CHARACTER = 'S';
 
 class Board {
     
-    std::vector<std::vector<Cell>> layout;
-    
-    bool isValidJump(Jump jump);
-    
-    std::string printDirectionalLinesForRow(int row) const;
-    
 public:
     
     enum Direction {
@@ -52,7 +47,9 @@ public:
     Board(const Board& layout);
     
     Cell getCellAtIndex(int x, int y);
-    Cell getCellInDirectionFromCell(Direction direction, Cell &cell);
+    Cell getCellInDirectionFromCellWithRadius(Direction direction, Cell &cell, int radius = 1);
+    std::map<Direction, Cell> getSurroundingCells(Cell cell);
+    
     std::vector<Cell> cellsForRow(int row);
     
     void applyMove(Move move);
@@ -71,6 +68,16 @@ public:
      * @return {void}
      */
     void print(std::ostream &output) const;
+    
+private:
+    
+    std::vector<std::vector<Cell>> layout;
+    
+    bool isValidJump(Jump jump);
+    
+    std::string printDirectionalLinesForRow(int row) const;
+    
+    void cellInDirection(std::map<Direction, Cell> &cells, Direction direction, Cell cell);
 };
 
 inline std::ostream& operator<<(std::ostream &output, const Board &board) {

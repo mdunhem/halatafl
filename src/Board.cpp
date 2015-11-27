@@ -57,36 +57,73 @@ Cell Board::getCellAtIndex(int x, int y) {
     return layout[x][y];
 }
 
-Cell Board::getCellInDirectionFromCell(Board::Direction direction, Cell &cell) {
+Cell Board::getCellInDirectionFromCellWithRadius(Board::Direction direction, Cell &cell, int radius) {
     Cell returnCell;
     switch (direction) {
         case up: {
-            returnCell = getCellAtIndex(cell.row - 1, cell.column);
+            returnCell = getCellAtIndex(cell.row - radius, cell.column);
+            break;
         }
         case down: {
-            returnCell = getCellAtIndex(cell.row + 1, cell.column);
+            returnCell = getCellAtIndex(cell.row + radius, cell.column);
+            break;
         }
         case left: {
-            returnCell = getCellAtIndex(cell.row, cell.column - 1);
+            returnCell = getCellAtIndex(cell.row, cell.column - radius);
+            break;
         }
         case right: {
-            returnCell = getCellAtIndex(cell.row, cell.column + 1);
+            returnCell = getCellAtIndex(cell.row, cell.column + radius);
+            break;
         }
         case upLeft: {
-            returnCell = getCellAtIndex(cell.row - 1, cell.column - 1);
+            returnCell = getCellAtIndex(cell.row - radius, cell.column - radius);
+            break;
         }
         case upRight: {
-            returnCell = getCellAtIndex(cell.row - 1, cell.column + 1);
+            returnCell = getCellAtIndex(cell.row - radius, cell.column + radius);
+            break;
         }
         case downLeft: {
-            returnCell = getCellAtIndex(cell.row + 1, cell.column - 1);
+            returnCell = getCellAtIndex(cell.row + radius, cell.column - radius);
+            break;
         }
         case downRight: {
-            returnCell = getCellAtIndex(cell.row + 1, cell.column + 1);
+            returnCell = getCellAtIndex(cell.row + radius, cell.column + radius);
+            break;
         }
     }
     
     return returnCell;
+}
+
+std::map<Board::Direction, Cell> Board::getSurroundingCells(Cell cell) {
+    std::map<Board::Direction, Cell> cells;
+    
+    cellInDirection(cells, up, cell);
+    cellInDirection(cells, down, cell);
+    cellInDirection(cells, left, cell);
+    cellInDirection(cells, right, cell);
+    
+    if (cell.isFox()) {
+        if ((cell.row % 2 == 0 && cell.column % 2 == 0) || (cell.row % 2 != 0 && cell.column % 2 != 0)) {
+            cellInDirection(cells, upLeft, cell);
+            cellInDirection(cells, upRight, cell);
+            cellInDirection(cells, downLeft, cell);
+            cellInDirection(cells, downRight, cell);
+        }
+        
+    }
+    
+    return cells;
+}
+
+void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, Board::Direction direction, Cell cell) {
+    Cell cellInDirection = getCellInDirectionFromCellWithRadius(direction, cell);
+    
+    if (!cellInDirection.isInvalid()) {
+        cells[direction] = cellInDirection;
+    }
 }
 
 std::vector<Cell> Board::cellsForRow(int row) {
@@ -131,30 +168,32 @@ bool Board::isValidJump(Jump jump) {
     Cell *end = &jump.end;
     bool valid = true;
     
-    if (layout[start->row][start->column].isEmpty() || !layout[end->row][end->column].isEmpty()) {
-        valid = false;
-    } else {
-        if (layout[start->row][start->column].isSheep()) {
-            if (layout[end->row][end->column].isEmpty()) {
-                // Sheep cannot move more than one space and only left, right, or up
-                if (start->column - end->column > 1 || start->column - end->column < -1) {
-                    valid = false;
-                } else if (start->row - end->row > 1 || start->row < end->row) {
-                    valid = false;
-                } else if (start->row - end->row != 0 && start->column - end->column != 0) {
-                    // Cannot make a diagnol move
-                    valid = false;
-                }
+    if (layout[start->row][start->column].isSheep()) {
+        if (layout[end->row][end->column].isEmpty()) {
+            // Sheep cannot move more than one space and only left, right, or up
+            if (start->column - end->column > 1 || start->column - end->column < -1) {
+                valid = false;
+            } else if (start->row - end->row > 1 || start->row < end->row) {
+                valid = false;
+            } else if (start->row - end->row != 0 && start->column - end->column != 0) {
+                // Cannot make a diagnol move
+                valid = false;
             }
-        } else if (layout[start->row][start->column].isFox()) {
-            // Can only move along the lines on the board
-            if ((start->row % 2 == 0 && start->column % 2 != 0) || (start->row % 2 != 0 && start->column % 2 == 0)) {
-                if (start->row != end->row || start->column != end->column) {
-                    valid = false;
-                }
+        }
+    } else if (layout[start->row][start->column].isFox()) {
+        // Can only move along the lines on the board
+        if ((start->row % 2 == 0 && start->column % 2 != 0) || (start->row % 2 != 0 && start->column % 2 == 0)) {
+            if (start->row != end->row && start->column != end->column) {
+                valid = false;
             }
         }
     }
+    
+//    if (layout[start->row][start->column].isEmpty() || !layout[end->row][end->column].isEmpty()) {
+//        valid = false;
+//    } else {
+//        
+//    }
     
     // Allow staying in the same place
     if (*start == *end) {

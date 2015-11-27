@@ -19,13 +19,13 @@
 
 class FoxPlayer : public Player {
     
-    Fox foxOne;
-    Fox foxTwo;
+//    Fox foxOne;
+//    Fox foxTwo;
     
     void determinePossibleMove(Board board, Fox &fox);
     
     void search(Board &board, Fox &fox);
-    void applyJump(Board &board, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
+//    void applyJump(Board &board, Fox &fox, Cell &jumpToCell, Cell &jumpedCell);
     
 public:
     

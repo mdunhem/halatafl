@@ -171,3 +171,31 @@ for each direction:
 
 
 
+7     .-.-S    
+      |\|/|    
+6     .-F-.    
+      |/|\|    
+5 F-.-.-S-S-.-.
+  |\|/|\|/|\|/|
+4 S-.-.-.-.-.-S
+  |/|\|/|\|/|\|
+3 S-S-.-S-.-S-S
+      |\|/|    
+2     S-.-S    
+      |/|\|    
+1     S-S-S    
+  a b c d e f g
+
+
+function search(&board, &fox) {
+    std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
+    for (auto surroundingValue : surroundingValues) {
+        Board::Direction direction = surroundingValue.first;
+        Cell cell = surroundingValue.second;
+        jump = searchSurroundingValues(board, fox, direction, cell);
+    }
+}
+
+function Jump* searchSurroundingValues(&board, &fox, direction, cell) {
+    
+}

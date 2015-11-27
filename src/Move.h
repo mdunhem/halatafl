@@ -31,6 +31,8 @@ struct Move {
     
     Move();
     Move(Cell start, Cell end);
+    Move(Jump jump);
+    Move(const Move &move);
     
     std::vector<Jump> jumps;
     
