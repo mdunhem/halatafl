@@ -14,6 +14,7 @@
 
 #include "Cell.h"
 #include "Move.h"
+#include "Jump.h"
 
 class Board {
     

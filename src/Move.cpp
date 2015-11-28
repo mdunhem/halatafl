@@ -9,21 +9,6 @@
 #include "Move.h"
 #include "Board.h"
 
-Jump::Jump() {}
-
-Jump::Jump(Cell start, Cell end) : start(start), end(end) {}
-
-Jump::Jump(Cell start, Cell end, Cell jumpedCell) : start(start), end(end), jumpedCell(jumpedCell) {}
-
-Jump::Jump(const Jump &jump) : start(jump.start), end(jump.end), jumpedCell(jump.jumpedCell) {}
-
-bool Jump::isCaptureJump() {
-    if (!jumpedCell.isInvalid()) {
-        return true;
-    }
-    return false;
-}
-
 Move::Move() {}
 
 Move::Move(Cell start, Cell end) {

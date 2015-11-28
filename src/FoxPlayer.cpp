@@ -12,6 +12,7 @@
 #include <time.h>
 
 #include "FoxPlayer.h"
+#include "Jump.h"
 
 Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     

@@ -13,6 +13,7 @@
 
 #include "Cell.h"
 #include "Move.h"
+#include "Jump.h"
 
 struct Fox {
     
