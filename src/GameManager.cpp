@@ -71,13 +71,13 @@ void GameManager::testDriver(std::ifstream &input) {
     std::cout << board;
 }
 
-void GameManager::playOneFullTurn(std::string inputData) {
+void GameManager::playOneFullTurn(const std::string &inputData) {
     std::cout << board;
     Move move = getValidMove(inputData);
     makeMove(move);
 }
 
-bool GameManager::gameHasBeenWon() {
+bool GameManager::gameHasBeenWon() const {
     
     if (board.sheepRemaining() < 9 || board.isPaddockFull()) {
         return true;
@@ -86,7 +86,7 @@ bool GameManager::gameHasBeenWon() {
     return false;
 }
 
-void GameManager::printWinner() {
+void GameManager::printWinner() const {
     if (board.sheepRemaining() < 9) {
         foxPlayer.won();
     } else {
@@ -94,11 +94,11 @@ void GameManager::printWinner() {
     }
 }
 
-void GameManager::makeMove(Move move) {
+void GameManager::makeMove(const Move &move) {
     board.applyMove(move);
 }
 
-Move GameManager::getValidMove(std::string inputData) {
+Move GameManager::getValidMove(const std::string &inputData) const {
     std::string message = "";
     bool isTest = false;
     
@@ -116,7 +116,7 @@ Move GameManager::getValidMove(std::string inputData) {
     return move;
 }
 
-bool GameManager::validMove(Move move) {
+bool GameManager::validMove(const Move &move) const {
     if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
         if (move.getJumps()[0].getStart().isFox() || move.getJumps()[0].getStart().isEmpty() || move.getJumps()[0].getStart().isInvalid()) {
             return false;

@@ -22,7 +22,7 @@
  */
 class GameManager {
     
-    void playOneFullTurn(std::string inputData);
+    void playOneFullTurn(const std::string &inputData);
     
     /**
      * Determines if the game has been won based on whether there are less than
@@ -30,7 +30,7 @@ class GameManager {
      *
      * @return {bool}   Whether game has been won.
      */
-    bool gameHasBeenWon();
+    bool gameHasBeenWon() const;
     
     /**
      * Asks current player for a move. Then validates the move and reprompts
@@ -38,10 +38,10 @@ class GameManager {
      *
      * @return {Move}   Valid move to be made
      */
-    Move getValidMove(std::string inputData);
+    Move getValidMove(const std::string &inputData) const;
     
     
-    bool validMove(Move move);
+    bool validMove(const Move &move) const;
     
     /**
      * A valid move has been created and this function applies the changes
@@ -52,7 +52,7 @@ class GameManager {
      * @param  {Move} move      Valid move to be applied to the data structure
      * @return {void}
      */
-    void makeMove(Move);
+    void makeMove(const Move &move);
     
     /**
      * Determines which player won the game and then calls that
@@ -60,13 +60,13 @@ class GameManager {
      *
      * @return {void}
      */
-    void printWinner();
+    void printWinner() const;
     
     
     void updateCurrentPlayer();
     
     
-    bool isPaddockFull();
+    bool isPaddockFull() const;
     
     
     Board board;
