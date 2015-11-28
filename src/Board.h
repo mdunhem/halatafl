@@ -35,19 +35,19 @@ public:
     Board& operator=(const Board &board);
     ~Board();
     
-    Cell getCellAtIndex(int x, int y);
-    Cell getCellInDirectionFromCellWithRadius(Direction direction, Cell &cell, int radius = 1);
+    Cell getCellAtIndex(const int &x, const int &y) const;
+    Cell getCellInDirectionFromCellWithRadius(const Direction &direction, const Cell &cell, const int &radius = 1) const;
     std::map<Direction, Cell> getSurroundingCells(Cell cell);
     
-    void applyMove(Move move);
-    void makeJump(Jump jump);
+    void applyMove(const Move &move);
+    void makeJump(const Jump &jump);
     
-    bool isValidMove(Move move);
+    bool isValidMove(const Move &move) const;
     
-    bool isPaddockFull();
-    int sheepRemaining();
+    bool isPaddockFull() const;
+    int sheepRemaining() const;
     
-    std::vector<Cell> getFoxCells();
+    std::vector<Cell> getFoxCells() const;
     
     /**
      * Prints out the board using supplied output stream
@@ -60,11 +60,11 @@ private:
     
     std::vector<std::vector<Cell> > layout;
     
-    bool isValidJump(Jump jump);
+    bool isValidJump(const Jump &jump) const;
     
     std::string printDirectionalLinesForRow(int row) const;
     
-    void cellInDirection(std::map<Direction, Cell> &cells, Direction direction, Cell cell);
+    void cellInDirection(std::map<Direction, Cell> &cells, const Direction &direction, const Cell &cell) const;
 };
 
 inline std::ostream& operator<<(std::ostream &output, const Board &board) {

@@ -56,14 +56,14 @@ Board& Board::operator=(const Board &board) {
 
 Board::~Board() {}
 
-Cell Board::getCellAtIndex(int x, int y) {
+Cell Board::getCellAtIndex(const int &x, const int &y) const {
     if (x < 0 || y < 0 || x >= ROWS || y >= COLS) {
         return layout[0][0];
     }
     return layout[x][y];
 }
 
-Cell Board::getCellInDirectionFromCellWithRadius(Board::Direction direction, Cell &cell, int radius) {
+Cell Board::getCellInDirectionFromCellWithRadius(const Board::Direction &direction, const Cell &cell, const int &radius) const {
     Cell returnCell;
     switch (direction) {
         case up: {
@@ -124,7 +124,7 @@ std::map<Board::Direction, Cell> Board::getSurroundingCells(Cell cell) {
     return cells;
 }
 
-void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, Board::Direction direction, Cell cell) {
+void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, const Board::Direction &direction, const Cell &cell) const {
     Cell cellInDirection = getCellInDirectionFromCellWithRadius(direction, cell);
     
     if (!cellInDirection.isInvalid()) {
@@ -132,13 +132,13 @@ void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, Board::Dire
     }
 }
 
-void Board::applyMove(Move move) {
+void Board::applyMove(const Move &move) {
     for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
         makeJump(Jump(*iterator));
     }
 }
 
-void Board::makeJump(Jump jump) {
+void Board::makeJump(const Jump &jump) {
     if (isValidJump(jump)) {
         if (jump.getStart() != jump.getEnd()) {
             layout[jump.getEnd().getRow()][jump.getEnd().getColumn()].setValue(jump.getStart().getValue());
@@ -150,7 +150,7 @@ void Board::makeJump(Jump jump) {
     }
 }
 
-bool Board::isValidMove(Move move) {
+bool Board::isValidMove(const Move &move) const {
     bool valid = false;
     Board board = *this;
     for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
@@ -165,7 +165,7 @@ bool Board::isValidMove(Move move) {
     return valid;
 }
 
-bool Board::isValidJump(Jump jump) {
+bool Board::isValidJump(const Jump &jump) const {
     Cell start = jump.getStart();
     Cell end = jump.getEnd();
     bool valid = true;
@@ -199,7 +199,7 @@ bool Board::isValidJump(Jump jump) {
     return valid;
 }
 
-bool Board::isPaddockFull() {
+bool Board::isPaddockFull() const {
     
     if (layout[0][2].isSheep() &&
         layout[0][3].isSheep() &&
@@ -216,7 +216,7 @@ bool Board::isPaddockFull() {
     return false;
 }
 
-int Board::sheepRemaining() {
+int Board::sheepRemaining() const {
     int count = 0;
     for (int row = 0; row < 7; row++) {
         for (int column = 0; column < 7; column++) {
@@ -229,7 +229,7 @@ int Board::sheepRemaining() {
     return count;
 }
 
-std::vector<Cell> Board::getFoxCells() {
+std::vector<Cell> Board::getFoxCells() const {
     std::vector<Cell> cells;
     for (int row = 0; row < 7; row++) {
         for (int column = 0; column < 7; column++) {

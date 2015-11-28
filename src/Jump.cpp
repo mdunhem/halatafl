@@ -43,7 +43,7 @@ Cell Jump::getJumpedCell() const {
 }
 
 // Tester
-bool Jump::isCaptureJump() {
+bool Jump::isCaptureJump() const {
     if (!jumpedCell.isInvalid()) {
         return true;
     }

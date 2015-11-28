@@ -26,7 +26,7 @@ struct Jump {
     Cell getEnd() const;
     Cell getJumpedCell() const;
     
-    bool isCaptureJump();
+    bool isCaptureJump() const;
     
 private:
     Cell start;
