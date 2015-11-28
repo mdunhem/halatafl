@@ -16,7 +16,11 @@ struct Jump {
     Jump();
     Jump(Cell start, Cell end);
     Jump(Cell start, Cell end, Cell jumpedCell);
+    
+    // Big 3
     Jump(const Jump &jump);
+    Jump& operator=(const Jump &jump);
+    ~Jump();
     
     Cell getStart() const;
     Cell getEnd() const;
