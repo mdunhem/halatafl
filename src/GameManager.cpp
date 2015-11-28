@@ -103,7 +103,7 @@ bool GameManager::validMove(Move move) {
             return false;
         }
     }
-    return true; // board.isValidMove(move);
+    return true;
 }
 
 void GameManager::updateCurrentPlayer() {

@@ -11,9 +11,9 @@
 // Constructors
 Fox::Fox() {}
 
-Fox::Fox(Board board, Cell cell) : cell(cell) {}
+Fox::Fox(Cell cell) : cell(cell) {}
 
-Fox::Fox(const Fox &fox) : cell(fox.cell), move(fox.move), possibleThreats(fox.possibleThreats) {}
+Fox::Fox(const Fox &fox) : cell(fox.cell), moves(fox.moves), possibleThreats(fox.possibleThreats), possibleNonThreateningMoves(fox.possibleNonThreateningMoves) {}
 
 // Getters and setters
 Cell Fox::getCell() const {
@@ -24,16 +24,22 @@ void Fox::setCell(Cell cell) {
 }
 
 Move Fox::getMove() {
-    if (moves.size()) {
-        Move *moveToBeUsed = &moves.front();
-        for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
-            if (Move(*iterator).jumps.size() > moveToBeUsed->jumps.size()) {
-                *moveToBeUsed = Move(*iterator);
-            }
-        }
-        return *moveToBeUsed;
+    if (moves.empty()) {
+        moves.push_back(Move());
     }
-    return move;
+    
+    Move *moveToBeUsed = &moves.front();
+    for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
+        if (Move(*iterator).jumps.size() > moveToBeUsed->jumps.size()) {
+            *moveToBeUsed = Move(*iterator);
+        }
+    }
+    
+    return *moveToBeUsed;
+}
+
+std::vector<Move> Fox::getMoves() const {
+    return moves;
 }
 
 std::vector<Move> Fox::getPossibleThreats() const {
@@ -66,99 +72,4 @@ void Fox::addJump(Jump jump) {
         moves.push_back(Move(jump));
     }
 }
-
-//void Fox::determineSurroundingValues(Board &board) {
-//    surroundingValues[Board::Direction::up] = board.getCellAtIndex(cell.row - 1, cell.column);
-//    surroundingValues[Board::Direction::down] = board.getCellAtIndex(cell.row + 1, cell.column);
-//    surroundingValues[Board::Direction::left] = board.getCellAtIndex(cell.row, cell.column - 1);
-//    surroundingValues[Board::Direction::right] = board.getCellAtIndex(cell.row, cell.column + 1);
-//    surroundingValues[Board::Direction::upLeft] = board.getCellAtIndex(cell.row - 1, cell.column - 1);
-//    surroundingValues[Board::Direction::upRight] = board.getCellAtIndex(cell.row - 1, cell.column + 1);
-//    surroundingValues[Board::Direction::downLeft] = board.getCellAtIndex(cell.row + 1, cell.column - 1);
-//    surroundingValues[Board::Direction::downRight] = board.getCellAtIndex(cell.row + 1, cell.column + 1);
-//}
-//
-//
-//std::map<Board::Direction, Cell> Fox::getSurroundingValuesWithRadius(Board &board, int radius) {
-//    std::map<Board::Direction, Cell> values;
-//    values[Board::Direction::up] = board.getCellAtIndex(cell.row - radius, cell.column);
-//    values[Board::Direction::down] = board.getCellAtIndex(cell.row + radius, cell.column);
-//    values[Board::Direction::left] = board.getCellAtIndex(cell.row, cell.column - radius);
-//    values[Board::Direction::right] = board.getCellAtIndex(cell.row, cell.column + radius);
-//    values[Board::Direction::upLeft] = board.getCellAtIndex(cell.row - radius, cell.column - radius);
-//    values[Board::Direction::upRight] = board.getCellAtIndex(cell.row - radius, cell.column + radius);
-//    values[Board::Direction::downLeft] = board.getCellAtIndex(cell.row + radius, cell.column - radius);
-//    values[Board::Direction::downRight] = board.getCellAtIndex(cell.row + radius, cell.column + radius);
-//    
-//    return values;
-//}
-
-//void Fox::calculateMove() {
-//    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
-//    for (auto direction : surroundingValues) {
-//        if (direction.second.value == SHEEP_CHARACTER) {
-//            Cell jumpToCell = board.getCellInDirectionFromCell(direction.first, direction.second);
-//            if (jumpToCell.value == EMPTY_SPACE) {
-//                Jump jump(*currentLocation, jumpToCell);
-//                jump.jumpedCell = direction.second;
-//                move.jumps.push_back(jump);
-//            }
-//        } else {
-//            std::map<Board::Direction, Cell>secondRowOfSurroundingValues = getSurroundingValuesWithRadius(board, 2);
-//            for (auto secondDirection : secondRowOfSurroundingValues) {
-//                if (secondDirection.second.value == SHEEP_CHARACTER) {
-//                    Cell jumpToCell = board.getCellInDirectionFromCell(secondDirection.first, secondDirection.second);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        Move jump(*currentLocation, secondDirection.second);
-//                        possibleThreats.push_back(jump);
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-//void Fox::findPossibleJump(Board &board) {
-//    std::map<Board::Direction, Cell>surroundingValues = getSurroundingValuesWithRadius(board, 1);
-//    for (auto direction : surroundingValues) {
-//        if (direction.second.value == SHEEP_CHARACTER) {
-//            switch (direction.first) {
-//                case Board::Direction::down: {
-//                    Cell jumpToCell = board.getCellAtIndex(currentLocation->row + 2, currentLocation->column);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        Jump jump(*currentLocation, jumpToCell);
-//                        jump.jumpedCell = board.getCellAtIndex(currentLocation->row + 1, currentLocation->column);
-//                        move.jumps.push_back(jump);
-//                        currentLocation = &jumpToCell;
-////                        cell = jumpToCell;
-////                        cell.value = FOX_CHARACTER;
-//                        board.makeJump(jump);
-//                        findPossibleJump(board);
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::left: {
-//                    Cell jumpToCell = board.getCellAtIndex(currentLocation->row, currentLocation->column - 2);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        Jump jump(*currentLocation, jumpToCell);
-//                        jump.jumpedCell = board.getCellAtIndex(currentLocation->row, currentLocation->column - 1);
-//                        move.jumps.push_back(jump);
-//                        currentLocation = &jumpToCell;
-////                        cell = jumpToCell;
-////                        cell.value = FOX_CHARACTER;
-//                        board.makeJump(jump);
-//                        findPossibleJump(board);
-//                    }
-//                    break;
-//                }
-//                    
-//                default:
-//                    break;
-//            }
-//        }
-//    }
-//}
-
-
-
 

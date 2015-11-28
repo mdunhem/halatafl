@@ -20,10 +20,6 @@ struct Cell {
         invalid = 0, empty, sheep, fox
     };
     
-    int row;
-    int column;
-    Value value;
-    
     static const char printableValues[];
     static const char printableColumns[];
     static const int printableRows[];
@@ -33,6 +29,10 @@ struct Cell {
     Cell(int row, char column, char value);
     Cell(int row, int column, Value value);
     //    Cell(const Cell& cell);
+    
+    int row;
+    int column;
+    Value value;
     
     bool isSheep() const;
     bool isFox() const;

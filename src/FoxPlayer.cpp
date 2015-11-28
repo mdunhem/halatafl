@@ -19,8 +19,8 @@ Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     
     std::vector<Cell> foxCells = board.getFoxCells();
     
-    Fox foxOne(board, foxCells[0]);
-    Fox foxTwo(board, foxCells[1]);
+    Fox foxOne(foxCells[0]);
+    Fox foxTwo(foxCells[1]);
     
     determinePossibleMove(board, foxOne);
     determinePossibleMove(board, foxTwo);
@@ -95,7 +95,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
         }
     }
     
-    if (fox.moves.empty() && fox.getPossibleThreats().empty() && fox.getPossibleNonThreateningMoves().empty()) {
-        fox.addJump(Jump(fox.cell, fox.cell));
+    if (fox.getMoves().empty() && fox.getPossibleThreats().empty() && fox.getPossibleNonThreateningMoves().empty()) {
+        fox.addJump(Jump(fox.getCell(), fox.getCell()));
     }
 }
