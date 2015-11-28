@@ -92,6 +92,11 @@ public:
      */
     GameManager();
     
+    // Big 3
+    GameManager(const GameManager &gameManager);
+    GameManager& operator=(const GameManager &gameManager);
+    ~GameManager();
+    
     /**
      * Main game loop function. Continues running until the game has been
      * won. Prints the board, asks for a valid move, applies the move,

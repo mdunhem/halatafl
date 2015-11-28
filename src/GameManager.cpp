@@ -15,6 +15,25 @@ GameManager::GameManager() {
     currentPlayer = &foxPlayer;
 }
 
+// Big 3
+GameManager::GameManager(const GameManager &gameManager) : board(gameManager.board), currentPlayer(gameManager.currentPlayer), foxPlayer(gameManager.foxPlayer), sheepPlayer(gameManager.sheepPlayer) {}
+
+GameManager& GameManager::operator=(const GameManager &gameManager) {
+    if (this != &gameManager) {
+        board = gameManager.board;
+        currentPlayer = gameManager.currentPlayer;
+        foxPlayer = gameManager.foxPlayer;
+        sheepPlayer = gameManager.sheepPlayer;
+    }
+    
+    return *this;
+}
+
+GameManager::~GameManager() {
+    currentPlayer = nullptr;
+    delete currentPlayer;
+}
+
 void GameManager::play() {
     std::string inputData = "";
     while (!gameHasBeenWon()) {
