@@ -71,7 +71,7 @@ void FoxPlayer::search(Board &board, Fox &fox) {
         
         if (cell.isSheep()) {
             if (jumpToCell.isEmpty()) {
-                jumpToCell.value = Cell::Value::fox;
+                jumpToCell.setValue(Cell::Value::fox);
                 Jump jump(foxCell, jumpToCell, cell);
                 fox.addJump(jump);
                 board.makeJump(jump);

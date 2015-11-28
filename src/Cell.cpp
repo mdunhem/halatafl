@@ -75,6 +75,34 @@ Cell& Cell::operator=(const Cell &cell) {
 
 Cell::~Cell() {}
 
+
+// Get and set
+int Cell::getRow() const {
+    return row;
+}
+
+void Cell::setRow(const int &row) {
+    this->row = row;
+}
+
+int Cell::getColumn() const {
+    return column;
+}
+
+void Cell::setColumn(const int &column) {
+    this->column = column;
+}
+
+Cell::Value Cell::getValue() const {
+    return value;
+}
+
+void Cell::setValue(const Cell::Value &value) {
+    this->value = value;
+}
+
+
+// Testers
 bool Cell::isSheep() const {
     return value == sheep;
 }

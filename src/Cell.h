@@ -34,9 +34,14 @@ struct Cell {
     Cell& operator=(const Cell &cell);
     ~Cell();
     
-    int row;
-    int column;
-    Value value;
+    int getRow() const;
+    void setRow(const int &row);
+    
+    int getColumn() const;
+    void setColumn(const int &column);
+    
+    Value getValue() const;
+    void setValue(const Value &value);
     
     bool isSheep() const;
     bool isFox() const;
@@ -48,6 +53,10 @@ struct Cell {
     bool operator==(const Cell &cell) const;
     bool operator!=(const Cell &cell) const;
     
+private:
+    int row;
+    int column;
+    Value value;
 };
 
 inline std::ostream& operator<<(std::ostream &output, const Cell &cell) {

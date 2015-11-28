@@ -63,35 +63,35 @@ Cell Board::getCellInDirectionFromCellWithRadius(Board::Direction direction, Cel
     Cell returnCell;
     switch (direction) {
         case up: {
-            returnCell = getCellAtIndex(cell.row - radius, cell.column);
+            returnCell = getCellAtIndex(cell.getRow() - radius, cell.getColumn());
             break;
         }
         case down: {
-            returnCell = getCellAtIndex(cell.row + radius, cell.column);
+            returnCell = getCellAtIndex(cell.getRow() + radius, cell.getColumn());
             break;
         }
         case left: {
-            returnCell = getCellAtIndex(cell.row, cell.column - radius);
+            returnCell = getCellAtIndex(cell.getRow(), cell.getColumn() - radius);
             break;
         }
         case right: {
-            returnCell = getCellAtIndex(cell.row, cell.column + radius);
+            returnCell = getCellAtIndex(cell.getRow(), cell.getColumn() + radius);
             break;
         }
         case upLeft: {
-            returnCell = getCellAtIndex(cell.row - radius, cell.column - radius);
+            returnCell = getCellAtIndex(cell.getRow() - radius, cell.getColumn() - radius);
             break;
         }
         case upRight: {
-            returnCell = getCellAtIndex(cell.row - radius, cell.column + radius);
+            returnCell = getCellAtIndex(cell.getRow() - radius, cell.getColumn() + radius);
             break;
         }
         case downLeft: {
-            returnCell = getCellAtIndex(cell.row + radius, cell.column - radius);
+            returnCell = getCellAtIndex(cell.getRow() + radius, cell.getColumn() - radius);
             break;
         }
         case downRight: {
-            returnCell = getCellAtIndex(cell.row + radius, cell.column + radius);
+            returnCell = getCellAtIndex(cell.getRow() + radius, cell.getColumn() + radius);
             break;
         }
     }
@@ -108,7 +108,7 @@ std::map<Board::Direction, Cell> Board::getSurroundingCells(Cell cell) {
     cellInDirection(cells, right, cell);
     
     if (cell.isFox()) {
-        if ((cell.row % 2 == 0 && cell.column % 2 == 0) || (cell.row % 2 != 0 && cell.column % 2 != 0)) {
+        if ((cell.getRow() % 2 == 0 && cell.getColumn() % 2 == 0) || (cell.getRow() % 2 != 0 && cell.getColumn() % 2 != 0)) {
             cellInDirection(cells, upLeft, cell);
             cellInDirection(cells, upRight, cell);
             cellInDirection(cells, downLeft, cell);
@@ -137,10 +137,10 @@ void Board::applyMove(Move move) {
 void Board::makeJump(Jump jump) {
     if (isValidJump(jump)) {
         if (jump.start != jump.end) {
-            layout[jump.end.row][jump.end.column].value = jump.start.value;
-            layout[jump.start.row][jump.start.column].value = Cell::Value::empty;
+            layout[jump.end.getRow()][jump.end.getColumn()].setValue(jump.start.getValue());
+            layout[jump.start.getRow()][jump.start.getColumn()].setValue(Cell::Value::empty);
             if (jump.isCaptureJump()) {
-                layout[jump.jumpedCell.row][jump.jumpedCell.column].value = Cell::Value::empty;
+                layout[jump.jumpedCell.getRow()][jump.jumpedCell.getColumn()].setValue(Cell::Value::empty);
             }
         }
     }
@@ -166,22 +166,22 @@ bool Board::isValidJump(Jump jump) {
     Cell *end = &jump.end;
     bool valid = true;
     
-    if (layout[start->row][start->column].isSheep()) {
-        if (layout[end->row][end->column].isEmpty()) {
+    if (layout[start->getRow()][start->getColumn()].isSheep()) {
+        if (layout[end->getRow()][end->getColumn()].isEmpty()) {
             // Sheep cannot move more than one space and only left, right, or up
-            if (start->column - end->column > 1 || start->column - end->column < -1) {
+            if (start->getColumn() - end->getColumn() > 1 || start->getColumn() - end->getColumn() < -1) {
                 valid = false;
-            } else if (start->row - end->row > 1 || start->row < end->row) {
+            } else if (start->getRow() - end->getRow() > 1 || start->getRow() < end->getRow()) {
                 valid = false;
-            } else if (start->row - end->row != 0 && start->column - end->column != 0) {
+            } else if (start->getRow() - end->getRow() != 0 && start->getColumn() - end->getColumn() != 0) {
                 // Cannot make a diagnol move
                 valid = false;
             }
         }
-    } else if (layout[start->row][start->column].isFox()) {
+    } else if (layout[start->getRow()][start->getColumn()].isFox()) {
         // Can only move along the lines on the board
-        if ((start->row % 2 == 0 && start->column % 2 != 0) || (start->row % 2 != 0 && start->column % 2 == 0)) {
-            if (start->row != end->row && start->column != end->column) {
+        if ((start->getRow() % 2 == 0 && start->getColumn() % 2 != 0) || (start->getRow() % 2 != 0 && start->getColumn() % 2 == 0)) {
+            if (start->getRow() != end->getRow() && start->getColumn() != end->getColumn()) {
                 valid = false;
             }
         }
@@ -242,7 +242,7 @@ void Board::print(std::ostream &output) const {
         output << ROWS - i << " ";
         for (int j = 0; j < COLS; j++) {
             Cell cell = layout[i][j];
-            output << cell.value;
+            output << cell.getValue();
             if (!cell.isInvalid()) {
                 if ((j + 1) < layout[i].size() && !layout[i][j + 1].isInvalid()) {
                     output << '-';
