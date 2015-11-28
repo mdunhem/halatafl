@@ -13,7 +13,21 @@ Fox::Fox() {}
 
 Fox::Fox(Cell cell) : cell(cell) {}
 
+// Big 3
 Fox::Fox(const Fox &fox) : cell(fox.cell), moves(fox.moves), possibleThreats(fox.possibleThreats), possibleNonThreateningMoves(fox.possibleNonThreateningMoves) {}
+
+Fox& Fox::operator=(const Fox &fox) {
+    if (this != &fox) {
+        cell = fox.cell;
+        moves = fox.moves;
+        possibleThreats = fox.possibleThreats;
+        possibleNonThreateningMoves = fox.possibleNonThreateningMoves;
+    }
+    
+    return *this;
+}
+
+Fox::~Fox() {}
 
 // Getters and setters
 Cell Fox::getCell() const {

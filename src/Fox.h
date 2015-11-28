@@ -18,7 +18,11 @@ struct Fox {
     
     Fox();
     Fox(Cell cell);
+    
+    // Big 3
     Fox(const Fox &fox);
+    Fox& operator=(const Fox &fox);
+    ~Fox();
     
     Cell getCell() const;
     void setCell(Cell cell);
