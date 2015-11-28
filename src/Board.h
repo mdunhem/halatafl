@@ -53,7 +53,7 @@ public:
     
 private:
     
-    std::vector<std::vector<Cell>> layout;
+    std::vector<std::vector<Cell> > layout;
     
     bool isValidJump(Jump jump);
     
