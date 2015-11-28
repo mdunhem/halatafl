@@ -131,9 +131,6 @@ bool Cell::operator==(const Cell &cell) const {
 }
 
 bool Cell::operator!=(const Cell &cell) const {
-    if (cell.row != row || cell.column != column) {
-        return true;
-    }
-    return false;
+    return !(*this == cell);
 }
 

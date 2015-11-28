@@ -78,7 +78,9 @@ void Fox::addJump(Jump jump) {
             moves.back().addJump(jump);
         } else {
             Move newMove = moves.back();
-            newMove.popLastJump();
+            while (newMove.getJumps().size() && newMove.getJumps().back().getEnd() != jump.getStart()) {
+                newMove.popLastJump();
+            }
             newMove.addJump(jump);
             moves.push_back(newMove);
         }
@@ -87,3 +89,6 @@ void Fox::addJump(Jump jump) {
     }
 }
 
+bool Fox::operator<(const Fox &rhs) const {
+    return moves.size() < rhs.moves.size();
+}

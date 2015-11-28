@@ -31,63 +31,63 @@ Representative:
     (test000.in) Complete one full run of the test driver
 
 Functional:
-    (test000.in) Sheep (player) wins
-    (test001.in) Foxes (program) wins
+    (test001.in) Sheep (player) wins
+    (test002.in) Foxes (program) wins
 
     (test000.in) Player selects a valid and open space
-    (test002.in) Player selects an occupied space
-    (test003.in) Player selects an illegal move (backwards or diagonal)
-    (test004.in) Player selects an illegal move (invalid input)
+    (test003.in) Player selects an occupied space
+    (test004.in) Player selects an illegal move (backwards)
+    (test005.in) Player selects an illegal move (diagonal)
 
-    (test005.in) One fox has one sheep it can capture
-    (test006.in) One fox has multiple choices of single sheep it can capture
-    (test007.in) One fox has multiple sheep it can capture in one move
-    (test008.in) Both foxes have one or more sheep they can capture (one can capture more)
-    (test009.in) Both foxes have one or more sheep they can capture (both can capture the same amount)
-    (test007.in) Fox makes multiple jumps (display move coordinates properly)
+    (test006.in) One fox has one sheep it can capture
+    (test007.in) One fox has multiple choices of single sheep it can capture
+    (test008.in) One fox has multiple sheep it can capture in one move
+    (test009.in) Both foxes have one or more sheep they can capture (one can capture more)
+    (test010.in) Both foxes have one or more sheep they can capture (both can capture the same amount)
+    (test008.in) Fox makes multiple jumps (display move coordinates properly)
 
-    (test010.in) One fox can make one threatening move (only one choice)
-    (test011.in) One fox can make multiple threatening moves (must choose one)
-    (test012.in) Both foxes can make one or more threatening moves (one can threathen more)
-    (test013.in) Both foxes can make one or more threatening moves (both can threathen the same amount)
+    (test011.in) One fox can make one threatening move (only one choice)
+    (test012.in) One fox can make multiple threatening moves (must choose one)
+    (test013.in) Both foxes can make one or more threatening moves (one can threathen more)
+    (test014.in) Both foxes can make one or more threatening moves (both can threathen the same amount)
 
-    (test014.in) No threats or captures possible (fox moves at random)
+    (test015.in) No threats or captures possible (fox moves at random)
 
-    (test015.in) One fox is captured
-    (test016.in) Both foxes are captured
+    (test016.in) One fox is captured
+    (test017.in) Both foxes are captured
     
 Boundary Values:
-    (test017.in) Player makes a move into space a5
-    (test018.in) Player makes a move into space b5
-    (test019.in) Player makes a move into space c7
-    (test020.in) Player makes a move into space d7
-    (test021.in) Player makes a move into space e7
-    (test022.in) Player makes a move into space f5
-    (test023.in) Player makes a move into space g5
+    (test018.in) Player makes a move into space a5
+    (test019.in) Player makes a move into space b5
+    (test020.in) Player makes a move into space c7
+    (test021.in) Player makes a move into space d7
+    (test022.in) Player makes a move into space e7
+    (test023.in) Player makes a move into space f5
+    (test024.in) Player makes a move into space g5
 
-    (test024.in) Fox makes a move into space a5
-    (test025.in) Fox makes a move into space b5
-    (test026.in) Fox makes a move into space c7
-    (test027.in) Fox makes a move into space d7
-    (test028.in) Fox makes a move into space e7
-    (test029.in) Fox makes a move into space f5
-    (test030.in) Fox makes a move into space g5
+    (test025.in) Fox makes a move into space a5
+    (test026.in) Fox makes a move into space b5
+    (test027.in) Fox makes a move into space c7
+    (test028.in) Fox makes a move into space d7
+    (test029.in) Fox makes a move into space e7
+    (test030.in) Fox makes a move into space f5
+    (test031.in) Fox makes a move into space g5
 
-    (test031.in) Fox makes a move into space a3
-    (test032.in) Fox makes a move into space b3
-    (test033.in) Fox makes a move into space c1
-    (test034.in) Fox makes a move into space d1
-    (test035.in) Fox makes a move into space e1
-    (test036.in) Fox makes a move into space f3
-    (test037.in) Fox makes a move into space g3
+    (test032.in) Fox makes a move into space a3
+    (test033.in) Fox makes a move into space b3
+    (test034.in) Fox makes a move into space c1
+    (test035.in) Fox makes a move into space d1
+    (test036.in) Fox makes a move into space e1
+    (test037.in) Fox makes a move into space f3
+    (test038.in) Fox makes a move into space g3
 
-    (test038.in) Fox makes a move into space a4
-    (test039.in) Fox makes a move into space g4
+    (test039.in) Fox makes a move into space a4
+    (test040.in) Fox makes a move into space g4
 
-    (test040.in) Player wins with only 9 sheep left
-    (test041.in) Player has only 8 sheep left
+    (test041.in) Player wins with only 9 sheep left
+    (test042.in) Player has only 8 sheep left
 
 Special Values:
-    (test040.in) Player has only 9 sheep left
-    (test041.in) Player has only 8 sheep left
+    (test041.in) Player has only 9 sheep left
+    (test042.in) Player has only 8 sheep left
 

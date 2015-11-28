@@ -20,7 +20,7 @@ class FoxPlayer : public Player {
     
     void determinePossibleMove(Board board, Fox &fox) const;
     
-    void search(Board &board, Fox &fox) const;
+    void search(Board &board, Fox &fox, bool sheepHasBeenFound = false) const;
     
 public:
     

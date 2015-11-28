@@ -28,24 +28,32 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const bo
     
     Move move;
     
-    if (foxOne.getMove().getJumps().size() > foxTwo.getMove().getJumps().size()) {
-        move = foxOne.getMove();
-    } else if (foxOne.getMove().getJumps().size() < foxTwo.getMove().getJumps().size()) {
-        move = foxTwo.getMove();
-    } else if (foxOne.getPossibleThreats().size() > 0 || foxTwo.getPossibleThreats().size() > 0) {
-        if (foxOne.getPossibleThreats().size() > foxTwo.getPossibleThreats().size()) {
-            move = foxOne.getPossibleThreats()[std::rand() % foxOne.getPossibleThreats().size()];
+    if (foxOne.getMoves().size() || foxTwo.getMoves().size()) {
+        if (foxTwo < foxOne) {
+            move = foxOne.getMove();
+        } else if (foxOne < foxTwo) {
+            move = foxTwo.getMove();
         } else {
-            move = foxTwo.getPossibleThreats()[std::rand() % foxTwo.getPossibleThreats().size()];
+            move = std::rand() % 2 ? foxOne.getMove() : foxTwo.getMove();
         }
-    } else if (foxOne.getPossibleNonThreateningMoves().size() > 0 || foxTwo.getPossibleNonThreateningMoves().size() > 0) {
-        if (foxOne.getPossibleNonThreateningMoves().size() > foxTwo.getPossibleNonThreateningMoves().size()) {
+    } else if (foxOne.getPossibleThreats().size() || foxTwo.getPossibleThreats().size()) {
+        if (foxTwo.getPossibleThreats().size() < foxOne.getPossibleThreats().size()) {
+            move = foxOne.getPossibleThreats()[std::rand() % foxOne.getPossibleThreats().size()];
+        } else if (foxOne.getPossibleThreats().size() < foxTwo.getPossibleThreats().size()) {
+            move = foxTwo.getPossibleThreats()[std::rand() % foxTwo.getPossibleThreats().size()];
+        } else {
+            if (std::rand() % 2) {
+                move = foxOne.getPossibleThreats()[std::rand() % foxOne.getPossibleThreats().size()];
+            } else {
+                move = foxTwo.getPossibleThreats()[std::rand() % foxTwo.getPossibleThreats().size()];
+            }
+        }
+    } else {
+        if (std::rand() % 2) {
             move = foxOne.getPossibleNonThreateningMoves()[std::rand() % foxOne.getPossibleNonThreateningMoves().size()];
         } else {
             move = foxTwo.getPossibleNonThreateningMoves()[std::rand() % foxTwo.getPossibleNonThreateningMoves().size()];
         }
-    } else {
-        move = std::rand() % 2 ? foxOne.getMove() : foxTwo.getMove();
     }
     
     std::cout << "The foxes move: " << move << std::endl;
@@ -61,7 +69,7 @@ void FoxPlayer::determinePossibleMove(Board board, Fox &fox) const {
     search(board, fox);
 }
 
-void FoxPlayer::search(Board &board, Fox &fox) const {
+void FoxPlayer::search(Board &board, Fox &fox, bool sheepHasBeenFound) const {
     std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
     
     for (auto surroundingValue : surroundingValues) {
@@ -78,11 +86,11 @@ void FoxPlayer::search(Board &board, Fox &fox) const {
                 board.makeJump(jump);
                 fox.setCell(jumpToCell);
                 // Recursively call this function again to search for additional jumps
-                search(board, fox);
+                search(board, fox, true);
             } else {
                 fox.addPossibleNonThreateningMove(Move(fox.getCell(), fox.getCell()));
             }
-        } else {
+        } else if (!sheepHasBeenFound) {
             if (cell.isEmpty() && jumpToCell.isSheep()) {
                 Cell threatenToJumpToCell = board.getCellInDirectionFromCellWithRadius(direction, jumpToCell);
                 if (threatenToJumpToCell.isEmpty()) {
@@ -97,6 +105,6 @@ void FoxPlayer::search(Board &board, Fox &fox) const {
     }
     
     if (fox.getMoves().empty() && fox.getPossibleThreats().empty() && fox.getPossibleNonThreateningMoves().empty()) {
-        fox.addJump(Jump(fox.getCell(), fox.getCell()));
+        fox.addPossibleNonThreateningMove(Move(fox.getCell(), fox.getCell()));
     }
 }
