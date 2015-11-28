@@ -18,7 +18,7 @@
 
 class SheepPlayer : public Player {
     
-    Move promptForMove();
+    Move promptForMove() const;
     
 public:
     
@@ -32,14 +32,14 @@ public:
      * @param  {std::string} message        Possible error message to display before prompting player
      * @return {Move}                       Move to be made by player
      */
-    virtual Move getMove(Board, std::string, bool isTest);
+    virtual Move getMove(const Board &board, const std::string &message, const bool &isTest) const;
     
     /**
      * Prints out the message that the sheep have won to standard output
      *
      * @return {void}
      */
-    virtual void won();
+    virtual void won() const;
 };
 
 #endif /* SheepPlayer_h */

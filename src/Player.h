@@ -19,8 +19,8 @@
 class Player {
 public:
     virtual ~Player() {};
-    virtual Move getMove(Board, std::string, bool isTest) = 0;
-    virtual void won() = 0;
+    virtual Move getMove(const Board&, const std::string&, const bool &isTest) const = 0;
+    virtual void won() const = 0;
 };
 
 #endif /* Player_h */

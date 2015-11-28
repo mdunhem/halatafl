@@ -18,9 +18,9 @@
 
 class FoxPlayer : public Player {
     
-    void determinePossibleMove(Board board, Fox &fox);
+    void determinePossibleMove(Board board, Fox &fox) const;
     
-    void search(Board &board, Fox &fox);
+    void search(Board &board, Fox &fox) const;
     
 public:
     
@@ -32,14 +32,14 @@ public:
      * @param  {std::string} message        Possible error message to display
      * @return {Move}                       Move to be made by player
      */
-    virtual Move getMove(Board, std::string, bool isTest);
+    virtual Move getMove(const Board &board, const std::string &message, const bool &isTest) const;
     
     /**
      * Prints out the message that the foxes have won to standard output
      *
      * @return {void}
      */
-    virtual void won();
+    virtual void won() const;
 };
 
 #endif /* FoxPlayer_h */

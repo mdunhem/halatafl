@@ -87,7 +87,7 @@ int flipRowNumber(int input) {
     return row;
 }
 
-Move SheepPlayer::getMove(Board board, std::string message, bool isTest) {
+Move SheepPlayer::getMove(const Board &board, const std::string &message, const bool &isTest) const {
     int startRow, endRow;
     char startColumn, endColumn;
     std::string input;
@@ -116,7 +116,7 @@ Move SheepPlayer::getMove(Board board, std::string message, bool isTest) {
     return Move(start, end);
 }
 
-void SheepPlayer::won() {
+void SheepPlayer::won() const {
     std::cout << "The sheep have won!" << std::endl;
 }
 

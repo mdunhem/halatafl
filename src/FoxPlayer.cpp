@@ -14,7 +14,7 @@
 #include "FoxPlayer.h"
 #include "Jump.h"
 
-Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
+Move FoxPlayer::getMove(const Board &board, const std::string &message, const bool &isTest) const {
     
     std::srand(time(NULL));
     
@@ -53,15 +53,15 @@ Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     return move;
 }
 
-void FoxPlayer::won() {
+void FoxPlayer::won() const {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-void FoxPlayer::determinePossibleMove(Board board, Fox &fox) {
+void FoxPlayer::determinePossibleMove(Board board, Fox &fox) const {
     search(board, fox);
 }
 
-void FoxPlayer::search(Board &board, Fox &fox) {
+void FoxPlayer::search(Board &board, Fox &fox) const {
     std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
     
     for (auto surroundingValue : surroundingValues) {
