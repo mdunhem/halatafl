@@ -28,7 +28,11 @@ struct Cell {
     Cell(int row, int column, char value);
     Cell(int row, char column, char value);
     Cell(int row, int column, Value value);
-    //    Cell(const Cell& cell);
+    
+    // Big 3
+    Cell(const Cell& cell);
+    Cell& operator=(const Cell &cell);
+    ~Cell();
     
     int row;
     int column;

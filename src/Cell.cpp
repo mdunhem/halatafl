@@ -60,6 +60,21 @@ Cell::Cell(int row, char column, char value) : row(row) {
 
 Cell::Cell(int row, int column, Value value) : row(row), column(column), value(value) {}
 
+// Big 3
+Cell::Cell(const Cell& cell) : row(cell.row), column(cell.column), value(cell.value) {}
+
+Cell& Cell::operator=(const Cell &cell) {
+    if (this != &cell) {
+        row = cell.row;
+        column = cell.column;
+        value = cell.value;
+    }
+    
+    return *this;
+}
+
+Cell::~Cell() {}
+
 bool Cell::isSheep() const {
     return value == sheep;
 }
@@ -75,13 +90,6 @@ bool Cell::isEmpty() const {
 bool Cell::isInvalid() const {
     return value == invalid;
 }
-
-//Cell::Cell(const Cell& cell) : x(cell.x), y(cell.y), value(cell.value) {}
-//
-//Cell& Cell::operator=(const Cell &cell) {
-//    value = cell.value;
-//    return *this;
-//}
 
 void Cell::print(std::ostream &output) const {
     output << printableColumns[column] << printableRows[row];
