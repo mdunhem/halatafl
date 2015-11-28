@@ -1,5 +1,5 @@
 //
-//  Board.hpp
+//  Board.h
 //  halatafl
 //
 //  Created by Mike on 10/26/15.
@@ -29,7 +29,11 @@ public:
     
     Board();
     Board(char layout[7][7]);
-    Board(const Board& layout);
+    
+    // Big 3
+    Board(const Board& board);
+    Board& operator=(const Board &board);
+    ~Board();
     
     Cell getCellAtIndex(int x, int y);
     Cell getCellInDirectionFromCellWithRadius(Direction direction, Cell &cell, int radius = 1);

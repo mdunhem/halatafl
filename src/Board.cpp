@@ -43,14 +43,18 @@ Board::Board(char layout[7][7]) {
     }
 }
 
-Board::Board(const Board &board) {
-    for (int row = 0; row < ROWS; row++) {
-        layout.push_back(std::vector<Cell>());
-        for (int column = 0; column < COLS; column++) {
-            layout[row].push_back(board.layout[row][column]);
-        }
+// Big 3
+Board::Board(const Board &board) : layout(board.layout) {}
+
+Board& Board::operator=(const Board &board) {
+    if (this != &board) {
+        layout = board.layout;
     }
+    
+    return *this;
 }
+
+Board::~Board() {}
 
 Cell Board::getCellAtIndex(int x, int y) {
     if (x < 0 || y < 0 || x >= ROWS || y >= COLS) {
