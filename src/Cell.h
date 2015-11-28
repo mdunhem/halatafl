@@ -22,9 +22,7 @@ struct Cell {
     
     int row;
     int column;
-    char value;
-    
-    Value cellValue;
+    Value value;
     
     static const char printableValues[];
     static const char printableColumns[];
@@ -46,9 +44,6 @@ struct Cell {
     bool operator==(const Cell &cell) const;
     bool operator!=(const Cell &cell) const;
     
-private:
-    int printableRow() const;
-    char getColumnCharacter() const;
 };
 
 inline std::ostream& operator<<(std::ostream &output, const Cell &cell) {

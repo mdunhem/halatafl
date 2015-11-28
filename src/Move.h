@@ -22,6 +22,7 @@ struct Jump {
     
     Jump();
     Jump(Cell start, Cell end);
+    Jump(Cell start, Cell end, Cell jumpedCell);
     Jump(const Jump &jump);
     
     bool isCaptureJump();

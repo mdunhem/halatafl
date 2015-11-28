@@ -15,22 +15,6 @@
 #include "Cell.h"
 #include "Move.h"
 
-const char INVALID_SPACE = ' ';
-const char EMPTY_SPACE = '.';
-const char FOX_CHARACTER = 'F';
-const char SHEEP_CHARACTER = 'S';
-
-//struct BoardValue {
-//    const char InvalidSpace = ' ';
-//    const char EmptySpace = '.';
-//    const char Fox = 'F';
-//    const char Sheep = 'S';
-//};
-
-//enum Direction {
-//    up, down, left, right, upLeft, upRight, downLeft, downRight
-//};
-
 class Board {
     
 public:
@@ -49,8 +33,6 @@ public:
     Cell getCellAtIndex(int x, int y);
     Cell getCellInDirectionFromCellWithRadius(Direction direction, Cell &cell, int radius = 1);
     std::map<Direction, Cell> getSurroundingCells(Cell cell);
-    
-    std::vector<Cell> cellsForRow(int row);
     
     void applyMove(Move move);
     void makeJump(Jump jump);

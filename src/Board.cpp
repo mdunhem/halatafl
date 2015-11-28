@@ -10,17 +10,29 @@
 
 #include <iostream>
 
+using Value = Cell::Value;
+
 const int Board::ROWS = 7;
 const int Board::COLS = 7;
 
-const char DEFAULT_LAYOUT[7][7] = {
-    { INVALID_SPACE, INVALID_SPACE, FOX_CHARACTER, EMPTY_SPACE, FOX_CHARACTER, INVALID_SPACE, INVALID_SPACE},
-    { INVALID_SPACE, INVALID_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, INVALID_SPACE, INVALID_SPACE},
-    { EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
-    { SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER},
-    { SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER},
-    { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE},
-    { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE}
+//const char DEFAULT_LAYOUT[7][7] = {
+//    { INVALID_SPACE, INVALID_SPACE, FOX_CHARACTER, EMPTY_SPACE, FOX_CHARACTER, INVALID_SPACE, INVALID_SPACE},
+//    { INVALID_SPACE, INVALID_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, INVALID_SPACE, INVALID_SPACE},
+//    { EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE, EMPTY_SPACE},
+//    { SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER},
+//    { SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER},
+//    { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE},
+//    { INVALID_SPACE, INVALID_SPACE, SHEEP_CHARACTER, SHEEP_CHARACTER, SHEEP_CHARACTER, INVALID_SPACE, INVALID_SPACE}
+//};
+
+const Value DEFAULT_LAYOUT[7][7] = {
+    {Value::invalid, Value::invalid, Value::fox, Value::empty, Value::fox, Value::invalid, Value::invalid},
+    {Value::invalid, Value::invalid, Value::empty, Value::empty, Value::empty, Value::invalid, Value::invalid},
+    {Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty},
+    {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
+    {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
+    {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid},
+    {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid}
 };
 
 Board::Board() {
@@ -126,10 +138,6 @@ void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, Board::Dire
     }
 }
 
-std::vector<Cell> Board::cellsForRow(int row) {
-    return layout[row];
-}
-
 void Board::applyMove(Move move) {
     for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
         makeJump(Jump(*iterator));
@@ -139,10 +147,10 @@ void Board::applyMove(Move move) {
 void Board::makeJump(Jump jump) {
     if (isValidJump(jump)) {
         if (jump.start != jump.end) {
-            layout[jump.end.row][jump.end.column].cellValue = jump.start.cellValue;
-            layout[jump.start.row][jump.start.column].cellValue = Cell::Value::empty;
+            layout[jump.end.row][jump.end.column].value = jump.start.value;
+            layout[jump.start.row][jump.start.column].value = Cell::Value::empty;
             if (jump.isCaptureJump()) {
-                layout[jump.jumpedCell.row][jump.jumpedCell.column].cellValue = Cell::Value::empty;
+                layout[jump.jumpedCell.row][jump.jumpedCell.column].value = Cell::Value::empty;
             }
         }
     }
@@ -188,12 +196,6 @@ bool Board::isValidJump(Jump jump) {
             }
         }
     }
-    
-//    if (layout[start->row][start->column].isEmpty() || !layout[end->row][end->column].isEmpty()) {
-//        valid = false;
-//    } else {
-//        
-//    }
     
     // Allow staying in the same place
     if (*start == *end) {
@@ -250,7 +252,7 @@ void Board::print(std::ostream &output) const {
         output << ROWS - i << " ";
         for (int j = 0; j < COLS; j++) {
             Cell cell = layout[i][j];
-            output << cell.cellValue;
+            output << cell.value;
             if (!cell.isInvalid()) {
                 if ((j + 1) < layout[i].size() && !layout[i][j + 1].isInvalid()) {
                     output << '-';
@@ -267,28 +269,6 @@ void Board::print(std::ostream &output) const {
     }
     std::cout << "  a b c d e f g" << std::endl;
 }
-
-//void Board::print(std::ostream &output) const {
-//    for (int i = 0; i < ROWS; i++) {
-//        output << ROWS - i << " ";
-//        for (int j = 0; j < COLS; j++) {
-//            Cell cell = layout[i][j];
-//            if (cell.value != INVALID_SPACE) {
-//                if ((j + 1) < layout[i].size() && layout[i][j + 1].value != INVALID_SPACE) {
-//                    output << '-';
-//                }
-//            } else {
-//                output << INVALID_SPACE;
-//            }
-//        }
-//        output << std::endl;
-//        if (i < 6) {
-//            output << printDirectionalLinesForRow(i) << std::endl;
-//        }
-//        
-//    }
-//    std::cout << "  a b c d e f g" << std::endl;
-//}
 
 std::string Board::printDirectionalLinesForRow(int row) const {
     std::string result = "";

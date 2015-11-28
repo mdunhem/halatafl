@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <map>
 #include <stdlib.h>
 #include <time.h>
 
@@ -26,7 +27,6 @@ Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     
     Move move;
     
-    // TODO: Need to randomize the last part of this if block
     if (foxOne.getMove().jumps.size() > foxTwo.getMove().jumps.size()) {
         move = foxOne.getMove();
     } else if (foxOne.getMove().jumps.size() < foxTwo.getMove().jumps.size()) {
@@ -45,7 +45,6 @@ Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
         }
     } else {
         move = std::rand() % 2 ? foxOne.getMove() : foxTwo.getMove();
-//        move = Move(foxOne.getCell(), foxOne.getCell());
     }
     
     std::cout << "The foxes move: " << move << std::endl;
@@ -72,10 +71,9 @@ void FoxPlayer::search(Board &board, Fox &fox) {
         
         if (cell.isSheep()) {
             if (jumpToCell.isEmpty()) {
-                Jump jump(foxCell, jumpToCell);
-                jump.jumpedCell = cell;
+                jumpToCell.value = Cell::Value::fox;
+                Jump jump(foxCell, jumpToCell, cell);
                 fox.addJump(jump);
-                jumpToCell.cellValue = Cell::Value::fox;
                 board.makeJump(jump);
                 fox.setCell(jumpToCell);
                 // Recursively call this function again to search for additional jumps
@@ -101,104 +99,3 @@ void FoxPlayer::search(Board &board, Fox &fox) {
         fox.addJump(Jump(fox.cell, fox.cell));
     }
 }
-
-//    std::map<Board::Direction, Cell>surroundingValues = fox.getSurroundingValuesWithRadius(board, 1);
-//    for (auto direction : surroundingValues) {
-//        if (direction.second.value == SHEEP_CHARACTER) {
-//            switch (direction.first) {
-//                case Board::Direction::up: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::down: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::left: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column - 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::right: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row, fox.getCell().column + 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::upLeft: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column - 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column - 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::upRight: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row - 2, fox.getCell().column + 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row - 1, fox.getCell().column + 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::downLeft: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column - 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column - 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//                case Board::Direction::downRight: {
-//                    Cell jumpToCell = board.getCellAtIndex(fox.getCell().row + 2, fox.getCell().column + 2);
-//                    Cell jumpedCell = board.getCellAtIndex(fox.getCell().row + 1, fox.getCell().column + 1);
-//                    if (jumpToCell.value == EMPTY_SPACE) {
-//                        applyJump(board, fox, jumpToCell, jumpedCell);
-//                        search(board, fox);
-//                    } else {
-//                        fox.addPossibleThreat(Move(fox.getCell(), direction.second));
-//                    }
-//                    break;
-//                }
-//
-//                default:
-//                    break;
-//            }
-//        } else if (direction.second.value == EMPTY_SPACE) {
-//            fox.addPossibleNonThreateningMove(Move(fox.getCell(), direction.second));
-//        }
-//    }

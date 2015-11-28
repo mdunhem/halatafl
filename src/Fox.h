@@ -17,14 +17,13 @@
 
 struct Fox {
     
-    Board board;
+//    Board board;
     Cell cell;
-    Cell *currentLocation;
-    Move move;
+//    Cell *currentLocation;
     std::vector<Move> moves;
     std::vector<Move> possibleThreats;
     std::vector<Move> possibleNonThreateningMoves;
-    std::map<Board::Direction, Cell> surroundingValues;
+//    std::map<Board::Direction, Cell> surroundingValues;
     
 public:
     
@@ -36,25 +35,22 @@ public:
     void setCell(Cell cell);
     
     Move getMove();
-    void setMove(Move move);
     
-    Board getBoard() const;
-    void setBoard(Board board);
+//    Board getBoard() const;
+//    void setBoard(Board board);
     
     std::vector<Move> getPossibleThreats() const;
     std::vector<Move> getPossibleNonThreateningMoves() const;
     void addPossibleThreat(Move threat);
     void addPossibleNonThreateningMove(Move move);
     
-    void determineSurroundingValues(Board &board);
-    std::map<Board::Direction, Cell> getSurroundingValuesWithRadius(Board &board, int radius);
-    
-    void findPossibleJump(Board &board);
-    
-//    void calculateMove();
+//    void determineSurroundingValues(Board &board);
+//    std::map<Board::Direction, Cell> getSurroundingValuesWithRadius(Board &board, int radius);
     
     void addJump(Jump jump);
-    void addJumpToMove(Jump jump, Move *move);
+    
+private:
+    Move move;
 };
 
 #endif /* Fox_h */
