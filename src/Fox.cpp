@@ -33,7 +33,7 @@ Fox::~Fox() {}
 Cell Fox::getCell() const {
     return cell;
 }
-void Fox::setCell(Cell cell) {
+void Fox::setCell(const Cell &cell) {
     this->cell = cell;
 }
 

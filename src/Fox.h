@@ -26,7 +26,7 @@ struct Fox {
     ~Fox();
     
     Cell getCell() const;
-    void setCell(Cell cell);
+    void setCell(const Cell &cell);
     
     Move getMove();
     std::vector<Move> getMoves() const;
