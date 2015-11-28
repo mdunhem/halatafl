@@ -129,7 +129,7 @@ void Board::cellInDirection(std::map<Board::Direction, Cell> &cells, Board::Dire
 }
 
 void Board::applyMove(Move move) {
-    for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
+    for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
         makeJump(Jump(*iterator));
     }
 }
@@ -149,7 +149,7 @@ void Board::makeJump(Jump jump) {
 bool Board::isValidMove(Move move) {
     bool valid = false;
     Board board = *this;
-    for (std::vector<Jump>::iterator iterator = move.jumps.begin(); iterator != move.jumps.end(); iterator++) {
+    for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
         if (board.isValidJump(Jump(*iterator))) {
             board.makeJump(Jump(*iterator));
             valid = true;

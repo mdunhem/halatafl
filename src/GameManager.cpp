@@ -99,7 +99,7 @@ Move GameManager::getValidMove(std::string inputData) {
 
 bool GameManager::validMove(Move move) {
     if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
-        if (move.jumps[0].start.isFox() || move.jumps[0].start.isEmpty() || move.jumps[0].start.isInvalid()) {
+        if (move.getJumps()[0].start.isFox() || move.getJumps()[0].start.isEmpty() || move.getJumps()[0].start.isInvalid()) {
             return false;
         }
     }

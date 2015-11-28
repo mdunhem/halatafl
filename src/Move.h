@@ -20,11 +20,20 @@ struct Move {
     Move();
     Move(Cell start, Cell end);
     Move(Jump jump);
-    Move(const Move &move);
     
-    std::vector<Jump> jumps;
+    // Big 3
+    Move(const Move &move);
+    Move& operator=(const Move &move);
+    ~Move();
+    
+    std::vector<Jump> getJumps() const;
+    void addJump(Jump jump);
+    void popLastJump();
     
     void print(std::ostream &output) const;
+    
+private:
+    std::vector<Jump> jumps;
 };
 
 inline std::ostream& operator<<(std::ostream &output, const Move &move) {

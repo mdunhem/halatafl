@@ -28,9 +28,9 @@ Move FoxPlayer::getMove(Board board, std::string message, bool isTest) {
     
     Move move;
     
-    if (foxOne.getMove().jumps.size() > foxTwo.getMove().jumps.size()) {
+    if (foxOne.getMove().getJumps().size() > foxTwo.getMove().getJumps().size()) {
         move = foxOne.getMove();
-    } else if (foxOne.getMove().jumps.size() < foxTwo.getMove().jumps.size()) {
+    } else if (foxOne.getMove().getJumps().size() < foxTwo.getMove().getJumps().size()) {
         move = foxTwo.getMove();
     } else if (foxOne.getPossibleThreats().size() > 0 || foxTwo.getPossibleThreats().size() > 0) {
         if (foxOne.getPossibleThreats().size() > foxTwo.getPossibleThreats().size()) {
