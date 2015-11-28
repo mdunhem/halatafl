@@ -47,5 +47,5 @@ void Move::popLastJump() {
 
 // Display function
 void Move::print(std::ostream &output) const {
-    output << jumps.front().start << '-' << jumps.back().end;
+    output << jumps.front().getStart() << '-' << jumps.back().getEnd();
 }

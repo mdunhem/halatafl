@@ -74,7 +74,7 @@ void Fox::addPossibleNonThreateningMove(Move move) {
 
 void Fox::addJump(Jump jump) {
     if (moves.size()) {
-        if (moves.back().getJumps().back().end == jump.start) {
+        if (moves.back().getJumps().back().getEnd() == jump.getStart()) {
             moves.back().addJump(jump);
         } else {
             Move newMove = moves.back();

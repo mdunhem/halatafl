@@ -12,16 +12,22 @@
 #include "Cell.h"
 
 struct Jump {
-    Cell start;
-    Cell end;
-    Cell jumpedCell;
     
     Jump();
     Jump(Cell start, Cell end);
     Jump(Cell start, Cell end, Cell jumpedCell);
     Jump(const Jump &jump);
     
+    Cell getStart() const;
+    Cell getEnd() const;
+    Cell getJumpedCell() const;
+    
     bool isCaptureJump();
+    
+private:
+    Cell start;
+    Cell end;
+    Cell jumpedCell;
 };
 
 #endif /* Jump_h */

@@ -136,11 +136,11 @@ void Board::applyMove(Move move) {
 
 void Board::makeJump(Jump jump) {
     if (isValidJump(jump)) {
-        if (jump.start != jump.end) {
-            layout[jump.end.getRow()][jump.end.getColumn()].setValue(jump.start.getValue());
-            layout[jump.start.getRow()][jump.start.getColumn()].setValue(Cell::Value::empty);
+        if (jump.getStart() != jump.getEnd()) {
+            layout[jump.getEnd().getRow()][jump.getEnd().getColumn()].setValue(jump.getStart().getValue());
+            layout[jump.getStart().getRow()][jump.getStart().getColumn()].setValue(Cell::Value::empty);
             if (jump.isCaptureJump()) {
-                layout[jump.jumpedCell.getRow()][jump.jumpedCell.getColumn()].setValue(Cell::Value::empty);
+                layout[jump.getJumpedCell().getRow()][jump.getJumpedCell().getColumn()].setValue(Cell::Value::empty);
             }
         }
     }
@@ -162,33 +162,33 @@ bool Board::isValidMove(Move move) {
 }
 
 bool Board::isValidJump(Jump jump) {
-    Cell *start = &jump.start;
-    Cell *end = &jump.end;
+    Cell start = jump.getStart();
+    Cell end = jump.getEnd();
     bool valid = true;
     
-    if (layout[start->getRow()][start->getColumn()].isSheep()) {
-        if (layout[end->getRow()][end->getColumn()].isEmpty()) {
+    if (layout[start.getRow()][start.getColumn()].isSheep()) {
+        if (layout[end.getRow()][end.getColumn()].isEmpty()) {
             // Sheep cannot move more than one space and only left, right, or up
-            if (start->getColumn() - end->getColumn() > 1 || start->getColumn() - end->getColumn() < -1) {
+            if (start.getColumn() - end.getColumn() > 1 || start.getColumn() - end.getColumn() < -1) {
                 valid = false;
-            } else if (start->getRow() - end->getRow() > 1 || start->getRow() < end->getRow()) {
+            } else if (start.getRow() - end.getRow() > 1 || start.getRow() < end.getRow()) {
                 valid = false;
-            } else if (start->getRow() - end->getRow() != 0 && start->getColumn() - end->getColumn() != 0) {
+            } else if (start.getRow() - end.getRow() != 0 && start.getColumn() - end.getColumn() != 0) {
                 // Cannot make a diagnol move
                 valid = false;
             }
         }
-    } else if (layout[start->getRow()][start->getColumn()].isFox()) {
+    } else if (layout[start.getRow()][start.getColumn()].isFox()) {
         // Can only move along the lines on the board
-        if ((start->getRow() % 2 == 0 && start->getColumn() % 2 != 0) || (start->getRow() % 2 != 0 && start->getColumn() % 2 == 0)) {
-            if (start->getRow() != end->getRow() && start->getColumn() != end->getColumn()) {
+        if ((start.getRow() % 2 == 0 && start.getColumn() % 2 != 0) || (start.getRow() % 2 != 0 && start.getColumn() % 2 == 0)) {
+            if (start.getRow() != end.getRow() && start.getColumn() != end.getColumn()) {
                 valid = false;
             }
         }
     }
     
     // Allow staying in the same place
-    if (*start == *end) {
+    if (start == end) {
         valid = true;
     }
     
