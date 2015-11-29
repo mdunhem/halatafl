@@ -35,10 +35,10 @@ GameManager::~GameManager() {
 }
 
 void GameManager::play() {
-    std::string inputData = "";
+    std::ifstream input;
     while (!gameHasBeenWon()) {
         updateCurrentPlayer();
-        playOneFullTurn(inputData);
+        playOneFullTurn(input);
     }
     
     printWinner();
@@ -54,14 +54,13 @@ void GameManager::testDriver(std::ifstream &input) {
             layout[i][j] = nextLine[j];
         }
     }
-    std::getline(input, nextLine);
     board = Board(layout);
     if (!gameHasBeenWon()) {
         updateCurrentPlayer();
-        playOneFullTurn(nextLine);
+        playOneFullTurn(input);
         if (!gameHasBeenWon()) {
             updateCurrentPlayer();
-            playOneFullTurn(nextLine);
+            playOneFullTurn(input);
         } else {
             printWinner();
         }
@@ -71,9 +70,9 @@ void GameManager::testDriver(std::ifstream &input) {
     std::cout << board;
 }
 
-void GameManager::playOneFullTurn(const std::string &inputData) {
+void GameManager::playOneFullTurn(std::ifstream &input) {
     std::cout << board;
-    Move move = getValidMove(inputData);
+    Move move = getValidMove(input);
     makeMove(move);
 }
 
@@ -98,28 +97,53 @@ void GameManager::makeMove(const Move &move) {
     board.applyMove(move);
 }
 
-Move GameManager::getValidMove(const std::string &inputData) const {
-    std::string message = "";
-    bool isTest = false;
+Move GameManager::getValidMove(std::ifstream &input) const {
+    std::string message;
+    std::string testData;
     
-    if (inputData.length()) {
-        message = inputData;
-        isTest = true;
+    if (input.good()) {
+        std::getline(input, testData);
     }
     
-    Move move = currentPlayer->getMove(board, message, isTest);
+    Move move = currentPlayer->getMove(board, message, testData);
     while (!validMove(move)) {
+        if (input.good()) {
+            std::getline(input, testData);
+        }
         message = "That is not a legal move.";
-        move = currentPlayer->getMove(board, message, isTest);
+        move = currentPlayer->getMove(board, message, testData);
     }
     
     return move;
+    
+    
+//    std::string message;
+//    std::getline(input, message);
+//    bool isTest = false;
+//    
+//    if (message.length()) {
+//        isTest = true;
+//    }
+//    
+//    Move move = currentPlayer->getMove(board, message, isTest);
+//    while (!validMove(move)) {
+//        if (isTest) {
+//            std::getline(input, message);
+//        } else {
+//            message = "That is not a legal move.";
+//        }
+//        move = currentPlayer->getMove(board, message, isTest);
+//    }
+//    
+//    return move;
 }
 
 bool GameManager::validMove(const Move &move) const {
     if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
-        if (move.getJumps()[0].getStart().isFox() || move.getJumps()[0].getStart().isEmpty() || move.getJumps()[0].getStart().isInvalid()) {
+        if (move.getJumps()[0].getStart().isFox()/* || move.getJumps()[0].getStart().isEmpty() || move.getJumps()[0].getStart().isInvalid()*/) {
             return false;
+        } else {
+            return board.isValidMove(move);
         }
     }
     return true;

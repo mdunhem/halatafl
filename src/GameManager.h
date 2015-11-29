@@ -22,7 +22,7 @@
  */
 class GameManager {
     
-    void playOneFullTurn(const std::string &inputData);
+    void playOneFullTurn(std::ifstream &input);
     
     /**
      * Determines if the game has been won based on whether there are less than
@@ -38,7 +38,7 @@ class GameManager {
      *
      * @return {Move}   Valid move to be made
      */
-    Move getValidMove(const std::string &inputData) const;
+    Move getValidMove(std::ifstream &input) const;
     
     
     bool validMove(const Move &move) const;

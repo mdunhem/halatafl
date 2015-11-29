@@ -14,7 +14,7 @@
 #include "FoxPlayer.h"
 #include "Jump.h"
 
-Move FoxPlayer::getMove(const Board &board, const std::string &message, const bool &isTest) const {
+Move FoxPlayer::getMove(const Board &board, const std::string &message, const std::string &testMove) const {
     
     std::srand(time(NULL));
     
@@ -55,7 +55,7 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const bo
             move = foxTwo.getPossibleNonThreateningMoves()[std::rand() % foxTwo.getPossibleNonThreateningMoves().size()];
         }
     }
-    
+
     std::cout << "The foxes move: " << move << std::endl;
     
     return move;

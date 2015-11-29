@@ -181,6 +181,8 @@ bool Board::isValidJump(const Jump &jump) const {
                 // Cannot make a diagnol move
                 valid = false;
             }
+        } else {
+            valid = false;
         }
     } else if (layout[start.getRow()][start.getColumn()].isFox()) {
         // Can only move along the lines on the board

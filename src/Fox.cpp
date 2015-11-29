@@ -39,7 +39,7 @@ void Fox::setCell(const Cell &cell) {
 
 Move Fox::getMove() {
     if (moves.empty()) {
-        moves.push_back(Move());
+        moves.push_back(Move(cell, cell));
     }
     
     Move *moveToBeUsed = &moves.front();

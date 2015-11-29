@@ -32,7 +32,7 @@ public:
      * @param  {std::string} message        Possible error message to display before prompting player
      * @return {Move}                       Move to be made by player
      */
-    virtual Move getMove(const Board &board, const std::string &message, const bool &isTest) const;
+    virtual Move getMove(const Board &board, const std::string &message, const std::string &testMove = "") const;
     
     /**
      * Prints out the message that the sheep have won to standard output
