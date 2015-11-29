@@ -115,37 +115,17 @@ Move GameManager::getValidMove(std::ifstream &input) const {
     }
     
     return move;
-    
-    
-//    std::string message;
-//    std::getline(input, message);
-//    bool isTest = false;
-//    
-//    if (message.length()) {
-//        isTest = true;
-//    }
-//    
-//    Move move = currentPlayer->getMove(board, message, isTest);
-//    while (!validMove(move)) {
-//        if (isTest) {
-//            std::getline(input, message);
-//        } else {
-//            message = "That is not a legal move.";
-//        }
-//        move = currentPlayer->getMove(board, message, isTest);
-//    }
-//    
-//    return move;
 }
 
 bool GameManager::validMove(const Move &move) const {
     if (typeid(*currentPlayer) == typeid(SheepPlayer)) {
-        if (move.getJumps()[0].getStart().isFox()/* || move.getJumps()[0].getStart().isEmpty() || move.getJumps()[0].getStart().isInvalid()*/) {
+        if (move.getJumps()[0].getStart().isFox()) {
             return false;
         } else {
             return board.isValidMove(move);
         }
     }
+    // Otherwise, its a fox and we assume the move is valid
     return true;
 }
 

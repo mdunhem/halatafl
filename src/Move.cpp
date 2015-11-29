@@ -49,3 +49,7 @@ void Move::popLastJump() {
 void Move::print(std::ostream &output) const {
     output << jumps.front().getStart() << '-' << jumps.back().getEnd();
 }
+
+bool Move::operator<(const Move &rhs) const {
+    return jumps.size() < rhs.jumps.size();
+}

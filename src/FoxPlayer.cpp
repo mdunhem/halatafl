@@ -29,9 +29,9 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const st
     Move move;
     
     if (foxOne.getMoves().size() || foxTwo.getMoves().size()) {
-        if (foxTwo < foxOne) {
+        if (foxTwo.getMove() < foxOne.getMove()) {
             move = foxOne.getMove();
-        } else if (foxOne < foxTwo) {
+        } else if (foxOne.getMove() < foxTwo.getMove()) {
             move = foxTwo.getMove();
         } else {
             move = std::rand() % 2 ? foxOne.getMove() : foxTwo.getMove();
@@ -77,6 +77,7 @@ void FoxPlayer::search(Board &board, Fox &fox, bool sheepHasBeenFound) const {
         Cell cell = surroundingValue.second;
         Cell jumpToCell = board.getCellInDirectionFromCellWithRadius(direction, cell);
         Cell foxCell = board.getCellInDirectionFromCellWithRadius(direction, cell, -1);
+        foxCell.setValue(Cell::Value::fox);
         
         if (cell.isSheep()) {
             if (jumpToCell.isEmpty()) {

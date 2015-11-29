@@ -32,6 +32,8 @@ struct Move {
     
     void print(std::ostream &output) const;
     
+    bool operator<(const Move &rhs) const;
+    
 private:
     std::vector<Jump> jumps;
 };

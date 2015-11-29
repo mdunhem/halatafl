@@ -6,6 +6,9 @@
 //  Copyright © 2015 Mikael Dunhem. All rights reserved.
 //
 
+#include <stdlib.h>
+#include <time.h>
+
 #include "Fox.h"
 
 // Constructors
@@ -38,16 +41,27 @@ void Fox::setCell(const Cell &cell) {
 }
 
 Move Fox::getMove() {
+    std::srand(time(NULL));
     if (moves.empty()) {
         moves.push_back(Move(cell, cell));
     }
     
     Move *moveToBeUsed = &moves.front();
-    for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
-        if (Move(*iterator).getJumps().size() > moveToBeUsed->getJumps().size()) {
-            *moveToBeUsed = Move(*iterator);
+    for (Move move : moves) {
+        if (move.getJumps().size() > moveToBeUsed->getJumps().size()) {
+            *moveToBeUsed = move;
+        } else if (move.getJumps().size() == moveToBeUsed->getJumps().size()) {
+            *moveToBeUsed = std::rand() % 2 ? move : *moveToBeUsed;
         }
     }
+    
+//    for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
+//        if (Move(*iterator).getJumps().size() > moveToBeUsed->getJumps().size()) {
+//            *moveToBeUsed = Move(*iterator);
+//        } else if (Move(*iterator).getJumps().size() == moveToBeUsed->getJumps().size()) {
+//            *moveToBeUsed = std::rand() % 2 ? Move(*iterator) : *moveToBeUsed;
+//        }
+//    }
     
     return *moveToBeUsed;
 }
