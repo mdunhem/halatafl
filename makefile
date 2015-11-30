@@ -26,7 +26,7 @@ APP := halatafl
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g
+CFLAGS := -g -std=c++11
 LFLAGS := -lm
 # CFLAGS := -g -Wall -Weffc++
 # LFLAGS := -L/usr/lib
