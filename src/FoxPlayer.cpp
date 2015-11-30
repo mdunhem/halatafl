@@ -36,7 +36,7 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const st
         } else if (foxOneMove != nullptr && foxTwoMove == nullptr) {
             move = *foxOneMove;
         } else {
-            if (*foxTwoMove < *foxTwoMove) {
+            if (*foxTwoMove < *foxOneMove) {
                 move = *foxOneMove;
             } else if (*foxOneMove < *foxTwoMove) {
                 move = *foxTwoMove;
