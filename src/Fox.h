@@ -28,7 +28,7 @@ struct Fox {
     Cell getCell() const;
     void setCell(const Cell &cell);
     
-    Move getMove();
+    Move* getMove();
     std::vector<Move> getMoves() const;
     
     std::vector<Move> getPossibleThreats() const;

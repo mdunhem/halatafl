@@ -40,11 +40,16 @@ void Fox::setCell(const Cell &cell) {
     this->cell = cell;
 }
 
-Move Fox::getMove() {
+Move* Fox::getMove() {
     std::srand(time(NULL));
+    
     if (moves.empty()) {
-        moves.push_back(Move(cell, cell));
+        return nullptr;
     }
+    
+//    if (moves.empty()) {
+//        moves.push_back(Move(cell, cell));
+//    }
     
     Move *moveToBeUsed = &moves.front();
     for (Move move : moves) {
@@ -63,7 +68,7 @@ Move Fox::getMove() {
 //        }
 //    }
     
-    return *moveToBeUsed;
+    return moveToBeUsed;
 }
 
 std::vector<Move> Fox::getMoves() const {

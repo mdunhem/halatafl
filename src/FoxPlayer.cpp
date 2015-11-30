@@ -23,18 +23,26 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const st
     Fox foxOne(foxCells[0]);
     Fox foxTwo(foxCells[1]);
     
-    determinePossibleMove(board, foxOne);
-    determinePossibleMove(board, foxTwo);
+    foxOne = search(board, foxOne);
+    foxTwo = search(board, foxTwo);
     
     Move move;
     
     if (foxOne.getMoves().size() || foxTwo.getMoves().size()) {
-        if (foxTwo.getMove() < foxOne.getMove()) {
-            move = foxOne.getMove();
-        } else if (foxOne.getMove() < foxTwo.getMove()) {
-            move = foxTwo.getMove();
+        Move *foxOneMove = foxOne.getMove();
+        Move *foxTwoMove = foxTwo.getMove();
+        if (foxOneMove == nullptr && foxTwoMove != nullptr) {
+            move = *foxTwoMove;
+        } else if (foxOneMove != nullptr && foxTwoMove == nullptr) {
+            move = *foxOneMove;
         } else {
-            move = std::rand() % 2 ? foxOne.getMove() : foxTwo.getMove();
+            if (*foxTwoMove < *foxTwoMove) {
+                move = *foxOneMove;
+            } else if (*foxOneMove < *foxTwoMove) {
+                move = *foxTwoMove;
+            } else {
+                move = std::rand() % 2 ? *foxOneMove : *foxTwoMove;
+            }
         }
     } else if (foxOne.getPossibleThreats().size() || foxTwo.getPossibleThreats().size()) {
         if (foxTwo.getPossibleThreats().size() < foxOne.getPossibleThreats().size()) {
@@ -65,11 +73,7 @@ void FoxPlayer::won() const {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-void FoxPlayer::determinePossibleMove(Board board, Fox &fox) const {
-    search(board, fox);
-}
-
-void FoxPlayer::search(Board &board, Fox &fox, bool sheepHasBeenFound) const {
+Fox FoxPlayer::search(Board board, Fox fox) const {
     std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
     
     for (auto surroundingValue : surroundingValues) {
@@ -80,32 +84,58 @@ void FoxPlayer::search(Board &board, Fox &fox, bool sheepHasBeenFound) const {
         foxCell.setValue(Cell::Value::fox);
         
         if (cell.isSheep()) {
-            if (jumpToCell.isEmpty()) {
-                jumpToCell.setValue(Cell::Value::fox);
-                Jump jump(foxCell, jumpToCell, cell);
-                fox.addJump(jump);
-                board.makeJump(jump);
-                fox.setCell(jumpToCell);
-                // Recursively call this function again to search for additional jumps
-                search(board, fox, true);
-            } else {
-                fox.addPossibleNonThreateningMove(Move(fox.getCell(), fox.getCell()));
-            }
-        } else if (!sheepHasBeenFound) {
-            if (cell.isEmpty() && jumpToCell.isSheep()) {
-                Cell threatenToJumpToCell = board.getCellInDirectionFromCellWithRadius(direction, jumpToCell);
-                if (threatenToJumpToCell.isEmpty()) {
-                    fox.addPossibleThreat(Move(foxCell, cell));
-                } else {
-                    fox.addPossibleNonThreateningMove(Move(foxCell, cell));
-                }
-            } else if (cell.isEmpty()) {
-                fox.addPossibleNonThreateningMove(Move(foxCell, cell));
-            }
+            fox = searchForJumps(board, fox, direction, cell);
+            fox.setCell(foxCell);
+        } else {
+            fox = searchForThreats(board, fox, cell);
         }
     }
     
     if (fox.getMoves().empty() && fox.getPossibleThreats().empty() && fox.getPossibleNonThreateningMoves().empty()) {
         fox.addPossibleNonThreateningMove(Move(fox.getCell(), fox.getCell()));
     }
+    
+    return fox;
+}
+
+Fox FoxPlayer::searchForJumps(Board board, Fox fox, Board::Direction direction, Cell cellToJump) const {
+    Cell jumpToCell = board.getCellInDirectionFromCellWithRadius(direction, cellToJump);
+    if (jumpToCell.isEmpty()) {
+        jumpToCell.setValue(Cell::Value::fox);
+        Jump jump(fox.getCell(), jumpToCell, cellToJump);
+        fox.addJump(jump);
+        board.makeJump(jump);
+        fox.setCell(jumpToCell);
+        std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
+        for (auto surroundingValue : surroundingValues) {
+            Board::Direction newDirection = surroundingValue.first;
+            Cell cell = surroundingValue.second;
+            if (cell.isSheep()) {
+                fox = searchForJumps(board, fox, newDirection, cell);
+            }
+        }
+    }
+    return fox;
+}
+
+Fox FoxPlayer::searchForThreats(Board board, Fox fox, Cell cellToSearchFrom) const {
+    std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(cellToSearchFrom);
+    
+    for (auto surroundingValue : surroundingValues) {
+        Board::Direction direction = surroundingValue.first;
+        Cell cell = surroundingValue.second;
+        
+        if (cell.isSheep()) {
+            Cell jumpToCell = board.getCellInDirectionFromCellWithRadius(direction, cell);
+            if (jumpToCell.isEmpty()) {
+                fox.addPossibleThreat(Move(fox.getCell(), cellToSearchFrom));
+            } else {
+                fox.addPossibleNonThreateningMove(Move(fox.getCell(), cellToSearchFrom));
+            }
+        } else if (cell.isEmpty()) {
+            fox.addPossibleNonThreateningMove(Move(fox.getCell(), cellToSearchFrom));
+        }
+    }
+    
+    return fox;
 }

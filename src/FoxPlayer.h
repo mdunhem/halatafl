@@ -18,9 +18,10 @@
 
 class FoxPlayer : public Player {
     
-    void determinePossibleMove(Board board, Fox &fox) const;
+    Fox searchForJumps(Board board, Fox fox, Board::Direction direction, Cell cellToJump) const;
+    Fox searchForThreats(Board board, Fox fox, Cell cellToSearchFrom) const;
     
-    void search(Board &board, Fox &fox, bool sheepHasBeenFound = false) const;
+    Fox search(Board board, Fox fox) const;
     
 public:
     
