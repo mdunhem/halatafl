@@ -86,7 +86,7 @@ Fox FoxPlayer::search(Board board, Fox fox) const {
         if (cell.isSheep()) {
             fox = searchForJumps(board, fox, direction, cell);
             fox.setCell(foxCell);
-        } else {
+        } else if (cell.isEmpty()) {
             fox = searchForThreats(board, fox, cell);
         }
     }
