@@ -25,7 +25,7 @@ const int Board::COLS = 7;
 //     {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid}
 // };
 
-const char DEFAULT_LAYOUT[7][7] = {
+char DEFAULT_LAYOUT[7][7] = {
     {' ', ' ', 'F', '.', 'F', ' ', ' '},
     {' ', ' ', '.', '.', '.', ' ', ' '},
     {'.', '.', '.', '.', '.', '.', '.'},
