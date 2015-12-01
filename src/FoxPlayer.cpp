@@ -23,8 +23,8 @@ Move FoxPlayer::getMove(const Board &board, const std::string &message, const st
     Fox foxOne(foxCells[0]);
     Fox foxTwo(foxCells[1]);
     
-    foxOne = search(board, foxOne);
-    foxTwo = search(board, foxTwo);
+    foxOne = searchForMoves(board, foxOne);
+    foxTwo = searchForMoves(board, foxTwo);
     
     Move move;
     
@@ -73,7 +73,7 @@ void FoxPlayer::won() const {
     std::cout << "The foxes have won!" << std::endl;
 }
 
-Fox FoxPlayer::search(Board board, Fox fox) const {
+Fox FoxPlayer::searchForMoves(Board board, Fox fox) const {
     std::map<Board::Direction, Cell>surroundingValues = board.getSurroundingCells(fox.getCell());
     
     for (auto surroundingValue : surroundingValues) {

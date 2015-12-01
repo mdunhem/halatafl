@@ -62,16 +62,24 @@ class GameManager {
      */
     void printWinner() const;
     
-    
+    /**
+     * Switches the currentPlayer pointer between the fox and sheep player
+     *
+     * @return {void}
+     */
     void updateCurrentPlayer();
     
     
     bool isPaddockFull() const;
     
-    
+    /**
+     * The main board for the game
+     */
     Board board;
     
-    
+    /**
+     * Pointer to the current player. Either the foxPlayer or the sheepPlayer
+     */
     Player *currentPlayer;
     
     

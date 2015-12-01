@@ -21,7 +21,7 @@ class FoxPlayer : public Player {
     Fox searchForJumps(Board board, Fox fox, Board::Direction direction, Cell cellToJump) const;
     Fox searchForThreats(Board board, Fox fox, Cell cellToSearchFrom) const;
     
-    Fox search(Board board, Fox fox) const;
+    Fox searchForMoves(Board board, Fox fox) const;
     
 public:
     

@@ -47,10 +47,6 @@ Move* Fox::getMove() {
         return nullptr;
     }
     
-//    if (moves.empty()) {
-//        moves.push_back(Move(cell, cell));
-//    }
-    
     Move *moveToBeUsed = &moves.front();
     for (Move move : moves) {
         if (move.getJumps().size() > moveToBeUsed->getJumps().size()) {
@@ -59,14 +55,6 @@ Move* Fox::getMove() {
             *moveToBeUsed = std::rand() % 2 ? move : *moveToBeUsed;
         }
     }
-    
-//    for (std::vector<Move>::iterator iterator = moves.begin(); iterator != moves.end(); iterator++) {
-//        if (Move(*iterator).getJumps().size() > moveToBeUsed->getJumps().size()) {
-//            *moveToBeUsed = Move(*iterator);
-//        } else if (Move(*iterator).getJumps().size() == moveToBeUsed->getJumps().size()) {
-//            *moveToBeUsed = std::rand() % 2 ? Move(*iterator) : *moveToBeUsed;
-//        }
-//    }
     
     return moveToBeUsed;
 }

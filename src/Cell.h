@@ -34,6 +34,7 @@ struct Cell {
     Cell& operator=(const Cell &cell);
     ~Cell();
     
+    // Getters and setters
     int getRow() const;
     void setRow(const int &row);
     
@@ -43,11 +44,13 @@ struct Cell {
     Value getValue() const;
     void setValue(const Value &value);
     
+    // Value tests
     bool isSheep() const;
     bool isFox() const;
     bool isEmpty() const;
     bool isInvalid() const;
     
+    // Prints out the cell value
     void print(std::ostream &output) const;
     
     bool operator==(const Cell &cell) const;

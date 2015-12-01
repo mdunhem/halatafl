@@ -44,33 +44,6 @@ Move SheepPlayer::getMove(const Board &board, const std::string &message, const 
     Cell start = board.getCellAtIndex(startRow, startColumn);
     Cell end = board.getCellAtIndex(endRow, endColumn);
     return Move(start, end);
-    
-    
-    
-    
-    
-//    if (!isTest && message.length()) {
-//        std::cout << message << std::endl;
-//    }
-//    
-//    std::cout << "Your move? ";
-//    
-//    if (isTest) {
-//        input = message;
-//        std::cout << message << std::endl;
-//    } else {
-//        std::getline(std::cin, input);
-//    }
-//    
-//    startColumn = convertColumnCharacterToInt(input[0]);
-//    startRow = flipRowNumber(input[1] - '0');
-//    endColumn = convertColumnCharacterToInt(input[3]);
-//    endRow = flipRowNumber(input[4] - '0');
-//    
-//    Cell start = board.getCellAtIndex(startRow, startColumn);
-//    Cell end = board.getCellAtIndex(endRow, endColumn);
-//    
-//    return Move(start, end);
 }
 
 void SheepPlayer::won() const {

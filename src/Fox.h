@@ -47,8 +47,4 @@ private:
     std::vector<Move> possibleNonThreateningMoves;
 };
 
-//inline bool operator>(const Fox &one, const Fox &two) {
-//    return two < one;
-//}
-
 #endif /* Fox_h */

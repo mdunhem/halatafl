@@ -136,9 +136,6 @@ void Board::applyMove(const Move &move) {
     for (Jump jump : move.getJumps()) {
         makeJump(jump);
     }
-//    for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
-//        makeJump(Jump(*iterator));
-//    }
 }
 
 void Board::makeJump(const Jump &jump) {
@@ -164,14 +161,6 @@ bool Board::isValidMove(const Move &move) const {
             valid = false;
         }
     }
-//    for (std::vector<Jump>::iterator iterator = move.getJumps().begin(); iterator != move.getJumps().end(); iterator++) {
-//        if (board.isValidJump(Jump(*iterator))) {
-//            board.makeJump(Jump(*iterator));
-//            valid = true;
-//        } else {
-//            valid = false;
-//        }
-//    }
     
     return valid;
 }

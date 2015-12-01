@@ -22,6 +22,7 @@ struct Jump {
     Jump& operator=(const Jump &jump);
     ~Jump();
     
+    // Getters
     Cell getStart() const;
     Cell getEnd() const;
     Cell getJumpedCell() const;

@@ -35,16 +35,54 @@ public:
     Board& operator=(const Board &board);
     ~Board();
     
+    /**
+     * Gets the cell located at the specified x, y coordinates.
+     * 
+     * @param  {int} x        The row to search for
+     * @param  {int} y        The column to search for
+     * @return {Cell}
+     */
     Cell getCellAtIndex(const int &x, const int &y) const;
+
+    /**
+     * Gets the cell located one location passed the cell that is passed in, in the direction
+     * specified. The default is to find the adjacent cell but if radius is supplied, will
+     * retrieve the cell that is that many spaces away from the cell parameter.
+     * 
+     * @param  {Direction}  direction   The direction to search in
+     * @param  {Cell}       cell        The cell used as the context for the search
+     * @param  {int}        radius      How many spaces out the find the cell
+     * @return {Cell}
+     */
     Cell getCellInDirectionFromCellWithRadius(const Direction &direction, const Cell &cell, const int &radius = 1) const;
+
+    /**
+     * Takes a cell object and retrieves all adjoining cells that can be accessed. This will
+     * only include directions that can be moved to based on the lines on the game board.
+     * i.e. This will not return diagonal directions if the cell is in a location where it
+     * can only make an up/down or left/right move.
+     *
+     * @param  {Cell} cell              The cell used as context for the search
+     * @return {map}                    A map object containing all surrounding values
+     */
     std::map<Direction, Cell> getSurroundingCells(Cell cell);
     
+    /**
+     * Applies all of the jumps in the supplied move object to the underlying data structure
+     * @param {Move} move               Move to be made
+     */
     void applyMove(const Move &move);
+
+    /**
+     * Applies a single jump to the underlying data structure
+     * @param jump                      Jump to be made
+     */
     void makeJump(const Jump &jump);
     
     bool isValidMove(const Move &move) const;
     
     bool isPaddockFull() const;
+
     int sheepRemaining() const;
     
     std::vector<Cell> getFoxCells() const;
@@ -58,6 +96,9 @@ public:
     
 private:
     
+    /**
+     * The underlying data structure
+     */
     std::vector<std::vector<Cell> > layout;
     
     bool isValidJump(const Jump &jump) const;

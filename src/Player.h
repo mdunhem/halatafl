@@ -15,7 +15,10 @@
 #include "Board.h"
 #include "Move.h"
 
-
+/**
+ * Interface that any player object must implement. Since each player will have a different
+ * implementation of these functions, it does not make sense to define them here.
+ */
 class Player {
 public:
     virtual ~Player() {};
