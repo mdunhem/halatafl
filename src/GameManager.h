@@ -82,10 +82,7 @@ class GameManager {
      */
     Player *currentPlayer;
     
-    
     FoxPlayer foxPlayer;
-    
-    
     SheepPlayer sheepPlayer;
     
     

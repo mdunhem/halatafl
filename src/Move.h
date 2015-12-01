@@ -26,10 +26,30 @@ struct Move {
     Move& operator=(const Move &move);
     ~Move();
     
+    /**
+     * Gets a copy of all jumps this move can make.
+     *
+     * @return vector<Jump>
+     */
     std::vector<Jump> getJumps() const;
+
+    /**
+     * Adds a jump to the end of move.
+     * 
+     * @param jump
+     */
     void addJump(Jump jump);
+
+    /**
+     * Removes that last jump added to this move
+     */
     void popLastJump();
     
+    /**
+     * Properly formats this move and prints it to the supplied output stream.
+     * 
+     * @param output            Output stream to print to
+     */
     void print(std::ostream &output) const;
     
     bool operator<(const Move &rhs) const;

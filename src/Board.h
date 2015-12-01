@@ -69,22 +69,51 @@ public:
     
     /**
      * Applies all of the jumps in the supplied move object to the underlying data structure
+     * This will silently fail if the move is invalid.
+     * 
      * @param {Move} move               Move to be made
      */
     void applyMove(const Move &move);
 
     /**
-     * Applies a single jump to the underlying data structure
+     * Applies a single jump to the underlying data structure.
+     * This will silently fail if the jump is invalid.
+     * 
      * @param jump                      Jump to be made
      */
     void makeJump(const Jump &jump);
     
+    /**
+     * Validates that the move could be made. If the starting position is a sheep, it will
+     * test if the move is a valid sheep move, can only move up, left, or right. If the
+     * starting position is a fox, it will only test if the move is along the lines on the
+     * board.
+     * 
+     * @param  move The move to test
+     * @return bool
+     */
     bool isValidMove(const Move &move) const;
     
+    /**
+     * Tests whether the paddock is full of sheep.
+     * 
+     * @return bool
+     */
     bool isPaddockFull() const;
 
+    /**
+     * Counts the number of sheep remaining on the board.
+     * 
+     * @return int
+     */
     int sheepRemaining() const;
     
+    /**
+     * Gets the location of both foxes on the board and returns a copy of each cell
+     * inside a vector.
+     *
+     * @return vector<Cell>
+     */
     std::vector<Cell> getFoxCells() const;
     
     /**
