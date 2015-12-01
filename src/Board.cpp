@@ -10,41 +10,29 @@
 
 #include <iostream>
 
-// using Value = Cell::Value;
+using Value = Cell::Value;
 
 const int Board::ROWS = 7;
 const int Board::COLS = 7;
 
-// const Value DEFAULT_LAYOUT[7][7] = {
-//     {Value::invalid, Value::invalid, Value::fox, Value::empty, Value::fox, Value::invalid, Value::invalid},
-//     {Value::invalid, Value::invalid, Value::empty, Value::empty, Value::empty, Value::invalid, Value::invalid},
-//     {Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty},
-//     {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
-//     {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
-//     {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid},
-//     {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid}
-// };
-
-char DEFAULT_LAYOUT[7][7] = {
-    {' ', ' ', 'F', '.', 'F', ' ', ' '},
-    {' ', ' ', '.', '.', '.', ' ', ' '},
-    {'.', '.', '.', '.', '.', '.', '.'},
-    {'S', 'S', 'S', 'S', 'S', 'S', 'S'},
-    {'S', 'S', 'S', 'S', 'S', 'S', 'S'},
-    {' ', ' ', 'S', 'S', 'S', ' ', ' '},
-    {' ', ' ', 'S', 'S', 'S', ' ', ' '}
+const Value DEFAULT_LAYOUT[7][7] = {
+    {Value::invalid, Value::invalid, Value::fox, Value::empty, Value::fox, Value::invalid, Value::invalid},
+    {Value::invalid, Value::invalid, Value::empty, Value::empty, Value::empty, Value::invalid, Value::invalid},
+    {Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty, Value::empty},
+    {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
+    {Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep, Value::sheep},
+    {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid},
+    {Value::invalid, Value::invalid, Value::sheep, Value::sheep, Value::sheep, Value::invalid, Value::invalid}
 };
 
-// Board::Board() {
-//     for (int row = 0; row < ROWS; row++) {
-//         layout.push_back(std::vector<Cell>());
-//         for (int column = 0; column < COLS; column++) {
-//             layout[row].push_back(Cell(row, column, DEFAULT_LAYOUT[row][column]));
-//         }
-//     }
-// }
-
-Board::Board() : Board{ DEFAULT_LAYOUT } {}
+Board::Board() {
+    for (int row = 0; row < ROWS; row++) {
+        layout.push_back(std::vector<Cell>());
+        for (int column = 0; column < COLS; column++) {
+            layout[row].push_back(Cell(row, column, DEFAULT_LAYOUT[row][column]));
+        }
+    }
+}
 
 Board::Board(char layout[7][7]) {
     for (int row = 0; row < ROWS; row++) {
