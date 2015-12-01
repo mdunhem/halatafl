@@ -10,9 +10,6 @@
 
 #include <iostream>
 
-<<<<<<< HEAD
-
-=======
 const int Board::ROWS = 7;
 const int Board::COLS = 7;
 
@@ -27,7 +24,6 @@ char DEFAULT_LAYOUT[7][7] = {
 };
 
 Board::Board() : Board{ DEFAULT_LAYOUT } {}
->>>>>>> change-layout
 
 Board::Board(char layout[7][7]) {
     for (int row = 0; row < ROWS; row++) {
