@@ -1,6 +1,4 @@
 // Mikael Dunhem
-// CS 333, Fall 2015
-// Assignment: Semester Project
 // Top Down Design
 
 --------------------  Description --------------------
